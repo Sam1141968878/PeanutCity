@@ -22,6 +22,7 @@ import MembersPage from './Components/Page/MemberPage/MembersPage'
 import MyPage from './Components/Page/MyPage/MyPage'
 import ShopPage from './Components/Page/ShopPage/ShopPage'
 import LandingPage from './Components/Page/LandingPage/LandingPage'
+import RegisteredPage from './Components/Page/LandingPage/RegisteredPage'
 import StartPage from './Components/Page/StartPage/StartPage'
 
 
@@ -89,6 +90,7 @@ const App=StackNavigator({
 	PublicGoodsDetail:{screen:PublicGoodsDetail},
 	PublicGoodsTabDetail:{screen:PublicGoodsTabDetail},
 	PublicStoreDetail:{screen:PublicStoreDetail},
+	RegisteredPage:{screen:RegisteredPage},
 },{
     headerMode:'none'
 })

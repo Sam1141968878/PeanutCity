@@ -25,7 +25,6 @@ import {
 } from 'react-native';
 
 
-import LandingVerificationCode from '../../../Components/Component/LandingComponent/LandingVerificationCode'
 export default class LandingPage extends PureComponent{
     state={
         text:'',
@@ -38,7 +37,7 @@ export default class LandingPage extends PureComponent{
         })
     }
   render() {
-    const {state,goBack}=this.props.navigation;
+    const {state,goBack,navigate}=this.props.navigation;
     return (
       <View style={styles.View}>
           <TouchableOpacity
@@ -154,7 +153,10 @@ export default class LandingPage extends PureComponent{
               </TouchableOpacity>
           </TouchableOpacity>
           <View style={styles.DownTextView}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                  onPress={()=>navigate('RegisteredPage',{
+                    title:'注册'
+                  })}>
                   <Text style={styles.DownText1}>注册</Text>
               </TouchableOpacity>
               <TouchableOpacity>
