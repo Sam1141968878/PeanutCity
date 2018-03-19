@@ -33,6 +33,8 @@ export default class RegisteredPage extends PureComponent{
         secureTextEntry:false,
         textFromClipboard:'',
         checked:false,
+        ImageHidden:false,
+        Phone:false,
     }
     ChangeSecureTextEntry=()=>{
         this.setState({
@@ -58,6 +60,7 @@ export default class RegisteredPage extends PureComponent{
 
   render() {
     const {state,goBack}=this.props.navigation;
+    const {ImageHidden}=this.state;
     return (
       <Container
           style={styles.View}>
@@ -70,7 +73,19 @@ export default class RegisteredPage extends PureComponent{
                 <Item floatingLabel>
                     <Label><Text style={styles.LabelText}>请输入手机号</Text> </Label>
                     <Icon active name='ios-phone-portrait' />
-                    <Input keyboardType='numeric' maxLength={11}/>
+                    <Input
+                        keyboardType='numeric'
+                        maxLength={11}
+                        onEndEditing={()=>{
+                            if(this.value.length===11){
+                                this.setState({
+                                    Phone:true
+                                })
+                            }else{
+                                console.log(this.state.Phone)
+                            }
+                        }}
+                    />
                 </Item>
                 <Item floatingLabel>
                     <Label><Text style={styles.LabelText}>请输入邀请码</Text> </Label>
@@ -127,15 +142,45 @@ export default class RegisteredPage extends PureComponent{
                       />
                 }
             </TouchableOpacity>
-            <Checkbox
-                title='Large'
-                size='lg'
-                checked={this.state.checked}
-                onChange={checked => this.setState({checked})}
-            />
-            <Text style={styles.Text1}>*同意
-                <Text style={styles.Text2}> &lt;&lt;花生日记App用户协议&gt;&gt; </Text>
-            </Text>
+            <View style={styles.CheckBoxView}>
+                <TouchableOpacity
+                    style={styles.ImageView}
+                    onPress={()=>this.setState({
+                        ImageHidden:!this.state.ImageHidden
+                    })}
+                >
+
+                    {
+                        this.state.ImageHidden
+                        ?
+                            <Image
+                                source={require('../../../Icons/BlackYes.png')}
+                                style={styles.YesImage}
+                            />
+                        :
+                            <View></View>
+                    }
+                </TouchableOpacity>
+                <Text style={styles.Text1}>*同意
+                    <Text style={styles.Text2}> &lt;&lt;花生日记App用户协议&gt;&gt; </Text>
+                </Text>
+            </View>
+
+            {
+                ImageHidden
+                ?
+                <View style={styles.TextView3}>
+                    <View style={styles.TextView5}>
+                        <Text style={styles.Text3}>立即注册</Text>
+                    </View>
+                </View>
+                :
+                <View style={styles.TextView3}>
+                    <View style={styles.TextView4}>
+                        <Text style={styles.Text3}>立即注册</Text>
+                    </View>
+                </View>
+            }
         </Content>
       </Container>
     );
@@ -205,6 +250,53 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     Text2:{
-        color:'red'
+        color:'red',
+        marginLeft:20,
+    },
+    CheckBoxView:{
+        flexDirection:'row',
+        justifyContent:'center',
+        marginTop:30,
+        marginLeft:10,
+    },
+    ImageView:{
+        width:15,
+        height:15,
+        borderRadius:2,
+        borderWidth:1,
+        borderColor:'#000',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:3,
+        marginRight:5,
+    },
+    YesImage:{
+        width:15,
+        height:15
+    },
+    TextView3:{
+        alignItems:'center',
+        marginLeft:15,
+    },
+    TextView4:{
+        alignItems:'center',
+        width:'100%',
+        height:35,
+        borderRadius:20,
+        backgroundColor:'lightgrey',
+        marginTop:15,
+        justifyContent:'center'
+    },
+    Text3:{
+        color:'#FFF'
+    },
+    TextView5:{
+        alignItems:'center',
+        width:'100%',
+        height:35,
+        borderRadius:20,
+        backgroundColor:'red',
+        marginTop:15,
+        justifyContent:'center'
     }
 });
