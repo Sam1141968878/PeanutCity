@@ -1,11 +1,11 @@
 
-    const fetchPost=(api,phone)=>{
+    const fetchPost=(api,formData)=>{
         return fetch(api, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: `user=${phone}`
+          body:formData,
         })
         .then((response) => response.text())
         .then((responseText) => {

@@ -22,6 +22,8 @@ import {
   TouchableOpacity,
   Image,
   Clipboard,
+  Animated,
+  Easing,
 } from 'react-native';
 import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 
@@ -29,10 +31,13 @@ import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
 import fetchJosn from '../../Fetch/FetchJson'
+import fetchPost from '../../Fetch/FetchPost'
 import Toast from 'teaset/components/Toast/Toast';
 
 
 const Api='http://111.230.254.117:8000/getCode?'
+const ApiPost='http://111.230.254.117:8000/registered'
+
 
 export default class RegisteredPage extends PureComponent{
     state={
@@ -44,13 +49,19 @@ export default class RegisteredPage extends PureComponent{
         VerificationText:'',
         PassWordText:'',
         VerificationState:'',
-        VerificationMessage:''
+        VerificationMessage:'',
+        Code:'',
+        registeredStates:'',
+        registereduser:'',
+        registeredInviteCode:'',
+        bounceValue: new Animated.Value(0),
     }
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
         })
     }
+
 
     //从剪贴板中读取字符串
     pasteFromClipboard() {
@@ -73,21 +84,42 @@ export default class RegisteredPage extends PureComponent{
            this.setState({
                   VerificationState: json.status,
                   VerificationMessage: json.message,
+                  Code: json.code,
            })
-           console.log(json,this.state.VerificationState,this.state.VerificationMessage)
         })
     }
+    fetchPost=async(ApiPost)=>{
+       let formData = new FormData();
+       formData.append('phone', this.state.PhoneText);
+       formData.append('code',this.state.Code);
+       formData.append('password',this.state.PassWordText);
 
-    static customKey = null;
-
-    showCustom() {
-      if (ToastExample.customKey) return;
-      ToastExample.customKey = Toast.show({
-        text: 'zz',
-        position: 'bottom',
-        duration: 1000000,
-      });
+       const json=await fetch(ApiPost, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+          },
+            body:formData,
+          })
+          .then((response) => response.text())
+          .then((responseText) => {
+              const json = JSON.parse(responseText);
+              return json;
+          })
+          .catch((error) => {
+              console.error(error);
+          })
+       InteractionManager.runAfterInteractions(()=>{
+          this.setState({
+               registeredStates: json.status,
+               registereduser: json.user,
+               registeredInviteCode: json.invite_code,
+          })
+       })
+       console.log(this.state.registeredStates,this.state.registereduser,this.state.registeredInviteCode,json)
     }
+
+
 
 
   render() {
@@ -100,6 +132,7 @@ export default class RegisteredPage extends PureComponent{
         PassWordText,
         VerificationState,
         VerificationMessage,
+        Code,
     }=this.state;
     return (
       <Container
@@ -161,10 +194,11 @@ export default class RegisteredPage extends PureComponent{
                     onPress={()=>{
                         this.fetchData(`${Api}phone=${PhoneText}`)
                         if(VerificationState=='success'){
-                            ()=>this.showCustom()
+                            console.log(`${VerificationState}${VerificationMessage}${Code}`)
                         }else{
-                            ()=>this.showCustom()
+                            console.log(`${VerificationState}${VerificationMessage}${Code}`)
                         }
+                        this.spin()
                     }}
                 >
                     <Text style={styles.redText}>获取验证码</Text>
@@ -229,18 +263,26 @@ export default class RegisteredPage extends PureComponent{
                 ImageHidden&&PhoneText.length===11&&textFromClipboard.length===6&&VerificationText.length===6&&PassWordText.length>=6&&PassWordText.length<=32
                 ?
                 <View style={styles.TextView3}>
-                    <TouchableOpacity style={styles.TextView5}>
+                    <TouchableOpacity
+                        style={styles.TextView5}
+                        onPress={()=>this.fetchPost.bind(this)}
+                    >
                         <Text style={styles.Text3}>立即注册</Text>
                     </TouchableOpacity>
                 </View>
                 :
                 <View style={styles.TextView3}>
-                    <View style={styles.TextView4}>
+                    <TouchableOpacity
+                        style={styles.TextView4}
+                        onPress={()=>this.fetchPost.bind(this)}
+                    >
                         <Text style={styles.Text3}>立即注册</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             }
+            <View>
 
+            </View>
         </Content>
       </Container>
     );

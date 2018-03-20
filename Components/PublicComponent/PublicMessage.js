@@ -35,7 +35,7 @@ export default class Message extends PureComponent{
           right:this.props.right,
           height:50,
           }}
-          onPress={()=>navigate('MessagePage')}
+          onPress={()=>navigate('LandingPage')}
       >
           <Image
               source={require('../../Icons/Message.png')}
