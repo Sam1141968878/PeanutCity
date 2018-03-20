@@ -25,6 +25,7 @@ import {
 } from 'react-native';
 
 
+
 export default class LandingPage extends PureComponent{
     state={
         text:'',

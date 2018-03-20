@@ -96,7 +96,7 @@ export default class PublicGoodsDetail extends PureComponent{
             BigImage
             ?
                 <Container style={styles.View}>
-                    <Content>
+                    <Content showsVerticalScrollIndicator={false}>
                         <PublicGoodsGoBack
                             goBack={()=>goBack()}
                         />

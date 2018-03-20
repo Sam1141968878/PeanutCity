@@ -28,13 +28,23 @@ import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
+import fetchJosn from '../../Fetch/FetchJson'
+import Toast from 'teaset/components/Toast/Toast';
+
+
+const Api='http://111.230.254.117:8000/getCode?'
+
 export default class RegisteredPage extends PureComponent{
     state={
         secureTextEntry:false,
         textFromClipboard:'',
         checked:false,
         ImageHidden:false,
-        Phone:false,
+        PhoneText:'',
+        VerificationText:'',
+        PassWordText:'',
+        VerificationState:'',
+        VerificationMessage:''
     }
     ChangeSecureTextEntry=()=>{
         this.setState({
@@ -57,18 +67,52 @@ export default class RegisteredPage extends PureComponent{
         }
       );
     }
+    fetchData=async(Api)=>{
+        const json =await fetchJosn(Api)
+        InteractionManager.runAfterInteractions(()=>{
+           this.setState({
+                  VerificationState: json.status,
+                  VerificationMessage: json.message,
+           })
+           console.log(json,this.state.VerificationState,this.state.VerificationMessage)
+        })
+    }
+
+    static customKey = null;
+
+    showCustom() {
+      if (ToastExample.customKey) return;
+      ToastExample.customKey = Toast.show({
+        text: 'zz',
+        position: 'bottom',
+        duration: 1000000,
+      });
+    }
+
 
   render() {
     const {state,goBack}=this.props.navigation;
-    const {ImageHidden}=this.state;
+    const {
+        ImageHidden,
+        PhoneText,
+        textFromClipboard,
+        VerificationText,
+        PassWordText,
+        VerificationState,
+        VerificationMessage,
+    }=this.state;
     return (
       <Container
-          style={styles.View}>
+          style={styles.View}
+      >
         <PublicGoBack
             goBack={()=>goBack()}
             title={state.params.title}
         />
-        <Content style={styles.SmallView}>
+        <Content
+            style={styles.SmallView}
+            showsVerticalScrollIndicator={false}
+        >
             <Form>
                 <Item floatingLabel>
                     <Label><Text style={styles.LabelText}>请输入手机号</Text> </Label>
@@ -76,15 +120,10 @@ export default class RegisteredPage extends PureComponent{
                     <Input
                         keyboardType='numeric'
                         maxLength={11}
-                        onEndEditing={()=>{
-                            if(this.value.length===11){
-                                this.setState({
-                                    Phone:true
-                                })
-                            }else{
-                                console.log(this.state.Phone)
-                            }
+                        onChangeText={(text) => {
+                            this.setState({PhoneText:text})
                         }}
+                        value={this.state.PhoneText}
                     />
                 </Item>
                 <Item floatingLabel>
@@ -93,9 +132,9 @@ export default class RegisteredPage extends PureComponent{
                     <Input
                         autoCapitalize='none'
                         value={this.state.textFromClipboard}
-                        onChange={(text)=>this.setState({
-                            textFromClipboard:text
-                        })}
+                        onChangeText={(text) => {
+                            this.setState({textFromClipboard:text})
+                        }}
                         maxLength={6}
                     />
                 </Item>
@@ -110,11 +149,26 @@ export default class RegisteredPage extends PureComponent{
                     <Input
                         keyboardType='numeric'
                         autoCapitalize='none'
+                        onChangeText={(text) => {
+                            this.setState({VerificationText:text})
+                        }}
+                        value={this.state.VerificationText}
+                        maxLength={6}
                     />
                 </Item>
-                <View style={styles.redView2}>
+                <TouchableOpacity
+                    style={styles.redView2}
+                    onPress={()=>{
+                        this.fetchData(`${Api}phone=${PhoneText}`)
+                        if(VerificationState=='success'){
+                            ()=>this.showCustom()
+                        }else{
+                            ()=>this.showCustom()
+                        }
+                    }}
+                >
                     <Text style={styles.redText}>获取验证码</Text>
-                </View>
+                </TouchableOpacity>
                 <Item floatingLabel>
                     <Icon active name='key'/>
                     <Label><Text style={styles.LabelText}>请输入6~32位密码</Text> </Label>
@@ -122,6 +176,10 @@ export default class RegisteredPage extends PureComponent{
                         maxLength={32}
                         secureTextEntry={this.state.secureTextEntry}
                         autoCapitalize='none'
+                        onChangeText={(text) => {
+                            this.setState({PassWordText:text})
+                        }}
+                        value={this.state.PassWordText}
                     />
                 </Item>
             </Form>
@@ -145,11 +203,12 @@ export default class RegisteredPage extends PureComponent{
             <View style={styles.CheckBoxView}>
                 <TouchableOpacity
                     style={styles.ImageView}
-                    onPress={()=>this.setState({
-                        ImageHidden:!this.state.ImageHidden
-                    })}
+                    onPress={()=>{
+                        this.setState({
+                            ImageHidden:!this.state.ImageHidden
+                        })
+                    }}
                 >
-
                     {
                         this.state.ImageHidden
                         ?
@@ -167,12 +226,12 @@ export default class RegisteredPage extends PureComponent{
             </View>
 
             {
-                ImageHidden
+                ImageHidden&&PhoneText.length===11&&textFromClipboard.length===6&&VerificationText.length===6&&PassWordText.length>=6&&PassWordText.length<=32
                 ?
                 <View style={styles.TextView3}>
-                    <View style={styles.TextView5}>
+                    <TouchableOpacity style={styles.TextView5}>
                         <Text style={styles.Text3}>立即注册</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 :
                 <View style={styles.TextView3}>
@@ -181,6 +240,7 @@ export default class RegisteredPage extends PureComponent{
                     </View>
                 </View>
             }
+
         </Content>
       </Container>
     );

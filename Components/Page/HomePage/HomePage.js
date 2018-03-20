@@ -58,6 +58,8 @@ export default class HomePage extends PureComponent{
     const {navigate}=this.props.navigation;
     return (
       <ScrollView
+          keyboardDismissMode='on-drag'
+          showsVerticalScrollIndicator={false}
           refreshControl={
           <RefreshControl
             refreshing={this.refreshing}
