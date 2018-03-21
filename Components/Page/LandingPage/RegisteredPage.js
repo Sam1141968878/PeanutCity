@@ -24,9 +24,11 @@ import {
   Clipboard,
   Animated,
   Easing,
+  ActivityIndicator
 } from 'react-native';
 import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
-
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
 
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
@@ -39,6 +41,8 @@ const Api='http://111.230.254.117:8000/getCode?'
 const ApiPost='http://111.230.254.117:8000/registered'
 
 
+
+@observer
 export default class RegisteredPage extends PureComponent{
     state={
         secureTextEntry:false,
@@ -46,16 +50,14 @@ export default class RegisteredPage extends PureComponent{
         checked:false,
         ImageHidden:false,
         PhoneText:'',
-        VerificationText:'',
         PassWordText:'',
-        VerificationState:'',
-        VerificationMessage:'',
-        Code:'',
-        registeredStates:'',
         registereduser:'',
         registeredInviteCode:'',
-        bounceValue: new Animated.Value(0),
     }
+    @observable VerificationStates='';
+    @observable VerificationMessage='';
+    @observable VerificationCode='';
+    @observable Registered=[];
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
@@ -80,58 +82,49 @@ export default class RegisteredPage extends PureComponent{
     }
     fetchData=async(Api)=>{
         const json =await fetchJosn(Api)
-        InteractionManager.runAfterInteractions(()=>{
-           this.setState({
-                  VerificationState: json.status,
-                  VerificationMessage: json.message,
-                  Code: json.code,
-           })
-        })
+        this.VerificationStates=json.status;
+        this.VerificationMessage=json.message;
+        this.VerificationCode=json.code;
+        if(this.VerificationStates==='sucess'){
+            Toast.success('获取验证码成功');
+        }else{
+            Toast.success(this.VerificationStates+this.VerificationMessage);
+        }
+        console.log(this.VerificationCode)
     }
     fetchPost=async(ApiPost)=>{
-       let formData = new FormData();
-       formData.append('phone', this.state.PhoneText);
-       formData.append('code',this.state.Code);
-       formData.append('password',this.state.PassWordText);
-
-       const json=await fetch(ApiPost, {
+       const json=fetch(ApiPost, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-            body:formData,
-          })
-          .then((response) => response.text())
-          .then((responseText) => {
-              const json = JSON.parse(responseText);
-              return json;
-          })
-          .catch((error) => {
-              console.error(error);
-          })
-       InteractionManager.runAfterInteractions(()=>{
-          this.setState({
-               registeredStates: json.status,
-               registereduser: json.user,
-               registeredInviteCode: json.invite_code,
-          })
-       })
-       console.log(this.state.registeredStates,this.state.registereduser,this.state.registeredInviteCode,json)
+          body:`phone=${this.state.PhoneText}&code_check=${this.VerificationCode}&code_invite=${this.state.textFromClipboard}&password=${this.state.PassWordText}`,
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            const json = JSON.parse(responseText);
+            return json;
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+
+        action
+        this.Registered=json
+
+
     }
 
 
 
 
   render() {
-    const {state,goBack}=this.props.navigation;
+    const {state,goBack,navigate}=this.props.navigation;
     const {
         ImageHidden,
         PhoneText,
         textFromClipboard,
-        VerificationText,
         PassWordText,
-        VerificationState,
-        VerificationMessage,
         Code,
     }=this.state;
     return (
@@ -183,22 +176,16 @@ export default class RegisteredPage extends PureComponent{
                         keyboardType='numeric'
                         autoCapitalize='none'
                         onChangeText={(text) => {
-                            this.setState({VerificationText:text})
+                            this.VerificationCode=text
                         }}
-                        value={this.state.VerificationText}
+                        value={this.VerificationCode}
                         maxLength={6}
                     />
                 </Item>
                 <TouchableOpacity
                     style={styles.redView2}
                     onPress={()=>{
-                        this.fetchData(`${Api}phone=${PhoneText}`)
-                        if(VerificationState=='success'){
-                            console.log(`${VerificationState}${VerificationMessage}${Code}`)
-                        }else{
-                            console.log(`${VerificationState}${VerificationMessage}${Code}`)
-                        }
-                        this.spin()
+                        this.fetchData(`${Api}phone=${PhoneText}&code_invite=111111`)
                     }}
                 >
                     <Text style={styles.redText}>获取验证码</Text>
@@ -258,14 +245,13 @@ export default class RegisteredPage extends PureComponent{
                     <Text style={styles.Text2}> &lt;&lt;花生日记App用户协议&gt;&gt; </Text>
                 </Text>
             </View>
-
+{/*()=> this.fetchPost(ApiPost)*/}
             {
-                ImageHidden&&PhoneText.length===11&&textFromClipboard.length===6&&VerificationText.length===6&&PassWordText.length>=6&&PassWordText.length<=32
+                ImageHidden&&PhoneText.length===11&&textFromClipboard.length===6&&this.VerificationCode.length===6&&PassWordText.length>=6&&PassWordText.length<=32
                 ?
                 <View style={styles.TextView3}>
                     <TouchableOpacity
                         style={styles.TextView5}
-                        onPress={()=>this.fetchPost.bind(this)}
                     >
                         <Text style={styles.Text3}>立即注册</Text>
                     </TouchableOpacity>
@@ -274,15 +260,23 @@ export default class RegisteredPage extends PureComponent{
                 <View style={styles.TextView3}>
                     <TouchableOpacity
                         style={styles.TextView4}
-                        onPress={()=>this.fetchPost.bind(this)}
+                        onPress={()=>{
+                            this.fetchPost(ApiPost)
+                            {
+                                this.Registered._55.status=='scuess'
+                                ?
+                                navigate('MyTab')
+                                :
+                                <ActivityIndicator/>
+                            }
+                        }
+                    }
                     >
                         <Text style={styles.Text3}>立即注册</Text>
                     </TouchableOpacity>
                 </View>
             }
-            <View>
 
-            </View>
         </Content>
       </Container>
     );
