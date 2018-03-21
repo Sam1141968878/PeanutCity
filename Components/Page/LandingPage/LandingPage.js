@@ -26,19 +26,49 @@ import {
 
 
 
+const ApiPost='http://111.230.254.117:8000/logined?'
 export default class LandingPage extends PureComponent{
     state={
-        text:'',
-        passWord:'',
-        secureTextEntry:true
+        Phone:'',
+        PassWord:'',
+        secureTextEntry:true,
+        Landing:[],
     }
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
         })
     }
+    fetchPost=async(ApiPost)=>{
+       const json=fetch(ApiPost, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body:`phone=${this.state.Phone}&password=${this.state.PassWord}`,
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            const json = JSON.parse(responseText);
+            return json;
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+        this.setState({Landing:json},()=>{
+            console.log(this.state.Landing,`phone=${this.state.Phone}&password=${this.state.PassWord}`)
+            setTimeout(()=>{
+                if(this.state.Landing._55.status=='success'){
+                    this.props.navigation.navigate('MyTab')
+                }else{
+                    alert('注册失败,请检查一下')
+                }
+            },3000)
+        })
+    }
   render() {
-    const {state,goBack,navigate}=this.props.navigation;
+    const {goBack,navigate}=this.props.navigation;
+    const {Phone,PassWord}=this.state;
     return (
       <View style={styles.View}>
           <TouchableOpacity
@@ -66,8 +96,8 @@ export default class LandingPage extends PureComponent{
               />
               <TextInput
                   style={styles.TextInput}
-                  onChangeText={(text)=>this.setState({text})}
-                  value={this.state.text}
+                  onChangeText={(Phone)=>this.setState({Phone:Phone})}
+                  value={this.state.Phone}
                   placeholder="请输入手机号"
                   autoCapitalize={'none'}
                   keyboardType={'numeric'}
@@ -78,7 +108,7 @@ export default class LandingPage extends PureComponent{
           <View style={styles.View2}>
 
               {
-                this.state.passWord.length<6
+                PassWord.length<6
                 ?
                 <Image
                     style={styles.Image5}
@@ -92,8 +122,8 @@ export default class LandingPage extends PureComponent{
               }
               <TextInput
                   style={styles.TextInput}
-                  onChangeText={(passWord)=>this.setState({passWord})}
-                  value={this.state.passWord}
+                  onChangeText={(PassWord)=>this.setState({PassWord:PassWord})}
+                  value={this.state.PassWord}
                   placeholder="请输入密码"
                   autoCapitalize={'none'}
                   maxLength={10}
@@ -118,28 +148,36 @@ export default class LandingPage extends PureComponent{
                </TouchableOpacity>
           </View>
 
-
           {
-            this.state.text.length<11||this.state.passWord.length<6
+            this.state.Phone.length<11||PassWord.length<6
             ?
-                <TouchableOpacity style={styles.landingbuttonNo}
+                <View style={styles.landingbuttonNo}
                     disabled={true}
                 >
-                    <TouchableOpacity style={styles.Text7View}>
+                    <View
+                        style={styles.Text7View}
+                    >
                         <Text
                             style={styles.Text8}>登陆</Text>
-                    </TouchableOpacity>
-                </TouchableOpacity>
+                    </View>
+                </View>
 
             :
-                <TouchableOpacity style={styles.landingbuttonYes}
+                <View
+                    style={styles.landingbuttonYes}
                     disabled={true}
                 >
-                    <TouchableOpacity style={styles.Text7View}>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            this.fetchPost(ApiPost)
+                            }
+                        }
+                        style={styles.Text7View}
+                    >
                         <Text
                             style={styles.Text8}>登陆</Text>
                     </TouchableOpacity>
-                </TouchableOpacity>
+                </View>
           }
 
           <TouchableOpacity

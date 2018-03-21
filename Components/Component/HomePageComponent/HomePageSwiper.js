@@ -52,6 +52,7 @@ export default class SwiperComponent extends PureComponent{
                   Id4:json[3].GoodsID,
                   Id5:json[4].GoodsID,
            })
+           console.log(json)
       })
     }
     componentDidMount() {

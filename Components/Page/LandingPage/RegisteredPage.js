@@ -33,13 +33,11 @@ import {observer} from 'mobx-react';
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
 import fetchJosn from '../../Fetch/FetchJson'
-import fetchPost from '../../Fetch/FetchPost'
 import Toast from 'teaset/components/Toast/Toast';
 
 
 const Api='http://111.230.254.117:8000/getCode?'
 const ApiPost='http://111.230.254.117:8000/registered'
-
 
 
 @observer
@@ -53,17 +51,17 @@ export default class RegisteredPage extends PureComponent{
         PassWordText:'',
         registereduser:'',
         registeredInviteCode:'',
+        Registered:[],
     }
     @observable VerificationStates='';
     @observable VerificationMessage='';
     @observable VerificationCode='';
-    @observable Registered=[];
+
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
         })
     }
-
 
     //从剪贴板中读取字符串
     pasteFromClipboard() {
@@ -108,15 +106,16 @@ export default class RegisteredPage extends PureComponent{
         .catch((error) => {
             console.error(error);
         })
-
-        action
-        this.Registered=json
-
-
+        this.setState({Registered:json},()=>{
+            setTimeout(()=>{
+                if(this.state.Registered._55.status=='success'){
+                    this.props.navigation.navigate('MyTab')
+                }else{
+                    alert('注册失败,请检查一下')
+                }
+            },3000)
+        })
     }
-
-
-
 
   render() {
     const {state,goBack,navigate}=this.props.navigation;
@@ -252,31 +251,21 @@ export default class RegisteredPage extends PureComponent{
                 <View style={styles.TextView3}>
                     <TouchableOpacity
                         style={styles.TextView5}
+                        onPress={()=>{
+                            this.fetchPost(ApiPost)
+                            }
+                        }
                     >
                         <Text style={styles.Text3}>立即注册</Text>
                     </TouchableOpacity>
                 </View>
                 :
                 <View style={styles.TextView3}>
-                    <TouchableOpacity
-                        style={styles.TextView4}
-                        onPress={()=>{
-                            this.fetchPost(ApiPost)
-                            {
-                                this.Registered._55.status=='scuess'
-                                ?
-                                navigate('MyTab')
-                                :
-                                <ActivityIndicator/>
-                            }
-                        }
-                    }
-                    >
+                    <View style={styles.TextView4}>
                         <Text style={styles.Text3}>立即注册</Text>
-                    </TouchableOpacity>
+                    </View>
                 </View>
             }
-
         </Content>
       </Container>
     );

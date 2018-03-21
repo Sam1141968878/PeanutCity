@@ -59,7 +59,7 @@ export default class PublicGoodsDetail extends PureComponent{
     }
     GoodsID=this.props.navigation.state.params.GoodsID
     fetchData = async () => {
-      const json = await fetchJson(`${Api}${this.GoodsID}`);
+      const json = await fetchJson(`${Api}${this.GoodsID}&table=dataoke`);
       InteractionManager.runAfterInteractions(()=>{
            this.setState({
                   movies: json,

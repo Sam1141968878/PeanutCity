@@ -40,7 +40,7 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
       movies: [],
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}$table=dataoke`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
