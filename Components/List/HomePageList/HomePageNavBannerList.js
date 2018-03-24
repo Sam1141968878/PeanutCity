@@ -29,52 +29,53 @@ let Data=[
     {
         Img:require('../../../Icons/WomenClothing.png'),
         NavTitle:'女装',
-        backgroundColor:'antiquewhite'
+        backgroundColor:'antiquewhite',
     },
     {
         Img:require('../../../Icons/baby.png'),
         NavTitle:'母婴',
-        backgroundColor:'aqua'
+        backgroundColor:'aqua',
     },
     {
         Img:require('../../../Icons/Beauty.png'),
         NavTitle:'美妆',
-        backgroundColor:'blueviolet'
+        backgroundColor:'blueviolet',
     },
     {
         Img:require('../../../Icons/household.png'),
         NavTitle:'家居',
-        backgroundColor:'brown'
+        backgroundColor:'brown',
     },
     {
         Img:require('../../../Icons/underwear.png'),
         NavTitle:'内衣',
-        backgroundColor:'cadetblue'
+        backgroundColor:'cadetblue',
     },
     {
         Img:require('../../../Icons/Men.png'),
         NavTitle:'男装',
-        backgroundColor:'chartreuse'
+        backgroundColor:'chartreuse',
     },
     {
         Img:require('../../../Icons/food.png'),
         NavTitle:'美食',
-        backgroundColor:'darkcyan'
+        backgroundColor:'darkcyan',
     },
     {
         Img:require('../../../Icons/camera.png'),
         NavTitle:'数码',
-        backgroundColor:'darkgray'
+        backgroundColor:'darkgray',
+        cid:8,
     },
     {
         Img:require('../../../Icons/bag.png'),
         NavTitle:'鞋包',
-        backgroundColor:'darkorange'
+        backgroundColor:'darkorange',
     },
     {
         Img:require('../../../Icons/other.png'),
         NavTitle:'其他',
-        backgroundColor:'deeppink'
+        backgroundColor:'deeppink',
     },
 ]
 export default class NavBannerList extends PureComponent{

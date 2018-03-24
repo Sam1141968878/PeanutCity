@@ -20,6 +20,7 @@ import {
 
 import PublicWholeNavListQuanHigh from './PublicWholeNavListQuanHigh'
 import PublicWholeNavListQuanLow from './PublicWholeNavListQuanLow'
+import PublicWholeNavListQuanDefault from './PublicWholeNavListQuanDefault'
 import {observer} from "mobx-react";
 import NewNavTabPickerStore from '../../../../../../Store/NavTabPickerStore'
 
@@ -28,24 +29,16 @@ import NewNavTabPickerStore from '../../../../../../Store/NavTabPickerStore'
 export default class PublicWholeNavListQuan extends PureComponent{
   render() {
     const {navigate}=this.props;
-    return (
-      <View>
-          {
-              NewNavTabPickerStore.Picker==='优惠券面值由高到低'&&NewNavTabPickerStore.Quan==true
-              ?
-                <PublicWholeNavListQuanHigh navigate={navigate} OrderBy={'Quan_price'} HighLow={1}/>
-              :
-                <PublicWholeNavListQuanLow navigate={navigate} OrderBy={'Quan_price'} HighLow={2}/>
-          }
-          {
-              NewNavTabPickerStore.Picker==='综合排序'&&NewNavTabPickerStore.Default==true
-              ?
-                <PublicWholeNavListQuanHigh navigate={navigate}  OrderBy={1} HighLow={1}/>
-              :
-                <ActivityIndicator/>
-          }
-      </View>
-    );
+
+    if(NewNavTabPickerStore.Picker==0){
+        return <PublicWholeNavListQuanDefault OrderBy={1} navigate={navigate}/>;
+    }else if(NewNavTabPickerStore.Picker==1){
+        return <PublicWholeNavListQuanHigh OrderBy={'Quan_price'} navigate={navigate} HighLow={'DESC'}/>;
+    }else if(NewNavTabPickerStore.Picker==2){
+        return <PublicWholeNavListQuanLow OrderBy={'Quan_price'} navigate={navigate} HighLow={'ASC'}/>;
+    }else{
+        return <ActivityIndicator/>
+    }
   }
 }
 

@@ -24,7 +24,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-
+import * as WeChat from 'react-native-wechat';//首先导入react-native-wechat
+WeChat.sendAuthRequest("snsapi_userinfo");//在需要触发登录的时候调用
 
 const ApiPost='http://111.230.254.117:8000/logined?'
 export default class LandingPage extends PureComponent{
@@ -66,6 +67,15 @@ export default class LandingPage extends PureComponent{
             },3000)
         })
     }
+    componentDidMount() {
+          try {
+            WeChat.registerApp('1106718607');//从微信开放平台申请
+          } catch (e) {
+            console.log(e);
+          }
+          console.log(WeChat);
+        }
+
   render() {
     const {goBack,navigate}=this.props.navigation;
     const {Phone,PassWord}=this.state;
@@ -181,9 +191,11 @@ export default class LandingPage extends PureComponent{
           }
 
           <TouchableOpacity
-              style={styles.WeiXinLandingView}>
+              style={styles.WeiXinLandingView}
+          >
               <TouchableOpacity
-                  style={styles.WeiXinLanding}>
+                  style={styles.WeiXinLanding}
+              >
                   <Image
                       source={require('../../../Icons/WeiXin.png')}
                       style={styles.Image7}
@@ -198,7 +210,9 @@ export default class LandingPage extends PureComponent{
                   })}>
                   <Text style={styles.DownText1}>注册</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                  onPress={()=>openWXApp()}
+              >
                   <Text style={styles.DownText2}>没有密码/忘记密码</Text>
               </TouchableOpacity>
           </View>

@@ -40,7 +40,7 @@ export default class NavBannerDetailPage extends PureComponent{
                 goBack={()=>goBack()}
                 title={state.params.NavTitle}
             />
-            <PublicGoodsTab navigate={navigate}/>
+            <PublicGoodsTab navigate={navigate} title={state.params.NavTitle}/>
         </Container>
     );
   }

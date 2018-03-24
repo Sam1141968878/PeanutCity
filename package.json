@@ -13,8 +13,10 @@
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-native-animatable": "^1.2.4",
+    "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-swiper": "^1.5.13",
     "react-native-tab-navigator": "^0.3.4",
+    "react-native-wechat": "^1.9.9",
     "react-navigation": "^1.5.2",
     "teaset": "^0.5.6"
   },

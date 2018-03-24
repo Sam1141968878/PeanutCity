@@ -54,6 +54,7 @@ export default class HomePage extends PureComponent{
             refreshing=false
         },3000)
     }
+
   render() {
     const {navigate}=this.props.navigation;
     return (

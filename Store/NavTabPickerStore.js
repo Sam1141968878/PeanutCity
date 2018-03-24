@@ -11,11 +11,12 @@ import {observable,action} from 'mobx';
 
 class NavTabPickerStore {
   // 被观察者
-  @observable Picker='综合排序';
+  @observable Picker=1;
   @observable PriceHigh=false;
   @observable SalesHigh=false;
-  @observable Quan=true;
-  @observable Default=true;
+  @observable QuanHigh=false;
+  @observable QuanLow=false;
+  @observable Default=false;
 
 }
 

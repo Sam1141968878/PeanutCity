@@ -37,14 +37,14 @@ let page=0;
 
 
 @observer
-export default class PublicWholeNavListPriceHigh extends PureComponent{
+export default class PublicWholeNavListQuanDefault extends PureComponent{
 
   state = {
       movies: [],
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=${NewDaTaoKe.DaTaoKe?'dataoke':'taobao'}&ByDict=${this.props.title}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=${NewDaTaoKe.DaTaoKe?'dataoke':'taobao'}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{

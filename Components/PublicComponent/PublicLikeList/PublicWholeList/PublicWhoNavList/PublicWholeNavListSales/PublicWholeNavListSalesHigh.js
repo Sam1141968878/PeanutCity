@@ -23,7 +23,8 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-
+import {observer} from "mobx-react";
+import NewDaTaoKe from '../../../../../../Store/DaTaoKeORTaoBao'
 
 
 import PublicWholeItem from '../../../../PublicLikeItem/PublicWholeItem/PublicWholeItem'
@@ -34,6 +35,8 @@ let Api='http://111.230.254.117:8000/list?'
 let num=6;
 let page=0;
 
+
+@observer
 export default class PublicWholeNavListSalesHigh extends PureComponent{
 
   state = {
@@ -41,7 +44,7 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=${NewDaTaoKe.DaTaoKe?'dataoke':'taobao'}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -57,10 +60,9 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
         })
   }
   _onRefresh=async()=>{
-      const json = await fetchJson(this.FetchApi);
+      await fetchJson(this.FetchApi);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
-                        movies:json,
                         refreshing:true,
                     })
       })
@@ -68,12 +70,13 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
 
   _onEndReached=async()=>{
       page++;
-      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}`);
+      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=${NewDaTaoKe.DaTaoKe?'dataoke':'taobaoss'}`);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
                         movies: this.state.movies.concat(json)
                     })
       })
+      console.log('3'+this.FetchApi,page)
   }
 
   render() {
@@ -98,15 +101,15 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
                   onRefresh={this._onRefresh}
                   renderItem={
                       ({item})=><PublicWholeItem
-                              Pic={item.Pic}
-                              Title={item.Title}
-                              Org_Price={item.Org_Price}
-                              Sales_num={item.Sales_num}
-                              Price={item.Price}
-                              Quan_price={item.Quan_price}
-                              IsTmall={item.IsTmall}
+                              Pic={NewDaTaoKe.DaTaoKe?item.Pic:item.small_images}
+                              Title={NewDaTaoKe.DaTaoKe?item.Title:item.title}
+                              Org_Price={NewDaTaoKe.DaTaoKe?item.Org_Price:item.reserve_price}
+                              Price={NewDaTaoKe.DaTaoKe?item.Price:item.zk_final_price}
+                              Quan_price={NewDaTaoKe.DaTaoKe?item.Quan_price:item.reserve_price-zk_final_price}
+                              Sales_num={NewDaTaoKe.DaTaoKe?item.Sales_num:''}
+                              IsTmall={NewDaTaoKe.DaTaoKe?item.IsTmall:''}
                               onPress={()=>navigate('PublicGoodsDetail',{
-	                              GoodsID:item.GoodsID,
+	                              GoodsID:NewDaTaoKe.DaTaoKe?item.GoodsID:item.num_iid,
 	                              navigate:navigate,
                               })}
                               />
