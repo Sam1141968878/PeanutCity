@@ -52,7 +52,7 @@ export default class SwiperComponent extends PureComponent{
                   Id4:json[3].GoodsID,
                   Id5:json[4].GoodsID,
            })
-           console.log(json)
+           console.log(this.state.movies)
       })
     }
     componentDidMount() {
@@ -82,7 +82,7 @@ export default class SwiperComponent extends PureComponent{
             showsButtons={false}
             swipeEnabled={false}
             autoplay={true}
-            autoplayTimeout={6}
+            autoplayTimeout={10}
             bounces={true}
           >
 
