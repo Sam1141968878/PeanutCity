@@ -33,9 +33,9 @@ export default class PublicWholeNavListQuan extends PureComponent{
     if(NewNavTabPickerStore.Picker==0){
         return <PublicWholeNavListQuanDefault OrderBy={1} navigate={navigate}/>;
     }else if(NewNavTabPickerStore.Picker==1){
-        return <PublicWholeNavListQuanHigh OrderBy={'Quan_price'} navigate={navigate} HighLow={'DESC'}/>;
+        return <PublicWholeNavListQuanHigh OrderBy={'zk_price'} navigate={navigate} HighLow={'DESC'}/>;
     }else if(NewNavTabPickerStore.Picker==2){
-        return <PublicWholeNavListQuanLow OrderBy={'Quan_price'} navigate={navigate} HighLow={'ASC'}/>;
+        return <PublicWholeNavListQuanLow OrderBy={'zk_price'} navigate={navigate} HighLow={'ASC'}/>;
     }else{
         return <ActivityIndicator/>
     }

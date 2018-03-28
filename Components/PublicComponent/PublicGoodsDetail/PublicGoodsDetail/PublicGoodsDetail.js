@@ -44,7 +44,7 @@ import PublicGoodsDetailContent from '../PublicGoodsDetailContent/PublicGoodsDet
 import PublicGoodsDetailFooter from '../PublicGoodsDetailFooter/PublicGoodsDetailFooter'
 
 
-const Api='http://111.230.254.117:8000/detail?GoodsID='
+const Api='http://111.230.254.117:8000/detail?table=taobao&GoodsID='
 export default class PublicGoodsDetail extends PureComponent{
     state={
         movies:[],
@@ -55,39 +55,31 @@ export default class PublicGoodsDetail extends PureComponent{
         QuanLink:'',
         SalesNum:'',
         QuanPrice:'',
-        IsTmall:'',
     }
-    GoodsID=this.props.navigation.state.params.GoodsID
+    id=this.props.navigation.state.params.id
     fetchData = async () => {
-      const json = await fetchJson(`${Api}${this.GoodsID}&table=dataoke`);
-      InteractionManager.runAfterInteractions(()=>{
-           this.setState({
-                  movies: json,
-                  BigImage:json.Pic,
-                  Title:json.Title,
-                  Price:json.Price,
-                  OrgPrice:json.Org_Price,
-                  QuanLink:json.Quan_link,
-                  SalesNum:json.Sales_num,
-                  QuanPrice:json.Quan_price,
-                  IsTmall:json.IsTmall,
-           })
-      })
+      const json = await fetchJson(`${Api}${this.id}`);
+        this.setState({
+               movies: json,
+               BigImage:json.description,
+               Title:json.title,
+               Price:json.zk_final_price,
+               OrgPrice:json.reserve_price,
+               SalesNum:json.volume,
+               QuanPrice:json.zk_price,
+        })
+        console.log(`${Api}${this.id}`)
     }
     componentDidMount() {
-      InteractionManager.runAfterInteractions(()=>{
-          this.fetchData();
-      })
+        this.fetchData();
     }
   render() {
     const{BigImage,
           Title,
           Price,
           OrgPrice,
-          QuanLink,
           SalesNum,
           QuanPrice,
-          IsTmall,
     }=this.state
     const {state,goBack,navigate}=this.props.navigation
     return (
@@ -108,7 +100,6 @@ export default class PublicGoodsDetail extends PureComponent{
                             OrgPrice={OrgPrice}
                             SalesNum={SalesNum}
                             QuanPrice={QuanPrice}
-                            IsTmall={IsTmall}
                         />
                         <PublicGoodsDetailContent/>
                         <PublicGoodsDetailFooter navigate={navigate}/>

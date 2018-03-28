@@ -76,6 +76,7 @@ export default class PublicWholeNavListQuanDefault extends PureComponent{
                         movies: this.state.movies.concat(json)
                     })
       })
+      console.log(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao`)
   }
 
   render() {

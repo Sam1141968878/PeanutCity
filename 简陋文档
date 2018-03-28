@@ -1,13 +1,16 @@
-
-	################################################
+################################################
 	# url 	111.230.254.117:8000/list
 	# 函数 	获取商品列表
 	#参数 	table  				大淘客或淘宝	dataoke,taobao
-	#参数	OrderBy(dataoke) 	排序类型 		Quan_price,Price,Org_Price,Cid,Sales_num
+	#参数	OrderBy(dataoke) 	排序类型
+	Quan_price,Price,Org_Price,Cid,Sales_num
+	#参数	OrderBy(taobao) 	排序类型
+	zk_price,zk_final_price,reserve_price,volume,
 	#参数 	HighLow				排序高低 		DESC，ASC		（降序，增序）
-	#参数
-		ByDict 				查询条件		（大淘客）	{'cid':1}注意,这是大淘客的!		#Cid 	1女装	9男装	10内衣	2母婴	3化妆品	4居家	5鞋包配饰	6美食 7文体车品	8数码家电
-	#参数	ByDict 				查询条件		（淘宝） 	{'kind':'女装'}
+	#参数	ByDict 				查询条件		（大淘客）
+	{'cid':'1'}		#Cid 	1女装	9男装	10内衣	2母婴	3化妆品	4居家	5鞋包配饰	6美食 7文体车品	8数码家电
+	#参数	ByDict 				查询条件		（淘宝）
+	{'kind':'女装'}
 	#参数	num 				条数			1
 	#参数 	page 				页数			1
 	################################################

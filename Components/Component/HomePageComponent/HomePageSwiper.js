@@ -20,111 +20,51 @@ import {
   View,
   InteractionManager,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import fetchJson from '../../Fetch/FetchJson'
 import HomePageSwiperItem from '../../Item/HomePageItem/HomePageSwiperItem'
 
-const Api='http://111.230.254.117:8000/'
+//这是大淘客的轮播图接口:
+// const Api='http://111.230.254.117:8000/'
+const Api='http://111.230.254.117:8000/list?table=taobao&num=5'
 export default class SwiperComponent extends PureComponent{
     state={
         movies:[],
-        Image1:'',
-        Image2:'',
-        Image3:'',
-        Image4:'',
-        Image5:'',
     }
     fetchData = async () => {
       const json = await fetchJson(Api);
-      InteractionManager.runAfterInteractions(()=>{
-           this.setState({
-                  movies: json,
-                  Image1: json[0].Pic,
-                  Image2: json[1].Pic,
-                  Image3: json[2].Pic,
-                  Image4: json[3].Pic,
-                  Image5: json[4].Pic,
-                  Id1:json[0].GoodsID,
-                  Id2:json[1].GoodsID,
-                  Id3:json[2].GoodsID,
-                  Id4:json[3].GoodsID,
-                  Id5:json[4].GoodsID,
-           })
-           console.log(this.state.movies)
+      this.setState({
+             movies:json,
       })
     }
     componentDidMount() {
-      InteractionManager.runAfterInteractions(()=>{
-          this.fetchData();
-      })
+        this.fetchData();
     }
+
   render() {
     const {navigate}=this.props;
-    const {
-        movies,
-        Image1,
-        Image2,
-        Image3,
-        Image4,
-        Image5,
-        Id1,
-        Id2,
-        Id3,
-        Id4,
-        Id5,
-    }=this.state;
     return (
       <View style={styles.View}>
           <Swiper
             style={styles.wrapper}
-            showsButtons={false}
-            swipeEnabled={false}
             autoplay={true}
-            autoplayTimeout={10}
-            bounces={true}
           >
+              {
+                this.state.movies.map((item, index) =>
+                    <HomePageSwiperItem
+                        key={index}
+                        image={item.small_images}
+                        onPress={()=>navigate('PublicGoodsDetail',{
+                          id:item.num_iid,
+                          navigate:navigate
+                        })}
+                    />
+                    )
+              }
 
-            <HomePageSwiperItem
-                  image={Image1}
-                  onPress={()=>navigate('PublicGoodsDetail',{
-	                          GoodsID:Id1,
-	                          navigate:navigate,
-                          })}
-            />
-
-            <HomePageSwiperItem
-                  image={Image2}
-                  onPress={()=>navigate('PublicGoodsDetail',{
-	                          GoodsID:Id2,
-	                          navigate:navigate,
-                          })}
-            />
-
-            <HomePageSwiperItem
-                  image={Image3}
-                  onPress={()=>navigate('PublicGoodsDetail',{
-	                          GoodsID:Id3,
-	                          navigate:navigate,
-                          })}
-            />
-
-            <HomePageSwiperItem
-                  image={Image4}
-                  onPress={()=>navigate('PublicGoodsDetail',{
-	                          GoodsID:Id4,
-	                          navigate:navigate,
-                          })}
-            />
-
-            <HomePageSwiperItem
-                  image={Image5}
-                  onPress={()=>navigate('PublicGoodsDetail',{
-	                          GoodsID:Id5,
-	                          navigate:navigate,
-                          })}
-            />
           </Swiper>
       </View>
     );

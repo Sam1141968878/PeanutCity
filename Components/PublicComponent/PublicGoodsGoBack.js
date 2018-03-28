@@ -86,7 +86,6 @@ export default class GoodsGoBack extends PureComponent{
                                 width:275,
                                 backgroundColor:'white',
                                 borderRadius:15,
-                                color:'#000'
                                 }}
                   >
                       <TouchableOpacity

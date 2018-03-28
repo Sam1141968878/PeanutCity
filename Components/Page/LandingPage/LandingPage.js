@@ -24,7 +24,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import * as WeChat from 'react-native-wechat';//首先导入react-native-wechat
+import *as WeChat from 'react-native-wechat'
 
 
 const ApiPost='http://111.230.254.117:8000/logined?'
@@ -67,18 +67,11 @@ export default class LandingPage extends PureComponent{
             },3000)
         })
     }
-    componentDidMount() {
-          try {
-            WeChat.registerApp('1106718607');//从微信开放平台申请
-          } catch (e) {
-            console.log(e);
-          }
-          console.log(WeChat);
-        }
-    //微信登录示例
-    _WXLogin = () => {
-      WeChat.sendAuthRequest("snsapi_userinfo");//在需要触发登录的时候调用
-    };
+    componentDidMount (){
+      WeChat.registerApp('wx21b8979660c07d7e');
+      console.log(WeChat);
+    }
+
 
   render() {
     const {goBack,navigate}=this.props.navigation;
@@ -196,10 +189,39 @@ export default class LandingPage extends PureComponent{
 
           <TouchableOpacity
               style={styles.WeiXinLandingView}
-              onPress={()=>this._WXLogin()}
           >
               <TouchableOpacity
                   style={styles.WeiXinLanding}
+                  onPress={()=>{
+                      let scope = 'snsapi_userinfo';
+                      let state = 'wechat_sdk_demo';
+                      //判断微信是否安装
+                      WeChat.isWXAppInstalled()
+                        .then((isInstalled) => {
+                          if (isInstalled) {
+                            //发送授权请求
+                            WeChat.sendAuthRequest(scope, state)
+                              .then(responseCode => {
+                                //返回code码，通过code获取access_token
+                                this.getAccessToken(responseCode.code);
+                              })
+                              .catch(err => {
+                                Alert.alert('登录授权发生错误：', err.message, [
+                                  {text: '确定'}
+                                ]);
+                              })
+                          } else {
+                            Platform.OS == 'ios' ?
+                              Alert.alert('没有安装微信', '是否安装微信？', [
+                                {text: '取消'},
+                                {text: '确定', onPress: () => this.installWechat()}
+                              ]) :
+                              Alert.alert('没有安装微信', '请先安装微信客户端在进行登录', [
+                                {text: '确定'}
+                              ])
+                          }
+                        })
+                  }}
               >
                   <Image
                       source={require('../../../Icons/WeiXin.png')}
