@@ -22,9 +22,12 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
+import fetchWX from '../../Fetch/FetchWX'
+
 
 
 const ApiPost='http://111.230.254.117:8000/logined?'
@@ -34,6 +37,7 @@ export default class LandingPage extends PureComponent{
         PassWord:'',
         secureTextEntry:true,
         Landing:[],
+        data:'还没有数据',
     }
     ChangeSecureTextEntry=()=>{
         this.setState({
@@ -67,12 +71,87 @@ export default class LandingPage extends PureComponent{
             },3000)
         })
     }
+    AppId='wx21b8979660c07d7e';
+    AppSecret='a33e1c52d31b522b619397165a8aa64c'
+    OneUri='https://api.weixin.qq.com/sns/oauth2/access_token?'
+    TwoUri='https://api.weixin.qq.com/sns/oauth2/refresh_token?'
+    UseUri='https://api.weixin.qq.com/sns/userinfo?'
+    WxLogin=()=>{
+       //判断微信是否安装
+       WeChat.isWXAppInstalled()
+         .then((isInstalled) => {
+           if (isInstalled) {
+             //发送授权请求
+             WeChat.sendAuthRequest('snsapi_userinfo', 'wechat_sdk_demo')
+               .then(responseCode => {
+                 //返回code码，通过code获取access_token
+                 const oneApi=fetchWX(`${this.OneUri}appid=${this.AppId}&secret=${this.AppSecret}&code=${responseCode.code}&grant_type=authorization_code`)
+                 return oneApi;
+               })
+               .then(responseCode=>{
+                 const twoApi=fetchWX(`${this.TwoUri}appid=${this.AppId}&refresh_token=${responseCode.refresh_token}&grant_type=refresh_token`)
+                 return twoApi;
+               })
+               .then(responseCode=>{
+                 const userApi=fetchWX(`${this.UseUri}access_token=${responseCode.access_token}&openid=OPENID`)
+                 return userApi;
+               })
+               .then(userApi=>{
+                   this.setState({
+                      WxUser:userApi
+                   })
+                 }
+               )
+               .catch(err => {
+                 alert('登录授权发生错误：', err.message, [
+                   {text: '确定'}
+                 ]);
+               })
+           } else {
+             Platform.OS == 'ios' ?
+               alert('没有安装微信', '是否安装微信？', [
+                 {text: '取消'},
+                 {text: '确定', onPress: () => this.installWechat()}
+               ]) :
+               alert('没有安装微信', '请先安装微信客户端在进行登录', [
+                 {text: '确定'}
+               ])
+           }
+         })
+    }
     componentDidMount (){
       WeChat.registerApp('wx21b8979660c07d7e');
-      console.log(WeChat);
     }
 
+    // 增加
+    createData(key,value) {
+        AsyncStorage.setItem(key,value, (error, result) => {
+            if (!error) {
+                this.setState({
+                    data:'保存成功!'
+                })
+            }
+        });
+    }
+    // 查询
+    inquireData(key) {
+        AsyncStorage.getItem(key)
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
 
+                this.setState({
+                    data:jsonValue
+                })
+            })
+    }
+     // 删除
+    removeData(key) {
+        AsyncStorage.removeItem(key);
+
+        this.setState({
+            data:'删除完成!'
+        })
+    }
   render() {
     const {goBack,navigate}=this.props.navigation;
     const {Phone,PassWord}=this.state;
@@ -192,36 +271,7 @@ export default class LandingPage extends PureComponent{
           >
               <TouchableOpacity
                   style={styles.WeiXinLanding}
-                  onPress={()=>{
-                      let scope = 'snsapi_userinfo';
-                      let state = 'wechat_sdk_demo';
-                      //判断微信是否安装
-                      WeChat.isWXAppInstalled()
-                        .then((isInstalled) => {
-                          if (isInstalled) {
-                            //发送授权请求
-                            WeChat.sendAuthRequest(scope, state)
-                              .then(responseCode => {
-                                //返回code码，通过code获取access_token
-                                this.getAccessToken(responseCode.code);
-                              })
-                              .catch(err => {
-                                Alert.alert('登录授权发生错误：', err.message, [
-                                  {text: '确定'}
-                                ]);
-                              })
-                          } else {
-                            Platform.OS == 'ios' ?
-                              Alert.alert('没有安装微信', '是否安装微信？', [
-                                {text: '取消'},
-                                {text: '确定', onPress: () => this.installWechat()}
-                              ]) :
-                              Alert.alert('没有安装微信', '请先安装微信客户端在进行登录', [
-                                {text: '确定'}
-                              ])
-                          }
-                        })
-                  }}
+                  onPress={this.WxLogin}
               >
                   <Image
                       source={require('../../../Icons/WeiXin.png')}
@@ -241,6 +291,22 @@ export default class LandingPage extends PureComponent{
                   <Text style={styles.DownText2}>没有密码/忘记密码</Text>
               </TouchableOpacity>
           </View>
+          <TouchableOpacity
+              onPress={()=>this.createData('name','李观汉')}
+          >
+              <Text>增加数据</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={()=>this.inquireData('name')}
+          >
+              <Text>查询数据</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={()=>this.removeData('name')}
+          >
+              <Text>删除数据</Text>
+          </TouchableOpacity>
+          <Text>{this.state.data}</Text>
       </View>
     );
   }

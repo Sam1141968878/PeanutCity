@@ -39,6 +39,7 @@ export default class SwiperComponent extends PureComponent{
       this.setState({
              movies:json,
       })
+      console.log(json,this.state.movies)
     }
     componentDidMount() {
         this.fetchData();
