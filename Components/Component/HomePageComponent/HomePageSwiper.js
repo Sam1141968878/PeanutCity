@@ -29,43 +29,52 @@ import HomePageSwiperItem from '../../Item/HomePageItem/HomePageSwiperItem'
 
 //这是大淘客的轮播图接口:
 // const Api='http://111.230.254.117:8000/'
-const Api='http://111.230.254.117:8000/list?table=taobao&num=5'
 export default class SwiperComponent extends PureComponent{
     state={
         movies:[],
     }
-    fetchData = async () => {
+    Api='http://111.230.254.117:8000/list?table=taobao&num='
+    num=5;
+    page=0;
+    fetchData = async (Api) => {
       const json = await fetchJson(Api);
       this.setState({
              movies:json,
       })
-      console.log(json)
+      console.log(`${this.Api}${this.num}&page=${this.page}`)
     }
+
     componentDidMount() {
-        this.fetchData();
+        this.fetchData(`${this.Api}${this.num}&page=${this.page}`);
     }
 
   render() {
     const {navigate}=this.props;
     return (
       <View style={styles.View}>
-          <Swiper
-            autoplay={true}
-          >
-              {
-                this.state.movies.map((item, index) =>
-                    <HomePageSwiperItem
-                        key={index}
-                        image={item.pict_url}
-                        onPress={()=>navigate('PublicGoodsDetail',{
-                          id:item.num_iid,
-                          navigate:navigate
-                        })}
-                    />
-                    )
-              }
+          {
+              this.state.movies
+              ?
+                  <Swiper
+                    autoplay={true}
+                  >
+                      {
+                         this.state.movies.map((item, index) =>
+                         <HomePageSwiperItem
+                             key={index}
+                             image={item.pict_url}
+                             onPress={()=>navigate('PublicGoodsDetail',{
+                               id:item.num_iid,
+                               navigate:navigate
+                             })}
+                         />
+                         )
+                      }
+                  </Swiper>
+              :
+              <ActivityIndicator/>
+          }
 
-          </Swiper>
       </View>
     );
   }

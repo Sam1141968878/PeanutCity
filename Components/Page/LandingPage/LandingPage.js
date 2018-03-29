@@ -30,15 +30,21 @@ import *as WeChat from 'react-native-wechat'
 
 
 
-const ApiPost='http://111.230.254.117:8000/logined?'
+
+
 export default class LandingPage extends PureComponent{
     state={
         Phone:'',
         PassWord:'',
         secureTextEntry:true,
         Landing:[],
+        Registered:'',
         data:'还没有数据',
+        WxUser:[],
+        WxRegisteredStatus:''
     }
+    ApiPost='http://111.230.254.117:8000/logined?'
+    WxLoginApi='http://111.230.254.117:8000/logined_wechat'
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
@@ -71,6 +77,7 @@ export default class LandingPage extends PureComponent{
             },3000)
         })
     }
+
     AppId='wx21b8979660c07d7e';
     AppSecret='a33e1c52d31b522b619397165a8aa64c'
     OneUri='https://api.weixin.qq.com/sns/oauth2/access_token?'
@@ -99,7 +106,7 @@ export default class LandingPage extends PureComponent{
                .then(userApi=>{
                    this.setState({
                       WxUser:userApi
-                   },()=>console.log(this.state.WxUser))
+                   })
                  }
                )
                .catch(err => {
@@ -214,7 +221,7 @@ export default class LandingPage extends PureComponent{
 
     // 增加
     createData(key,value) {
-        AsyncStorage.setItem(key,value, (error, result) => {
+        AsyncStorage.setItem(key, JSON.stringify(value), (error, result) => {
             if (!error) {
                 this.setState({
                     data:'保存成功!'
@@ -239,6 +246,37 @@ export default class LandingPage extends PureComponent{
 
         this.setState({
             data:'删除完成!'
+        })
+    }
+
+    fetchWxPost=async(ApiPost)=>{
+       const json=fetch(ApiPost, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}&sex=${this.state.WxUser.sex}&city=${this.state.WxUser.city}&country=${this.state.WxUser.city}&privilege=${this.state.WxUser.privilege}&province=${this.state.WxUser.province}`,
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            const json = JSON.parse(responseText);
+            return json;
+        })
+        .then((json)=>{
+            this.setState({
+                WxRegisteredStatus:json,
+            },()=>{
+                if(this.state.WxRegisteredStatus.status==='success'){
+                    this.props.navigation.navigate('MyTab')
+                }else{
+                    this.props.navigation.navigate('WxRegisteredPage',{
+                        title:'请绑定你的手机号'
+                    })
+                }
+            })
+        })
+        .catch((error) => {
+            console.error(error);
         })
     }
   render() {
@@ -344,7 +382,7 @@ export default class LandingPage extends PureComponent{
                 >
                     <TouchableOpacity
                         onPress={()=>{
-                            this.fetchPost(ApiPost)
+                            this.fetchPost(this.ApiPost)
                             }
                         }
                         style={styles.Text7View}
@@ -360,7 +398,10 @@ export default class LandingPage extends PureComponent{
           >
               <TouchableOpacity
                   style={styles.WeiXinLanding}
-                  onPress={this.WxLogin}
+                  onPress={()=>{
+                    this.WxLogin(),
+                    this.fetchWxPost(this.WxLoginApi)
+                  }}
               >
                   <Image
                       source={require('../../../Icons/WeiXin.png')}

@@ -59,3 +59,35 @@
 	# 返回值：{'status':'success',message:'登录成功'}
 	# 返回值：{'status':'fail',message:'登录失败'}
 	################################################
+
+
+	################################################
+	# url：111.230.254.117:8000/logined_wechat
+	# 函数：微信登录
+	# 参数：类型：键值对	openid，unionid，headimgurl，nickname，sex，city，country，privilege，province
+	# 返回值：{'status':'success',message:'登录成功'}
+	# 返回值：{'status':'1',message:'no bind'}
+	# 返回值：{'status':'2',message:'no register'}
+	################################################
+
+
+	################################################
+	# url：111.230.254.117:8000/bind_wechat_getCode
+	# 函数：绑定微信 --- 获取验证码
+	# 参数：类型：键值对	phone
+	# 返回值：{'status':'success',message:'登录成功'}
+	# 返回值：{'status':'1',message:'no register'}
+	# 返回值：{'status':'success',message:'mind your phone'}
+	################################################
+
+
+	################################################
+	# url：111.230.254.117:8000/bind_wechat
+	# 函数：绑定微信
+	# 参数：类型：键值对	phone  code_bind_wechat
+	# 返回值：{'status':'success',message:'登录成功'}
+	# 返回值：{'status':'1',message:'no code'}
+	# 返回值：{'status':'2',message:'wrong code'}
+	# 返回值：{'status':'3',message:'no openid and unionid for wechat'}
+	# 返回值：{'status':'success',message:'success bind!'}
+	################################################

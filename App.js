@@ -25,6 +25,7 @@ import LandingPage from './Components/Page/LandingPage/LandingPage'
 import RegisteredPage from './Components/Page/LandingPage/RegisteredPage'
 import StartPage from './Components/Page/StartPage/StartPage'
 import MessagePage from './Components/Page/MessagePage/MessagePage'
+import WxRegisteredPage from './Components/Page/LandingPage/WxRegisteredPage'
 
 
 
@@ -93,6 +94,7 @@ const App=StackNavigator({
 	PublicStoreDetail:{screen:PublicStoreDetail},
 	RegisteredPage:{screen:RegisteredPage},
 	MessagePage:{screen:MessagePage},
+	WxRegisteredPage:{screen:WxRegisteredPage},
 },{
     headerMode:'none'
 })

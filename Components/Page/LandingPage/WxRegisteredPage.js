@@ -36,12 +36,11 @@ import fetchJosn from '../../Fetch/FetchJson'
 import Toast from 'teaset/components/Toast/Toast';
 
 
-const Api='http://111.230.254.117:8000/getCode?'
-const ApiPost='http://111.230.254.117:8000/registered'
+
 
 
 @observer
-export default class RegisteredPage extends PureComponent{
+export default class WxRegisteredPage extends PureComponent{
     state={
         secureTextEntry:false,
         textFromClipboard:'',
@@ -52,11 +51,16 @@ export default class RegisteredPage extends PureComponent{
         registereduser:'',
         registeredInviteCode:'',
         Registered:[],
+        WxCode:'',
+        WxGetCode:'',
+        WxBind:'',
     }
     @observable VerificationStates='';
     @observable VerificationMessage='';
     @observable VerificationCode='';
 
+    WxGetCodeApi='http://111.230.254.117:8000/bind_wechat_getCode'
+    BindWeChatApi='http://111.230.254.117:8000/bind_wechat'
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
@@ -78,42 +82,66 @@ export default class RegisteredPage extends PureComponent{
         }
       );
     }
-    fetchData=async(Api)=>{
-        const json =await fetchJosn(Api)
-        this.VerificationStates=json.status;
-        this.VerificationMessage=json.message;
-        this.VerificationCode=json.code;
-        if(this.VerificationStates==='sucess'){
-            Toast.success('获取验证码成功');
-        }else{
-            Toast.success(this.VerificationStates+this.VerificationMessage);
-        }
-        console.log(this.VerificationCode)
-    }
-    fetchPost=async(ApiPost)=>{
-       const json=fetch(ApiPost, {
-          method: 'POST',
-          headers: {
+    fetchGetCodePost=async(Api)=>{
+        const json =await fetch(Api,{
+            method: 'POST',
+            headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body:`phone=${this.state.PhoneText}&code_check=${this.VerificationCode}&code_invite=${this.state.textFromClipboard}&password=${this.state.PassWordText}`,
+            },
+            body:`phone=${this.state.PhoneText}`,
         })
         .then((response) => response.text())
         .then((responseText) => {
             const json = JSON.parse(responseText);
             return json;
         })
+        .then((json)=>{
+            this.setState({
+                WxGetCode:json
+            },()=>{
+                Toast.message(this.state.WxGetCode.message)
+                if(this.state.WxGetCode.status==='1'){
+                    this.props.navigation.navigate('RegisteredPage',{
+                        title:'注册'
+                    })
+                }else{
+                    this.props.navigation.navigate('MyTab')
+                }
+            })
+        })
         .catch((error) => {
             console.error(error);
         })
-        this.setState({Registered:json},()=>{
-            setTimeout(()=>{
-                if(this.state.Registered._55.status=='success'){
+    }
+    fetchWxBindPost=async(ApiPost)=>{
+       const json =await fetch(ApiPost,{
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body:`phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}`,
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            const json = JSON.parse(responseText);
+            return json;
+        })
+        .then((json)=>{
+            this.setState({
+                WxBind:json
+            },()=>{
+                Toast.message(this.state.WxBind.message)
+                if(this.state.WxBind.status='success'){
+                    console.log(this.state.WxBind)
                     this.props.navigation.navigate('MyTab')
-                }else{
-                    alert('注册失败,请检查一下')
+                }else {
+                    Toast.message(this.state.WxBind.message)
+                    console.log(this.state.WxBind)
                 }
-            },3000)
+            })
+        })
+        .catch((error) => {
+            console.error(error);
         })
     }
 
@@ -123,9 +151,7 @@ export default class RegisteredPage extends PureComponent{
     const {
         ImageHidden,
         PhoneText,
-        textFromClipboard,
-        PassWordText,
-        Code,
+        WxCode
     }=this.state;
     return (
       <Container
@@ -153,56 +179,26 @@ export default class RegisteredPage extends PureComponent{
                     />
                 </Item>
                 <Item floatingLabel>
-                    <Label><Text style={styles.LabelText}>请输入邀请码</Text> </Label>
-                    <Icon active name='md-person-add' style={styles.Icon2}/>
-                    <Input
-                        autoCapitalize='none'
-                        value={this.state.textFromClipboard}
-                        onChangeText={(text) => {
-                            this.setState({textFromClipboard:text})
-                        }}
-                        maxLength={6}
-                    />
-                </Item>
-                    <TouchableOpacity style={styles.redView1}
-                          onPress={this.pasteFromClipboard.bind(this)}
-                    >
-                        <Text style={styles.redText}>粘贴邀请码</Text>
-                    </TouchableOpacity>
-                <Item floatingLabel>
                     <Label><Text style={styles.LabelText}>请输入验证码</Text> </Label>
                     <Icon active name='ios-unlock' />
                     <Input
                         keyboardType='numeric'
                         autoCapitalize='none'
                         onChangeText={(text) => {
-                            this.VerificationCode=text
+                            this.setState({WxCode:text})
                         }}
-                        value={this.VerificationCode}
+                        value={this.state.WxCode}
                         maxLength={6}
                     />
                 </Item>
                 <TouchableOpacity
                     style={styles.redView2}
                     onPress={()=>{
-                        this.fetchData(`${Api}phone=${PhoneText}&code_invite=111111`)
+                        this.fetchGetCodePost(this.WxGetCodeApi)
                     }}
                 >
                     <Text style={styles.redText}>获取验证码</Text>
                 </TouchableOpacity>
-                <Item floatingLabel>
-                    <Icon active name='key'/>
-                    <Label><Text style={styles.LabelText}>请输入6~32位密码</Text> </Label>
-                    <Input
-                        maxLength={32}
-                        secureTextEntry={this.state.secureTextEntry}
-                        autoCapitalize='none'
-                        onChangeText={(text) => {
-                            this.setState({PassWordText:text})
-                        }}
-                        value={this.state.PassWordText}
-                    />
-                </Item>
             </Form>
             <TouchableOpacity onPress={this.ChangeSecureTextEntry}
                               style={styles.Image6View}
@@ -247,23 +243,23 @@ export default class RegisteredPage extends PureComponent{
             </View>
 
             {
-                ImageHidden&&PhoneText.length===11&&textFromClipboard.length===6&&this.VerificationCode.length===6&&PassWordText.length>=6&&PassWordText.length<=32
+                ImageHidden&&PhoneText.length===11&&WxCode.length===6
                 ?
                 <View style={styles.TextView3}>
                     <TouchableOpacity
                         style={styles.TextView5}
                         onPress={()=>{
-                            this.fetchPost(ApiPost)
+                            this.fetchWxBindPost(this.BindWeChatApi)
                             }
                         }
                     >
-                        <Text style={styles.Text3}>立即注册</Text>
+                        <Text style={styles.Text3}>立即绑定</Text>
                     </TouchableOpacity>
                 </View>
                 :
                 <View style={styles.TextView3}>
                     <View style={styles.TextView4}>
-                        <Text style={styles.Text3}>立即注册</Text>
+                        <Text style={styles.Text3}>立即绑定</Text>
                     </View>
                 </View>
             }
@@ -322,7 +318,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         position:'absolute',
         right:10,
-        top:165,
+        top:95,
     },
     redText:{
         color:'red'
