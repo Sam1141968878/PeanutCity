@@ -39,7 +39,7 @@ export default class SwiperComponent extends PureComponent{
       this.setState({
              movies:json,
       })
-      console.log(json,this.state.movies)
+      console.log(json)
     }
     componentDidMount() {
         this.fetchData();
@@ -50,14 +50,13 @@ export default class SwiperComponent extends PureComponent{
     return (
       <View style={styles.View}>
           <Swiper
-            style={styles.wrapper}
             autoplay={true}
           >
               {
                 this.state.movies.map((item, index) =>
                     <HomePageSwiperItem
                         key={index}
-                        image={item.small_images}
+                        image={item.pict_url}
                         onPress={()=>navigate('PublicGoodsDetail',{
                           id:item.num_iid,
                           navigate:navigate

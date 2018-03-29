@@ -26,7 +26,7 @@ import {
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
-import fetchWX from '../../Fetch/FetchWX'
+    import fetchWX from '../../Fetch/FetchWX'
 
 
 
@@ -99,7 +99,7 @@ export default class LandingPage extends PureComponent{
                .then(userApi=>{
                    this.setState({
                       WxUser:userApi
-                   })
+                   },()=>console.log(this.state.WxUser))
                  }
                )
                .catch(err => {
@@ -118,6 +118,95 @@ export default class LandingPage extends PureComponent{
                ])
            }
          })
+    }
+
+    WxShareSessionText=()=>{
+        //判断微信是否安装
+        WeChat.isWXAppInstalled()
+        .then((isInstalled)=>{
+            if(isInstalled){
+                //发送微信测试文本
+                WeChat.shareToSession({
+                    type: 'text',
+                    description: '测试发给微信好友的分享文本'
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
+            }
+            else{
+                alert('没有安装微信软件，请您安装微信之后再试')
+            }
+        })
+    }
+    WxShareSessionImage=()=>{
+        //判断微信是否安装
+        WeChat.isWXAppInstalled()
+        .then((isInstalled)=>{
+            if(isInstalled){
+                //发送微信测试文本
+                WeChat.shareToSession({
+                  type: 'imageUrl',
+                  title: 'web image',
+                  description: 'share web image to time line',
+                  mediaTagName: 'email signature',
+                  messageAction: undefined,
+                  messageExt: undefined,
+                  imageUrl: 'https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png'
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
+            }
+            else{
+                alert('没有安装微信软件，请您安装微信之后再试')
+            }
+        })
+    }
+    WxShareLineText=()=>{
+        //判断微信是否安装
+        WeChat.isWXAppInstalled()
+        .then((isInstalled)=>{
+            if(isInstalled){
+                //发送微信测试文本
+                 WeChat.shareToTimeline({
+                    type: 'text',
+                    description: '测试发给微信好友的分享文本'
+                 }).then((success)=>{
+                     console.log(success)
+                 }).catch((error)=>{
+                     console.log(error)
+                 })
+            }
+            else{
+                alert('没有安装微信软件，请您安装微信之后再试')
+            }
+        })
+    }
+    WxShareLineImage=()=>{
+        //判断微信是否安装
+        WeChat.isWXAppInstalled()
+        .then((isInstalled)=>{
+            if(isInstalled){
+                //发送微信测试文本
+                 WeChat.shareToTimeline({
+                     type: 'imageUrl',
+                     title: 'web image',
+                     description: 'share web image to time line',
+                     mediaTagName: 'email signature',
+                     messageAction: undefined,
+                     messageExt: undefined,
+                     imageUrl: 'https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png'
+                 }).then((success)=>{
+                     console.log(success)
+                 }).catch((error)=>{
+                     console.log(error)
+                 })
+            }
+            else{
+                alert('没有安装微信软件，请您安装微信之后再试')
+            }
+        })
     }
     componentDidMount (){
       WeChat.registerApp('wx21b8979660c07d7e');
@@ -307,6 +396,26 @@ export default class LandingPage extends PureComponent{
               <Text>删除数据</Text>
           </TouchableOpacity>
           <Text>{this.state.data}</Text>
+          <TouchableOpacity
+              onPress={this.WxShareSessionText}
+          >
+              <Text>测试微信分享文字到个人</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareSessionImage}
+          >
+              <Text>测试微信分享图片到个人</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareLineText}
+          >
+              <Text>测试微信分享文字到朋友圈</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareLineImage}
+          >
+              <Text>测试微信分享图片到朋友圈</Text>
+          </TouchableOpacity>
       </View>
     );
   }
