@@ -31,7 +31,9 @@ export default class NoviceStrategy extends PureComponent{
         <View
             style={styles.View}>
             <TouchableOpacity
-                onPress={()=>navigate('LandingPage')}
+                onPress={()=>navigate('NovicePage',{
+                    title:'新手攻略'
+                })}
             >
                 <Image
                 source={require('../../../Icons/Book.png')}
