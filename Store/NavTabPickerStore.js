@@ -11,12 +11,9 @@ import {observable,action} from 'mobx';
 
 class NavTabPickerStore {
   // 被观察者
-  @observable Picker=1;
-  @observable PriceHigh=false;
-  @observable SalesHigh=false;
-  @observable QuanHigh=false;
-  @observable QuanLow=false;
-  @observable Default=false;
+  @observable Picker=0;
+  @observable PriceDESC=true;
+  @observable SalesDESC=true;
 
 }
 

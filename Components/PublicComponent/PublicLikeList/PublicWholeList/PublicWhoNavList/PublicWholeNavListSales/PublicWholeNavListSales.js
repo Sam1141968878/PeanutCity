@@ -32,15 +32,16 @@ import PublicWholeNavListSalesLow from './PublicWholeNavListSalesLow'
 @observer
 export default class PublicWholeNavListSales extends PureComponent{
   render() {
+    const {navigate,title}=this.props;
     return (
       <View
           style={styles.View}>
               {
-                  NavTabPickerStore.SalesHigh
+                  NavTabPickerStore.SalesDESC
                   ?
-                  <PublicWholeNavListSalesHigh OrderBy={'Sales_num'} HighLow={'DESC'}/>
+                  <PublicWholeNavListSalesLow  title={title} navigate={navigate} OrderBy={'volume'} HighLow={'ASC'}/>
                   :
-                  <PublicWholeNavListSalesLow  OrderBy={'Sales_num'} HighLow={'ASC'}/>
+                  <PublicWholeNavListSalesHigh title={title} navigate={navigate} OrderBy={'volume'} HighLow={'DESC'}/>
               }
 
       </View>

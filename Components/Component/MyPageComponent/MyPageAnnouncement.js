@@ -24,12 +24,15 @@ import {
 } from 'react-native';
 
 
+
 export default class Announcement extends PureComponent{
   render() {
     const {navigate}=this.props;
     return (
       <TouchableOpacity style={styles.View}
-          onPress={()=>navigate('LandingPage')}
+          onPress={()=>navigate('AnnouncementPageList',{
+            title:'官方公告'
+          })}
       >
           <View
               style={styles.SmallView}>

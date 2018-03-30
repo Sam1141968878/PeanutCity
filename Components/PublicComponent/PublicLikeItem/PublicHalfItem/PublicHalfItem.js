@@ -1,8 +1,15 @@
 /**
- * Sample React Native App
+ * Sample
+ * React
+ * Native
+ * App
  * https://github.com/facebook/react-native
  * @flow
- * Created by Administrator on 2018/3/15.
+ * Created
+ *     by
+ *     Administrator
+ *     on
+ *     2018/3/15.
  */
 
 import React, { Component,PureComponent } from 'react';
@@ -38,7 +45,7 @@ export default class PublicHalfItem extends PureComponent{
       >
         <Image
             style={styles.BigImage}
-            source={BigImg}
+            source={{uri:BigImg}}
         />
         <View style={styles.TitleView}>
             <Image
@@ -49,7 +56,7 @@ export default class PublicHalfItem extends PureComponent{
                 style={styles.Title}
                 numberOfLines={2}
             >
-                {Title}
+               {Title}
             </Text>
         </View>
         <View style={styles.TextView1}>

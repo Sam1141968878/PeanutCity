@@ -55,18 +55,20 @@ export default class PublicGoodsDetail extends PureComponent{
         QuanLink:'',
         SalesNum:'',
         QuanPrice:'',
+        description:'',
     }
     id=this.props.navigation.state.params.id
     fetchData = async () => {
       const json = await fetchJson(`${Api}${this.id}`);
         this.setState({
                movies: json,
-               BigImage:json.description,
+               BigImage:json.pict_url,
                Title:json.title,
                Price:json.zk_final_price,
                OrgPrice:json.reserve_price,
                SalesNum:json.volume,
                QuanPrice:json.zk_price,
+               Description:json.description
         })
         console.log(`${Api}${this.id}`)
     }
@@ -80,6 +82,7 @@ export default class PublicGoodsDetail extends PureComponent{
           OrgPrice,
           SalesNum,
           QuanPrice,
+          Description
     }=this.state
     const {state,goBack,navigate}=this.props.navigation
     return (
@@ -101,7 +104,7 @@ export default class PublicGoodsDetail extends PureComponent{
                             SalesNum={SalesNum}
                             QuanPrice={QuanPrice}
                         />
-                        <PublicGoodsDetailContent/>
+                        <PublicGoodsDetailContent Description={Description}/>
                         <PublicGoodsDetailFooter navigate={navigate}/>
                     </Content>
                     <Footer>

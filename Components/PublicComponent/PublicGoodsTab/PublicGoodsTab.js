@@ -53,13 +53,21 @@ export default class PublicGoodssTab extends PureComponent{
               <TabNavigator.Item
                 selected={this.state.selectedTab === '券后价'}
                 title="券后价"
-                onPress={() => this.setState({ selectedTab: '券后价' })}>
+                onPress={() => {
+                    this.setState({ selectedTab: '券后价' },()=>{
+                        NewNavTabPickerStore.PriceDESC=!NewNavTabPickerStore.PriceDESC
+                    })
+                }}>
                  <PublicWholeNavListPrice title={title} navigate={navigate}/>
               </TabNavigator.Item>
               <TabNavigator.Item
                 selected={this.state.selectedTab === '销量'}
                 title="销量"
-                onPress={() => this.setState({ selectedTab: '销量' })}>
+                onPress={() => {
+                    this.setState({ selectedTab: '销量' },()=>{
+                        NewNavTabPickerStore.SalesDESC=!NewNavTabPickerStore.SalesDESC
+                    })
+                }}>
                 <PublicWholeNavListSales title={title} navigate={navigate}/>
               </TabNavigator.Item>
             </TabNavigator>

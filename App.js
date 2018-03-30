@@ -27,7 +27,10 @@ import StartPage from './Components/Page/StartPage/StartPage'
 import MessagePage from './Components/Page/MessagePage/MessagePage'
 import WxRegisteredPage from './Components/Page/LandingPage/WxRegisteredPage'
 import NovicePage from './Components/Page/NovicePage/NovicePage'
-
+import ProblemPageList from './Components/Page/ProblemPage/ProblemPageList'
+import ProblemPage from './Components/Page/ProblemPage/ProblemPage'
+import AnnouncementPageList from './Components/Page/AnnouncementPage/AnnouncementPageList'
+import AnnouncementPage from './Components/Page/AnnouncementPage/AnnouncementPage'
 
 
 import HomePageDetailNavBannerDetailPage from './Components/Detail/HomePageDetail/HomePageDetailNavBannerDetailPage'
@@ -38,9 +41,6 @@ import CirclePageDetail from './Components/Detail/CirclePageDetail/CirclePageDet
 import PublicGoodsDetail from './Components/PublicComponent/PublicGoodsDetail/PublicGoodsDetail/PublicGoodsDetail'
 import PublicGoodsTabDetail from './Components/PublicComponent/PublicGoodsTab/PublicGoodsTabDetail'
 import PublicStoreDetail from './Components/PublicComponent/PublicStoreDetail/PublicStoreDetail/PublicStoreDetail'
-
-
-
 
 
 const MyTab =TabNavigator({
@@ -97,6 +97,10 @@ const App=StackNavigator({
 	MessagePage:{screen:MessagePage},
 	WxRegisteredPage:{screen:WxRegisteredPage},
 	NovicePage:{screen:NovicePage},
+	ProblemPageList:{screen:ProblemPageList},
+	ProblemPage:{screen:ProblemPage},
+	AnnouncementPageList:{screen:AnnouncementPageList},
+	AnnouncementPage:{screen:AnnouncementPage},
 },{
     headerMode:'none'
 })

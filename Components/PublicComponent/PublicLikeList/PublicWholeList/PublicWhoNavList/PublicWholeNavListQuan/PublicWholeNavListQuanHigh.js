@@ -44,7 +44,7 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -53,6 +53,7 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
                               ready:true,
                           })
         })
+        console.log(this.FetchApi)
     }
   componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{
@@ -70,7 +71,7 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
 
   _onEndReached=async()=>{
       page++;
-      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao`);
+      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
                         movies: this.state.movies.concat(json)
@@ -96,16 +97,16 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
                   onEndReached={this._onEndReached}
                   style={styles.FlatList}
                   data={movies}
-                  keyExtractor={item=>item.Title}
+                  keyExtractor={item=>item.title}
                   onRefresh={this._onRefresh}
                   renderItem={
                       ({item})=><PublicWholeItem
                               Pic={item.small_images}
                               Title={item.title}
                               Org_Price={item.reserve_price}
-                              Price={item.zk_final_price}
-                              Quan_price={item.reserve_price-zk_final_price}
-                              Sales_num={''}
+                              Price={item.zk_price}
+                              Quan_price={item.zk_final_price}
+                              Sales_num={item.volume}
                               IsTmall={''}
                               onPress={()=>navigate('PublicGoodsDetail',{
 	                              GoodsID:NewDaTaoKe.DaTaoKe?item.GoodsID:item.num_iid,

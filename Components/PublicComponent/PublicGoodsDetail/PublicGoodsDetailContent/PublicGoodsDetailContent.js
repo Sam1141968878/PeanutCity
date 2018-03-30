@@ -25,32 +25,6 @@ import {
 } from 'react-native';
 
 
-let DetailGoodsData=[
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-    {
-        Img:require('../../../../Icons/trouser.png')
-    },
-]
 
 
 export default class PublicGoodsDetailContent extends PureComponent{
@@ -84,29 +58,28 @@ export default class PublicGoodsDetailContent extends PureComponent{
                   }
               </TouchableOpacity>
           </View>
-              {
-                display
-                ?
-                <FlatList
-                    style={styles.FlatList}
-                    data={DetailGoodsData}
-                    keyExtractor={item=>item.Img}
-                    renderItem={
-                          ({item})=> <Image
-                                        source={item.Img}
-                                        style={{width:'100%',height:300}}
-                          />
-                    }
-                    numColumns={1}
-                    getItemLayout={
-                        (data, index) =>
-                          ( {length: 300, offset: 300 * index, index} )
-                    }
-                    initialNumToRender={0}
-                />
-                :
-                <View></View>
-              }
+          {
+            display
+            ?
+            <View>
+                {
+                    this.props.Description.map((item,index)=>
+                    <Image
+                        source={{uri:item.img}}
+                        style={{
+                            width:'98%',
+                            height:item.height*0.45,
+                            marginLeft:3,
+                        }}
+                        resizeMode='contain'
+                    />
+                    )
+                }
+            </View>
+            :
+              <View></View>
+          }
+
       </View>
     );
   }

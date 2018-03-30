@@ -32,16 +32,17 @@ import HomePageSwiperItem from '../../Item/HomePageItem/HomePageSwiperItem'
 export default class SwiperComponent extends PureComponent{
     state={
         movies:[],
+        ready:false,
     }
     Api='http://111.230.254.117:8000/list?table=taobao&num='
-    num=5;
+    num=9;
     page=0;
     fetchData = async (Api) => {
       const json = await fetchJson(Api);
       this.setState({
              movies:json,
+             ready:true,
       })
-      console.log(`${this.Api}${this.num}&page=${this.page}`)
     }
 
     componentDidMount() {
@@ -53,21 +54,21 @@ export default class SwiperComponent extends PureComponent{
     return (
       <View style={styles.View}>
           {
-              this.state.movies
+              this.state.ready
               ?
                   <Swiper
                     autoplay={true}
                   >
                       {
                          this.state.movies.map((item, index) =>
-                         <HomePageSwiperItem
-                             key={index}
-                             image={item.pict_url}
-                             onPress={()=>navigate('PublicGoodsDetail',{
-                               id:item.num_iid,
-                               navigate:navigate
-                             })}
-                         />
+                            <HomePageSwiperItem
+                                key={index}
+                                image={item.pict_url}
+                                onPress={()=>navigate('PublicGoodsDetail',{
+                                  id:item.num_iid,
+                                  navigate:navigate
+                                })}
+                            />
                          )
                       }
                   </Swiper>

@@ -28,14 +28,14 @@ import NewNavTabPickerStore from '../../../../../../Store/NavTabPickerStore'
 @observer
 export default class PublicWholeNavListQuan extends PureComponent{
   render() {
-    const {navigate}=this.props;
+    const {navigate,title}=this.props;
 
     if(NewNavTabPickerStore.Picker==0){
-        return <PublicWholeNavListQuanDefault OrderBy={1} navigate={navigate}/>;
+        return <PublicWholeNavListQuanDefault  OrderBy={'zk_final_price'} navigate={navigate}/>;
     }else if(NewNavTabPickerStore.Picker==1){
-        return <PublicWholeNavListQuanHigh OrderBy={'zk_price'} navigate={navigate} HighLow={'DESC'}/>;
+        return <PublicWholeNavListQuanHigh title={title} OrderBy={'zk_final_price'} navigate={navigate} HighLow={'DESC'}/>;
     }else if(NewNavTabPickerStore.Picker==2){
-        return <PublicWholeNavListQuanLow OrderBy={'zk_price'} navigate={navigate} HighLow={'ASC'}/>;
+        return <PublicWholeNavListQuanLow title={title} OrderBy={'zk_final_price'} navigate={navigate} HighLow={'ASC'}/>;
     }else{
         return <ActivityIndicator/>
     }

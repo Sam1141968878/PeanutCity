@@ -19,10 +19,15 @@ import {
 
 export default class Problem extends PureComponent{
   render() {
+    const {navigate}=this.props;
     return (
       <View
           style={styles.View}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={()=>navigate('ProblemPageList',{
+                    title:'常见问题'
+            })}
+          >
               <Image
               source={require('../../../Icons/problem.png')}
               style={styles.Img}
