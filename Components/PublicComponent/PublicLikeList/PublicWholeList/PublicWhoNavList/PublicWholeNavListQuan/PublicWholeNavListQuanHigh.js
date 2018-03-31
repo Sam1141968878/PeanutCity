@@ -109,7 +109,7 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
                               Sales_num={item.volume}
                               IsTmall={''}
                               onPress={()=>navigate('PublicGoodsDetail',{
-	                              GoodsID:NewDaTaoKe.DaTaoKe?item.GoodsID:item.num_iid,
+	                              id:item.num_iid,
 	                              navigate:navigate,
                               })}
                               />

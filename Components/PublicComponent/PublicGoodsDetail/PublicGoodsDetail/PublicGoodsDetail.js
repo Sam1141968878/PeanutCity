@@ -74,6 +74,7 @@ export default class PublicGoodsDetail extends PureComponent{
     }
     componentDidMount() {
         this.fetchData();
+        console.log(`${Api}${this.id}`)
     }
   render() {
     const{BigImage,

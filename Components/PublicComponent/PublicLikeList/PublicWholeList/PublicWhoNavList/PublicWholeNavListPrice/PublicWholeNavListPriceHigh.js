@@ -43,7 +43,7 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
       ready:false,
       refreshing:false,
   }
-      FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -108,7 +108,7 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
                               Sales_num={item.volume}
                               IsTmall={''}
                               onPress={()=>navigate('PublicGoodsDetail',{
-	                              GoodsID:NewDaTaoKe.DaTaoKe?item.GoodsID:item.num_iid,
+	                              id:item.num_iid,
 	                              navigate:navigate,
                               })}
                               />

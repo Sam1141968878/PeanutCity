@@ -31,6 +31,8 @@ import ProblemPageList from './Components/Page/ProblemPage/ProblemPageList'
 import ProblemPage from './Components/Page/ProblemPage/ProblemPage'
 import AnnouncementPageList from './Components/Page/AnnouncementPage/AnnouncementPageList'
 import AnnouncementPage from './Components/Page/AnnouncementPage/AnnouncementPage'
+import SearchPage from './Components/Page/SearchPage/SearchPage'
+import SearchDetailPage from './Components/Detail/SearchDetailPage/SearchDetailPage'
 
 
 import HomePageDetailNavBannerDetailPage from './Components/Detail/HomePageDetail/HomePageDetailNavBannerDetailPage'
@@ -101,6 +103,8 @@ const App=StackNavigator({
 	ProblemPage:{screen:ProblemPage},
 	AnnouncementPageList:{screen:AnnouncementPageList},
 	AnnouncementPage:{screen:AnnouncementPage},
+	SearchPage:{screen:SearchPage},
+	SearchDetailPage:{screen:SearchDetailPage},
 },{
     headerMode:'none'
 })

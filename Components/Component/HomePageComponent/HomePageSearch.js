@@ -1,8 +1,15 @@
 /**
- * Sample React Native App
+ * Sample
+ * React
+ * Native
+ * App
  * https://github.com/facebook/react-native
  * @flow
- * Created by Administrator on 2018/3/6.
+ * Created
+ *     by
+ *     Administrator
+ *     on
+ *     2018/3/6.
  */
 
 import React, { Component,PureComponent } from 'react';
@@ -13,6 +20,8 @@ import {
   Text,
   View,
   InteractionManager,
+  Image,
+  TouchableOpacity
 } from 'react-native';
 
 import SearchInput from 'teaset/components/SearchInput/SearchInput';
@@ -21,16 +30,20 @@ export default class Search extends PureComponent{
     value:'',
   }
   render() {
+    const {navigate}=this.props;
     return (
       <View>
-        <SearchInput
-            placeholder="粘贴宝贝标题,先领券,再购物"
+          <TouchableOpacity
             style={styles.Input}
-            value={this.state.value}
-            onChangeText={text => this.setState({value: text})}
-            onFocus={()=>alert('得到焦点')}
-            onBlur={()=>alert('失去焦点')}
-        />
+            onPress={()=>navigate('SearchPage')}
+          >
+              <Image
+                source={require('../../../Icons/Search.png')}
+                style={styles.Img}
+              />
+              <Text
+                  style={styles.Text}>粘贴宝贝标题,先领券,再购物</Text>
+          </TouchableOpacity>
       </View>
     );
   }
@@ -38,9 +51,23 @@ export default class Search extends PureComponent{
 
 const styles = StyleSheet.create({
     Input:{
-        width:300,
+        width:'80%',
+        height:25,
         marginLeft:20,
+        borderRadius:13,
         marginTop:30,
-        borderRadius:20,
+        backgroundColor:'#FFF',
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    Img:{
+        width:16,
+        height:16,
+        marginLeft:20,
+        marginRight:20
+    },
+    Text:{
+        fontSize:12,
+        color:'gray'
     }
 });

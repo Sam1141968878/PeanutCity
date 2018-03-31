@@ -111,7 +111,7 @@ export default class PublicWholeNavListSalesLow extends PureComponent{
                               provcity={item.provcity}
                               seller_id={item.seller_id}
                               onPress={()=>navigate('PublicGoodsDetail',{
-	                              GoodsID:NewDaTaoKe.DaTaoKe?item.GoodsID:item.num_iid,
+	                              id:item.num_iid,
 	                              navigate:navigate,
                               })}
                               />

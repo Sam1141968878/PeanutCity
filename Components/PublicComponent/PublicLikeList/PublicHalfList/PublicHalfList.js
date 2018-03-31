@@ -35,9 +35,7 @@ export default class PublicHalfList extends PureComponent{
         })
     }
     componentDidMount() {
-        InteractionManager.runAfterInteractions(()=>{
-            this.fetchData(this.FetchApi);
-        })
+        this.fetchData(this.FetchApi);
     }
   render() {
     const {navigate}=this.props;

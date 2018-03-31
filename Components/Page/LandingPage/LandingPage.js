@@ -286,7 +286,7 @@ export default class LandingPage extends PureComponent{
       <View style={styles.View}>
           <TouchableOpacity
               onPress={()=>goBack()}>
-              <Image
+              <Images
               style={styles.Image1}
               source={require('../../../Icons/shutDown.png')}
               />
@@ -295,13 +295,13 @@ export default class LandingPage extends PureComponent{
               style={styles.Image2View}>
             <Image
               style={styles.Image2}
-              source={require('../../../Icons/landing.png')}
+              source={require('../../../Icons/logo.png')}
             />
           </View>
-          <Image
-              style={styles.Image3}
-              source={require('../../../Icons/peanut.png')}
-          />
+          {/*<Image*/}
+              {/*style={styles.Image3}*/}
+              {/*source={require('../../../Icons/logo.png')}*/}
+          {/*/>*/}
           <View style={styles.View1}>
               <Image
               style={styles.Image4}
@@ -421,42 +421,42 @@ export default class LandingPage extends PureComponent{
                   <Text style={styles.DownText2}>没有密码/忘记密码</Text>
               </TouchableOpacity>
           </View>
-          <TouchableOpacity
-              onPress={()=>this.createData('name','李观汉')}
-          >
-              <Text>增加数据</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={()=>this.inquireData('name')}
-          >
-              <Text>查询数据</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={()=>this.removeData('name')}
-          >
-              <Text>删除数据</Text>
-          </TouchableOpacity>
-          <Text>{this.state.data}</Text>
-          <TouchableOpacity
-              onPress={this.WxShareSessionText}
-          >
-              <Text>测试微信分享文字到个人</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareSessionImage}
-          >
-              <Text>测试微信分享图片到个人</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareLineText}
-          >
-              <Text>测试微信分享文字到朋友圈</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareLineImage}
-          >
-              <Text>测试微信分享图片到朋友圈</Text>
-          </TouchableOpacity>
+          {/*<TouchableOpacity*/}
+              {/*onPress={()=>this.createData('name','李观汉')}*/}
+          {/*>*/}
+              {/*<Text>增加数据</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={()=>this.inquireData('name')}*/}
+          {/*>*/}
+              {/*<Text>查询数据</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={()=>this.removeData('name')}*/}
+          {/*>*/}
+              {/*<Text>删除数据</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<Text>{this.state.data}</Text>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={this.WxShareSessionText}*/}
+          {/*>*/}
+              {/*<Text>测试微信分享文字到个人</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={this.WxShareSessionImage}*/}
+          {/*>*/}
+              {/*<Text>测试微信分享图片到个人</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={this.WxShareLineText}*/}
+          {/*>*/}
+              {/*<Text>测试微信分享文字到朋友圈</Text>*/}
+          {/*</TouchableOpacity>*/}
+          {/*<TouchableOpacity*/}
+              {/*onPress={this.WxShareLineImage}*/}
+          {/*>*/}
+              {/*<Text>测试微信分享图片到朋友圈</Text>*/}
+          {/*</TouchableOpacity>*/}
       </View>
     );
   }

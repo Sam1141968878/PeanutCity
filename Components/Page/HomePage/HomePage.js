@@ -70,7 +70,7 @@ export default class HomePage extends PureComponent{
       >
           <StatusBar translucent={true}
                      backgroundColor='rgba(255,255,255,0)'/>
-          <HomePageSearch/>
+          <HomePageSearch  navigate={navigate}/>
           <PublicMessage top={30} right={10} backgroundColor={'red'} navigate={navigate}/>
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>
