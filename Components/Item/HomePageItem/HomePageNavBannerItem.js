@@ -36,15 +36,8 @@ export default class NavBannerItem extends PureComponent{
           style={styles.NavBnnerItem}
           onPress={onPress}
       >
-            <View style={{width:45,
-                          height:45,
-                          borderRadius:16,
-                          backgroundColor:backgroundColor
-                          }}>
-                <Image source={Img} style={styles.Img}/>
-            </View>
-
-            <Text style={styles.Text}>{NavTitle}</Text>
+          <Image source={Img} style={styles.Img}/>
+          <Text style={styles.Text}>{NavTitle}</Text>
       </TouchableOpacity>
     );
   }
@@ -58,14 +51,13 @@ const styles = StyleSheet.create({
         marginTop:10,
     },
     Img:{
-        width:25,
-        height:25,
-        marginLeft:11,
-        marginTop:10,
+        width:40,
+        height:40,
+        borderRadius:20,
     },
     Text:{
         fontSize:12,
-        marginTop:10,
+        marginTop:15,
         color:'black',
         marginLeft:1,
     }

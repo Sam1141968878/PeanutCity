@@ -53,11 +53,11 @@ export default class HomePageSwiperItem extends PureComponent{
 
 const styles = StyleSheet.create({
     Images:{
-        height:200,
+        height:210,
         width:'100%'
     },
     TouchView:{
-        height:200,
+        height:210,
         width:'100%'
     }
 });

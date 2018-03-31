@@ -23,7 +23,7 @@ export default class CirclePage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/Circle.png')}
+               source={require('../../../Icons/moment-hdpi-defalut.png')}
                style={styles.icon}
             />
        </View>

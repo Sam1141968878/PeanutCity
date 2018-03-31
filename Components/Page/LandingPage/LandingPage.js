@@ -286,7 +286,7 @@ export default class LandingPage extends PureComponent{
       <View style={styles.View}>
           <TouchableOpacity
               onPress={()=>goBack()}>
-              <Images
+              <Image
               style={styles.Image1}
               source={require('../../../Icons/shutDown.png')}
               />

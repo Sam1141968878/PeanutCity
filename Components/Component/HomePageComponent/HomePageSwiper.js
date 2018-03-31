@@ -58,6 +58,10 @@ export default class SwiperComponent extends PureComponent{
               ?
                   <Swiper
                     autoplay={true}
+                    paginationStyle={{bottom:10}}
+                    autoplayTimeout={3}
+                    dotStyle={{backgroundColor:'#FFF'}}
+                    activeDot={<View style={{backgroundColor: 'red', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
                   >
                       {
                          this.state.movies.map((item, index) =>
@@ -84,7 +88,7 @@ export default class SwiperComponent extends PureComponent{
 
 const styles = StyleSheet.create({
       View:{
-        height:200,
+        height:210,
         marginTop:-60,
         zIndex:-1,
       },

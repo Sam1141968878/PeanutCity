@@ -40,7 +40,7 @@ export default class HomePage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/Home.png')}
+               source={require('../../../Icons/index-sdip-defalut.png')}
                style={styles.icon}
             />
        </View>
@@ -59,6 +59,7 @@ export default class HomePage extends PureComponent{
     const {navigate}=this.props.navigation;
     return (
       <ScrollView
+          style={styles.view}
           keyboardDismissMode='on-drag'
           showsVerticalScrollIndicator={false}
           refreshControl={
@@ -68,8 +69,10 @@ export default class HomePage extends PureComponent{
             onRefresh={this._onRefresh.bind(this)}
           />}
       >
-          <StatusBar translucent={true}
-                     backgroundColor='rgba(255,255,255,0)'/>
+          <StatusBar
+            translucent={true}
+            backgroundColor='rgba(255,255,255,0)'
+          />
           <HomePageSearch  navigate={navigate}/>
           <PublicMessage top={30} right={10} backgroundColor={'red'} navigate={navigate}/>
           <HomePageSwiper  navigate={navigate}/>
@@ -94,6 +97,10 @@ export default class HomePage extends PureComponent{
 }
 
 const styles = StyleSheet.create({
+    view:{
+        flex:1,
+        backgroundColor:'#FFF'
+    },
     icon:{
         width:20,
         height:20,

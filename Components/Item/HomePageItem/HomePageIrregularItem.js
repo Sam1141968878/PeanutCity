@@ -50,15 +50,16 @@ export default class IrregularItem extends PureComponent{
     return (
       <TouchableOpacity
         style={{
-            height:110,
+            height:120,
             backgroundColor:ViewbackgroundColor,
             width:Viewwidth,
             marginTop:marginTop,
+            borderRadius:10,
         }}
         onPress={onPress}
       >
           <Text style={{
-            fontSize:15,
+            fontSize:16,
             color:Text1color,
             marginLeft:Text1marginLeft,
             marginTop:Text1marginTop,
@@ -66,7 +67,7 @@ export default class IrregularItem extends PureComponent{
             {Text1}
           </Text>
           <Text style={{
-            fontSize:10,
+            fontSize:12,
             color:Text2color,
             marginLeft:Text2marginLeft,
           }}>

@@ -33,7 +33,7 @@ export default class ShopPage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/Shop.png')}
+               source={require('../../../Icons/shangou-hdpi-defalut.png')}
                style={styles.icon}
             />
        </View>

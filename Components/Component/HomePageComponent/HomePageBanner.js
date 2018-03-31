@@ -36,12 +36,12 @@ export default class Banner extends PureComponent{
               source={require('../../../Icons/Yes.png')}
               style={styles.Image}
           />
-          <Text style={styles.Text}>自用购物省钱</Text>
+          <Text style={styles.Text}>分享好友赚钱</Text>
           <Image
               source={require('../../../Icons/Yes.png')}
               style={styles.Image}
           />
-          <Text style={styles.Text}>自用购物省钱</Text>
+          <Text style={styles.Text}>超值正品优惠</Text>
       </View>
     );
   }
@@ -52,7 +52,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         height:30,
         alignItems:'center',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        borderBottomWidth:StyleSheet.hairlineWidth,
+        borderBottomColor:'whitesmoke'
     },
     Image:{
         width:15,
@@ -62,5 +64,6 @@ const styles = StyleSheet.create({
     Text:{
         color:'red',
         marginRight:10,
+        fontSize:12,
     }
 });

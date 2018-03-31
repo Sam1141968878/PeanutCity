@@ -27,7 +27,7 @@ import HomePageNavBannerItem from '../../../Components/Item/HomePageItem/HomePag
 
 let Data=[
     {
-        Img:require('../../../Icons/WomenClothing.png'),
+        Img:require('../../../Icons/malecloths.png'),
         NavTitle:'女装',
         backgroundColor:'antiquewhite',
     },
@@ -37,22 +37,22 @@ let Data=[
         backgroundColor:'aqua',
     },
     {
-        Img:require('../../../Icons/Beauty.png'),
+        Img:require('../../../Icons/beatuy.png'),
         NavTitle:'美妆',
         backgroundColor:'blueviolet',
     },
     {
-        Img:require('../../../Icons/household.png'),
+        Img:require('../../../Icons/headware.png'),
         NavTitle:'家居',
         backgroundColor:'brown',
     },
     {
-        Img:require('../../../Icons/underwear.png'),
+        Img:require('../../../Icons/bra.png'),
         NavTitle:'内衣',
         backgroundColor:'cadetblue',
     },
     {
-        Img:require('../../../Icons/Men.png'),
+        Img:require('../../../Icons/mancloths.png'),
         NavTitle:'男装',
         backgroundColor:'chartreuse',
     },
@@ -62,13 +62,13 @@ let Data=[
         backgroundColor:'darkcyan',
     },
     {
-        Img:require('../../../Icons/camera.png'),
+        Img:require('../../../Icons/electron.png'),
         NavTitle:'数码',
         backgroundColor:'darkgray',
         cid:8,
     },
     {
-        Img:require('../../../Icons/bag.png'),
+        Img:require('../../../Icons/pack.png'),
         NavTitle:'鞋包',
         backgroundColor:'darkorange',
     },

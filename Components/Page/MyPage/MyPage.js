@@ -34,7 +34,7 @@ export default class MyPage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/My.png')}
+               source={require('../../../Icons/mine-hdpi-defalut.png')}
                style={styles.icon}
             />
        </View>

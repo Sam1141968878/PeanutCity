@@ -143,7 +143,6 @@ export default class PublicGoodsDetail extends PureComponent{
             :
             <ActivityIndicator/>
           }
-
       </Container>
     );
   }

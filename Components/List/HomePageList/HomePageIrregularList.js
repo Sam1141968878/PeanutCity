@@ -25,66 +25,66 @@ import {
 
 import HomePageIrregularItem from '../../../Components/Item/HomePageItem/HomePageIrregularItem'
 let {width,height}=Dimensions.get('window');
-let halfWidth=width/2-3;
-let SmallWidth=width/3-3;
+let halfWidth=width/2-13;
+let SmallWidth=width/3-10;
 export default class IrregularList extends PureComponent{
   render() {
     const {navigate}=this.props;
     return (
       <View style={styles.View}>
+              <HomePageIrregularItem
+                  Text1='聚划算'
+                  Text2='抢购好货精选'
+                  Img={require('../../../Icons/half1.png')}
+                  ViewbackgroundColor='#FFF'
+                  Viewwidth={halfWidth}
+                  marginTop={7}
+                  Text1color='red'
+                  Text1marginLeft={30}
+                  Text1marginTop={10}
+                  Text2color='palevioletred'
+                  Text2marginLeft={20}
+                  ImagemarginLeft={95}
+                  ImagemarginTop={-30}
+                  ImageWidth={60}
+                  ImageHeight={80}
+                  onPress={()=>navigate('PublicGoodsTabDetail',{
+	                                Title:'聚划算',
+                  })}
+              />
+              <HomePageIrregularItem
+                  Text1='19.9包邮'
+                  Text2='高性价比选择'
+                  Img={require('../../../Icons/half2.png')}
+                  ViewbackgroundColor='#FFF'
+                  Viewwidth={halfWidth}
+                  marginTop={7}
+                  Text1color='tomato'
+                  Text1marginLeft={20}
+                  Text1marginTop={10}
+                  Text2color='#F97E4E'
+                  Text2marginLeft={18}
+                  ImagemarginLeft={90}
+                  ImagemarginTop={-30}
+                  ImageWidth={60}
+                  ImageHeight={80}
+                  onPress={()=>navigate('PublicGoodsTabDetail',{
+	                                Title:'限时抢购',
+                  })}
+              />
           <HomePageIrregularItem
-              Text1='聚划算'
-              Text2='领券更划算'
-              Img={require('../../../Icons/Water.jpg')}
-              ViewbackgroundColor='#FFF'
-              Viewwidth={halfWidth}
-              marginTop={5}
-              Text1color='red'
-              Text1marginLeft={10}
-              Text1marginTop={10}
-              Text2color='gray'
-              Text2marginLeft={10}
-              ImagemarginLeft={100}
-              ImagemarginTop={-30}
-              ImageWidth={60}
-              ImageHeight={80}
-              onPress={()=>navigate('PublicGoodsTabDetail',{
-	                            Title:'聚划算',
-              })}
-          />
-          <HomePageIrregularItem
-              Text1='限时抢购'
-              Text2='领券更划算'
-              Img={require('../../../Icons/Water.jpg')}
-              ViewbackgroundColor='#FFF'
-              Viewwidth={halfWidth}
-              marginTop={5}
-              Text1color='blueviolet'
-              Text1marginLeft={10}
-              Text1marginTop={10}
-              Text2color='gray'
-              Text2marginLeft={10}
-              ImagemarginLeft={100}
-              ImagemarginTop={-30}
-              ImageWidth={60}
-              ImageHeight={80}
-              onPress={()=>navigate('PublicGoodsTabDetail',{
-	                            Title:'限时抢购',
-              })}
-          />
-          <HomePageIrregularItem
-              Text1='极有家'
-              Text2='我要品质生活'
-              Img={require('../../../Icons/Water.jpg')}
+              Text1='海外淘'
+              Text2='海外一键下单'
+              Img={require('../../../Icons/half3.png')}
               ViewbackgroundColor='#FFF'
               Viewwidth={SmallWidth}
-              marginTop={5}
-              Text1color='gold'
-              Text1marginLeft={35}
-              Text1marginTop={0}
-              Text2color='gray'
-              Text2marginLeft={30}
-              ImagemarginLeft={40}
+              marginTop={7}
+              Text1color='#E57A61'
+              Text1marginLeft={30}
+              Text1marginTop={5}
+              Text2color='#F97E4E'
+              Text2marginLeft={20}
+              ImagemarginLeft={35}
               ImagemarginTop={10}
               ImageWidth={40}
               ImageHeight={60}
@@ -93,18 +93,18 @@ export default class IrregularList extends PureComponent{
               })}
           />
           <HomePageIrregularItem
-              Text1='视频购'
-              Text2='实物更真实'
-              Img={require('../../../Icons/Water.jpg')}
+              Text1='聚划算'
+              Text2='抢购好货精选'
+              Img={require('../../../Icons/half2.png')}
               ViewbackgroundColor='#FFF'
               Viewwidth={SmallWidth}
-              marginTop={5}
-              Text1color='cornflowerblue'
-              Text1marginLeft={40}
-              Text1marginTop={0}
-              Text2color='gray'
-              Text2marginLeft={38}
-              ImagemarginLeft={40}
+              marginTop={7}
+              Text1color='red'
+              Text1marginLeft={32}
+              Text1marginTop={5}
+              Text2color='#F49FB5'
+              Text2marginLeft={20}
+              ImagemarginLeft={35}
               ImagemarginTop={10}
               ImageWidth={40}
               ImageHeight={60}
@@ -114,17 +114,17 @@ export default class IrregularList extends PureComponent{
           />
           <HomePageIrregularItem
               Text1='9块9包邮'
-              Text2='白菜价好物'
-              Img={require('../../../Icons/Water.jpg')}
+              Text2='好货低价疯抢'
+              Img={require('../../../Icons/half4.png')}
               ViewbackgroundColor='#FFF'
               Viewwidth={SmallWidth}
-              marginTop={5}
-              Text1color='darkorange'
-              Text1marginLeft={30}
-              Text1marginTop={0}
-              Text2color='gray'
-              Text2marginLeft={35}
-              ImagemarginLeft={40}
+              marginTop={7}
+              Text1color='#E57A61'
+              Text1marginLeft={23}
+              Text1marginTop={5}
+              Text2color='#F97E4E'
+              Text2marginLeft={20}
+              ImagemarginLeft={35}
               ImagemarginTop={10}
               ImageWidth={40}
               ImageHeight={60}
@@ -139,9 +139,14 @@ export default class IrregularList extends PureComponent{
 
 const styles = StyleSheet.create({
     View:{
-        height:220,
+        height:262,
         flexDirection:'row',
         flexWrap:'wrap',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        backgroundColor:'#f6f6f6',
+        borderBottomColor:'#f6f6f6',
+        borderBottomWidth:5,
+        paddingLeft:4,
+        paddingRight:4,
     }
 });
