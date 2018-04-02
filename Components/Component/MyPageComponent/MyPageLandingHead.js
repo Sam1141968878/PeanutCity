@@ -20,24 +20,41 @@ import {
   View,
   InteractionManager,
   TouchableOpacity,
+  AsyncStorage,
+  Button
 } from 'react-native';
 
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewLandingStore from '../../../Store/LandingStore'
 
+
+@observer
 export default class LandingHead extends PureComponent{
+   state={
+      data:''
+   }
   render() {
     const {navigate}=this.props;
     return (
-      <View
-          style={styles.landingHeadComponent}>
-          <Text
-              style={styles.Text1}>新用户注册立刻领取优惠券</Text>
-          <TouchableOpacity
-              style={styles.landingButton}
-              onPress={()=>navigate('LandingPage')}
-          >
-              <Text
-                  style={styles.Text2}>登陆/注册</Text>
-          </TouchableOpacity>
+      <View style={styles.landingHeadComponent}>
+          {
+            this.state.data
+            ?
+            <View>
+                <Text style={{color:'#FFF',fontSize:18}}>{this.state.data}</Text>
+            </View>
+            :
+            <View>
+                <Text style={styles.Text1}>新用户注册立刻领取优惠券</Text>
+                <TouchableOpacity
+                    style={styles.landingButton}
+                    onPress={()=>navigate('LandingPage')}
+                >
+                    <Text style={styles.Text2}>登陆/注册</Text>
+                </TouchableOpacity>
+            </View>
+          }
       </View>
     );
   }

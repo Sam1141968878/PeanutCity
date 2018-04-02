@@ -26,10 +26,7 @@ import {
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
-    import fetchWX from '../../Fetch/FetchWX'
-
-
-
+import fetchWX from '../../Fetch/FetchWX'
 
 
 export default class LandingPage extends PureComponent{
@@ -225,9 +222,7 @@ export default class LandingPage extends PureComponent{
             }
         })
     }
-    componentDidMount (){
-      WeChat.registerApp('wx21b8979660c07d7e');
-    }
+
 
     // 增加
     createData(key,value) {

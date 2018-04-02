@@ -31,6 +31,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import fetchJson from '../../Fetch/FetchJson'
 import Toast from 'teaset/components/Toast/Toast'
+import Drawer from 'teaset/components/Drawer/Drawer'
+import *as WeChat from 'react-native-wechat'
 
 const Api='http://111.230.254.117:8000/command?num_iid='
 export default class CommissionPage extends PureComponent{
@@ -44,6 +46,7 @@ export default class CommissionPage extends PureComponent{
       this.setState({
              movies: json,
       })
+      console.log(`${Api}${this.id}&phone=1`)
   }
   componentDidMount() {
       this.fetchData();
@@ -52,6 +55,110 @@ export default class CommissionPage extends PureComponent{
     Clipboard.setString(this.state.movies.data);
     Toast.message('爆了么:复制成功')
   }
+
+  WxShareSessionImage=()=>{
+      //判断微信是否安装
+      WeChat.isWXAppInstalled()
+      .then((isInstalled)=>{
+          if(isInstalled){
+              //微信好友的图片
+              WeChat.shareToSession({
+                type: 'imageUrl',
+                title: 'web image',
+                description: 'share web image to time line',
+                mediaTagName: 'email signature',
+                messageAction: undefined,
+                messageExt: undefined,
+                imageUrl: this.props.navigation.state.params.BigImage,
+              })
+              .catch((error) => {
+                  console.log(error.message);
+              })
+          }
+          else{
+              alert('没有安装微信软件，请您安装微信之后再试')
+          }
+      })
+      .then(()=>{
+          Clipboard.setString(`淘口令:${this.state.movies.data}
+          标题:${this.props.navigation.state.params.Title}
+          价格:${this.props.navigation.state.params.Price}
+          原价:${this.props.navigation.state.params.OrgPrice}`)
+      })
+  }
+  WxShareLineImage=()=>{
+      //判断微信是否安装
+      WeChat.isWXAppInstalled()
+      .then((isInstalled)=>{
+          if(isInstalled){
+              //微信朋友圈的图片
+               WeChat.shareToTimeline({
+                   type: 'imageUrl',
+                   title: 'web image',
+                   description: 'share web image to time line',
+                   mediaTagName: 'email signature',
+                   messageAction: undefined,
+                   messageExt: undefined,
+                   imageUrl: this.props.navigation.state.params.BigImage,
+               })
+               .then((success)=>{
+                   console.log(success)
+               }).catch((error)=>{
+                   console.log(error)
+               })
+          }
+          else{
+              alert('没有安装微信软件，请您安装微信之后再试')
+          }
+      })
+      .then(()=>{
+          Clipboard.setString(`淘口令:${this.state.movies.data}
+          标题:${this.props.navigation.state.params.Title}
+          价格:${this.props.navigation.state.params.Price}
+          原价:${this.props.navigation.state.params.OrgPrice}`)
+      })
+  }
+  view = (
+    <View style={{backgroundColor:'#FFF', height: 100}}>
+      <View style={{flex: 1,flexDirection:'row', alignItems: 'center', justifyContent: 'space-around'}}>
+          <TouchableOpacity
+              onPress={this.WxShareSessionImage}
+          >
+            <View style={{
+            width:50,
+            height:50,
+            borderRadius:30,
+            backgroundColor:'limegreen',
+            justifyContent:'center',
+            alignItems:'center'
+            }}>
+              <Image
+                  source={require('../../../Icons/WeiXin.png')}
+                  style={{width:35,height:35}}
+              />
+            </View>
+            <Text>微信好友</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareLineImage}>
+            <View style={{
+            width:50,
+            height:50,
+            borderRadius:30,
+            backgroundColor:'limegreen',
+            justifyContent:'center',
+            alignItems:'center'
+            }}>
+              <Image
+                  source={require('../../../Icons/FriendsCircle.png')}
+                  style={{width:35,height:35}}
+              />
+            </View>
+            <Text>微信朋友圈</Text>
+          </TouchableOpacity>
+      </View>
+    </View>
+  );
   render() {
     const {state,goBack,navigate}=this.props.navigation;
     const {id, Price, OrgPrice, BigImage,Title}=this.props.navigation.state.params;
@@ -120,13 +227,19 @@ export default class CommissionPage extends PureComponent{
                             onPress={()=>this._setClipboardContent()}
                         >
                             <Text
-                                style={{color:'#FFF'}}>复制淘口令</Text>
+                                style={{color:'#FFF',fontSize:16}}>复制淘口令</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.Button2}>
+                        <TouchableOpacity
+                            style={styles.Button2}
+                            onPress={()=>[
+                                Drawer.open(this.view, 'bottom')
+                            ]}
+                        >
                             <Text
-                                style={{color:'#FFF'}}>分享图片</Text>
+                                style={{color:'#FFF',fontSize:16}}>分享图片</Text>
                         </TouchableOpacity>
                     </View>
+
                 </View>
                 :
                 <ActivityIndicator/>

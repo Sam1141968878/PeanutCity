@@ -101,20 +101,20 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
                   keyExtractor={item=>item.title}
                   onRefresh={this._onRefresh}
                   renderItem={
-                      ({item})=><PublicWholeItem
-                              Pic={item.UrlPicture}
-                              Title={item.title}
-                              Org_Price={item.PriceBeforeZK}
-                              Price={item.PriceAfterZK}
-                              Quan_price={item.PriceZK}
-                              Sales_num={item.NumSale}
-                              IsTmall={''}
-                              onPress={()=>navigate('PublicGoodsDetail',{
-	                              id:item.num_iid,
-	                              navigate:navigate,
-                              })}
-                              />
-                  }
+                     ({item})=><PublicWholeItem
+                             BigImg={item.UrlPicture}
+                             Title={item.title}
+                             TaoBaoPrice={item.PriceBeforeZK}
+                             Sales={item.NumSale}
+                             Price={item.PriceAfterZK}
+                             Preferential={item.PriceAfterZK}
+                             IsTmall={''}
+                             onPress={()=>navigate('PublicGoodsDetail',{
+	                             Title:item.Title,
+	                             id:item.GoodsID,
+                             })}
+                             />
+                   }
                   numColumns={1}
                   getItemLayout={
                       (data, index) =>

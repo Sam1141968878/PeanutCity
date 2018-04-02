@@ -44,7 +44,7 @@ export default class MyPage extends PureComponent{
     const {navigate}=this.props.navigation;
     return (
       <View>
-          <MyPageLandingHead   navigate={navigate}/>
+          <MyPageLandingHead navigate={navigate}/>
           <PublicMessage top={30} right={60} backgroundColor={'blue'}  navigate={navigate}/>
           <MyPageSetUp top={30} right={15}   navigate={navigate}/>
           <MyPageRow   navigate={navigate}/>

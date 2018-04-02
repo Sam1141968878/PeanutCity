@@ -25,6 +25,7 @@ import {
   RefreshControl,
 } from 'react-native';
 
+import *as WeChat from 'react-native-wechat'
 
 import HomePageSearch from '../../../Components/Component/HomePageComponent/HomePageSearch'
 import PublicMessage from '../../../Components/PublicComponent/PublicMessage'
@@ -54,7 +55,9 @@ export default class HomePage extends PureComponent{
             refreshing=false
         },3000)
     }
-
+  componentDidMount (){
+    WeChat.registerApp('wx21b8979660c07d7e');
+  }
   render() {
     const {navigate}=this.props.navigation;
     return (

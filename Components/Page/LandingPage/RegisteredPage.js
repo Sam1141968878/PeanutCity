@@ -24,11 +24,13 @@ import {
   Clipboard,
   Animated,
   Easing,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 import {observable,action} from 'mobx';
 import {observer} from 'mobx-react';
+import NewLandingStore from '../../../Store/LandingStore'
 
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
@@ -103,18 +105,27 @@ export default class RegisteredPage extends PureComponent{
             const json = JSON.parse(responseText);
             return json;
         })
+        .then((json)=>{
+            if(json.status==='success'){
+                Toast.message('注册成功,欢迎使用爆了么')
+                this.props.navigation.navigate('MyPage')
+                NewLandingStore.phone=json.phone
+            }else{
+                console.log(json.status)
+            }
+        })
         .catch((error) => {
             console.error(error);
         })
-        this.setState({Registered:json},()=>{
-            setTimeout(()=>{
-                if(this.state.Registered._55.status=='success'){
-                    this.props.navigation.navigate('MyTab')
-                }else{
-                    alert('注册失败,请检查一下')
-                }
-            },3000)
-        })
+        // this.setState({Registered:json},()=>{
+        //     setTimeout(()=>{
+        //         if(this.state.Registered._55.status=='success'){
+        //             this.props.navigation.navigate('MyTab')
+        //         }else{
+        //             alert('注册失败,请检查一下')
+        //         }
+        //     },3000)
+        // })
     }
 
 
