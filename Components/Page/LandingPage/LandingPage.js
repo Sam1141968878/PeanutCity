@@ -106,7 +106,17 @@ export default class LandingPage extends PureComponent{
                .then(userApi=>{
                    this.setState({
                       WxUser:userApi
-                   })
+                   },()=>alert(
+                   `名字:${this.state.WxUser.nickname}
+                   男1女2:${this.state.WxUser.sex}
+                   省份:${this.state.WxUser.province}
+                   城市:${this.state.WxUser.city}
+                   国家:${this.state.WxUser.country}
+                   头像图片地址:${this.state.WxUser.headimgurl}
+                   用户特权信息:${this.state.WxUser.privilege}
+                   用户统一标识:${this.state.WxUser.unionid}
+                   普通用户标识:${this.state.WxUser.openid}`,
+                   ))
                  }
                )
                .catch(err => {
@@ -421,42 +431,42 @@ export default class LandingPage extends PureComponent{
                   <Text style={styles.DownText2}>没有密码/忘记密码</Text>
               </TouchableOpacity>
           </View>
-          {/*<TouchableOpacity*/}
-              {/*onPress={()=>this.createData('name','李观汉')}*/}
-          {/*>*/}
-              {/*<Text>增加数据</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={()=>this.inquireData('name')}*/}
-          {/*>*/}
-              {/*<Text>查询数据</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={()=>this.removeData('name')}*/}
-          {/*>*/}
-              {/*<Text>删除数据</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<Text>{this.state.data}</Text>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={this.WxShareSessionText}*/}
-          {/*>*/}
-              {/*<Text>测试微信分享文字到个人</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={this.WxShareSessionImage}*/}
-          {/*>*/}
-              {/*<Text>测试微信分享图片到个人</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={this.WxShareLineText}*/}
-          {/*>*/}
-              {/*<Text>测试微信分享文字到朋友圈</Text>*/}
-          {/*</TouchableOpacity>*/}
-          {/*<TouchableOpacity*/}
-              {/*onPress={this.WxShareLineImage}*/}
-          {/*>*/}
-              {/*<Text>测试微信分享图片到朋友圈</Text>*/}
-          {/*</TouchableOpacity>*/}
+          <TouchableOpacity
+              onPress={()=>this.createData('name','我是写死的增加的数据')}
+          >
+              <Text>增加数据</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={()=>this.inquireData('name')}
+          >
+              <Text>查询数据</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={()=>this.removeData('name')}
+          >
+              <Text>删除数据</Text>
+          </TouchableOpacity>
+          <Text>{this.state.data}</Text>
+          <TouchableOpacity
+              onPress={this.WxShareSessionText}
+          >
+              <Text>测试微信分享文字到个人</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareSessionImage}
+          >
+              <Text>测试微信分享图片到个人</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareLineText}
+          >
+              <Text>测试文字到朋友圈</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              onPress={this.WxShareLineImage}
+          >
+              <Text>测试图片到朋友圈</Text>
+          </TouchableOpacity>
       </View>
     );
   }

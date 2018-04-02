@@ -23,6 +23,7 @@ import {
   Image,
   StatusBar,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 
 
@@ -62,19 +63,17 @@ export default class PublicGoodsDetail extends PureComponent{
       const json = await fetchJson(`${Api}${this.id}`);
         this.setState({
                movies: json,
-               BigImage:json.pict_url,
+               BigImage:json.UrlPicture,
                Title:json.title,
-               Price:json.zk_final_price,
-               OrgPrice:json.reserve_price,
-               SalesNum:json.volume,
-               QuanPrice:json.zk_price,
+               Price:json.PriceAfterZK,
+               OrgPrice:json.PriceBeforeZK,
+               SalesNum:json.NumSale,
+               QuanPrice:json.PriceZK,
                Description:json.description
         })
-        console.log(`${Api}${this.id}`)
     }
     componentDidMount() {
         this.fetchData();
-        console.log(`${Api}${this.id}`)
     }
   render() {
     const{BigImage,
@@ -110,33 +109,55 @@ export default class PublicGoodsDetail extends PureComponent{
                     </Content>
                     <Footer>
                       <FooterTab>
-                        <Button
-                            style={{backgroundColor:'#FFF',marginLeft:-50}}
+                        <TouchableOpacity
+                            style={{
+                            backgroundColor:'#FFF',
+                            justifyContent:'center',
+                            alignItems:'center',
+                            width:'20%',
+                            height:55
+                            }}
                             onPress={()=>navigate('LandingPage',{
                             })}
                         >
                           <Image
                             source={require('../../../../Icons/Stars.png')}
-                            style={{width:25,height:25,marginLeft:50}}
+                            style={{width:25,height:25}}
                           />
-                          <Text style={{marginLeft:50}}>收藏</Text>
-                        </Button>
-                        <Button
-                            style={{backgroundColor:'peachpuff',width:200,height:55}}
-                            onPress={()=>navigate('LandingPage',{
+                          <Text>收藏</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                            backgroundColor:'mistyrose',
+                            width:'50%',height:55,
+                            justifyContent:'center',
+                            alignItems:'center'
+                            }}
+                            onPress={()=>navigate('CommissionPage',{
+                                title:'创建分享',
+                                Title:Title,
+                                id:this.id,
+                                Price:Price,
+                                OrgPrice:OrgPrice,
+                                BigImage:BigImage,
                             })}
                         >
                           <Text
-                              style={styles.Text1}>分享宝贝</Text>
-                        </Button>
-                        <Button
-                            style={{backgroundColor:'red',width:100,height:55}}
+                              style={styles.Text1}>佣金￥10</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                            backgroundColor:'red',
+                            width:'30%',
+                            height:55,
+                            justifyContent:'center',
+                            alignItems:'center'
+                            }}
                             onPress={()=>navigate('LandingPage',{
                             })}
                         >
-                            <Text
-                                style={styles.Text2}>抢券 $ <Text style={styles.Text3}>15</Text> </Text>
-                        </Button>
+                            <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>
+                        </TouchableOpacity>
                       </FooterTab>
                     </Footer>
                 </Container>

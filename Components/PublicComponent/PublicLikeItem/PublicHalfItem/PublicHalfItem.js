@@ -30,13 +30,14 @@ let Halfwidth=width/2-10;
 export default class PublicHalfItem extends PureComponent{
   render() {
     const {
-        BigImg,
         Title,
         Price,
+        onPress,
+        BigImg,
         TaoBaoPrice,
         Sales,
         Preferential,
-        onPress
+        IsTmalls
     }=this.props;
     return (
       <TouchableOpacity

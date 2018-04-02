@@ -2,18 +2,40 @@
 	# url 	111.230.254.117:8000/list
 	# 函数 	获取商品列表
 	#参数 	table  				大淘客或淘宝	dataoke,taobao
-	#参数	OrderBy(dataoke) 	排序类型
-	Quan_price,Price,Org_Price,Cid,Sales_num
-	#参数	OrderBy(taobao) 	排序类型
-	zk_price(折扣后的价格),zk_final_price(折扣),reserve_price(原价),volume(销量),
+	#参数	OrderBy 		 	排序类型 		NumSale,ProceBeforeZK,PriceAfterZK,PriceZK,ConnissionTicket
 	#参数 	HighLow				排序高低 		DESC，ASC		（降序，增序）
-	#参数	ByDict 				查询条件		（大淘客）
-	{'cid':'1'}		#Cid 	1女装	9男装	10内衣	2母婴	3化妆品	4居家	5鞋包配饰	6美食 7文体车品	8数码家电
-	#参数    kind=女装			查询条件		（淘宝）
+	#参数	ByDict 				查询条件		（大淘客）	{'cid':'1'}		#Cid 	1女装	9男装	10内衣	2母婴	3化妆品	4居家	5鞋包配饰	6美食 7文体车品	8数码家电
+	#参数	ByDict 				查询条件		（淘宝） 	{'cid':'女装'}
 	#参数	num 				条数			1
 	#参数 	page 				页数			1
 	################################################
 
+
+'GoodsID',			#商品id
+	'SellerID',			#卖家id
+	'NumSale',			#销量
+	'title',			#标题
+	'UrlItem',			#商品url
+	'UrlPicture',		#图片url
+	'UrlSmallImage',	#小图
+	'where',			#地点
+	'TypeUser',			#用户类型
+	'PriceBeforeZK',	#原价
+	'PriceAfterZK',		#折扣后价格
+	'PriceZK',			#折扣价格
+	'nick',				#商家昵称
+	'status',			#状态
+	'time',				#时间
+	'description',		#描述
+	'kind',				#类型
+
+	'titleShort',		#短标题
+	'ScoreStore',		#店铺评分
+	'CommissionTicket',#券佣金
+	'CommissionType',	#券类型
+	'cid',				#分类
+	'LinkTicket',		#券链接
+	'LinkPlan',			#计划链接
 
 ################################################
 	# url 	111.230.254.117:8000/detail

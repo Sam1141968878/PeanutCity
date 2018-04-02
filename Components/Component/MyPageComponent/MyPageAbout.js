@@ -33,7 +33,7 @@ export default class about extends PureComponent{
           </View>
           <View style={styles.BigView}>
               <Text
-                  style={styles.Text}>关于花生日记</Text>
+                  style={styles.Text}>关于爆了么</Text>
               <Image
                   source={require('../../../Icons/goUp.png')}
                   style={styles.goUp}

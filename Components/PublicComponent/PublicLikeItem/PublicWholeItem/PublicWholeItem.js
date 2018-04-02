@@ -23,17 +23,16 @@ import {
   Image,
 } from 'react-native';
 
-
 export default class PublicWholeItem extends PureComponent{
   render() {
     const {
         Title,
         Price,
-        Org_Price,
-        Sales_num,
-        Quan_price,
         onPress,
-        Pic,
+        BigImg,
+        TaoBaoPrice,
+        Sales,
+        Preferential,
         IsTmall
     }=this.props;
     return (
@@ -42,7 +41,7 @@ export default class PublicWholeItem extends PureComponent{
           onPress={onPress}
       >
           <Image
-              source={{uri:Pic}}
+              source={{uri:BigImg}}
               style={styles.Image1}
           />
           <View style={styles.Text1View}>
@@ -68,13 +67,13 @@ export default class PublicWholeItem extends PureComponent{
               <Text style={styles.Text2}>
                 ¥ <Text style={styles.Text3}>{Price}</Text>
               </Text>
-              <Text style={styles.Text4}>天猫价:¥ {Org_Price}</Text>
+              <Text style={styles.Text4}>天猫价:¥ {TaoBaoPrice}</Text>
           </View>
           <View style={styles.Text3View}>
-              <Text style={styles.Text5}>月销{Sales_num}</Text>
+              <Text style={styles.Text5}>月销{Sales}</Text>
               <TouchableOpacity>
                   <View style={styles.ImageView}>
-                      <Text style={styles.Text6}>券  ¥  {Quan_price}</Text>
+                      <Text style={styles.Text6}>券  ¥  {Preferential}</Text>
                   </View>
               </TouchableOpacity>
           </View>

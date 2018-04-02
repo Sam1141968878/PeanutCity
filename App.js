@@ -33,6 +33,7 @@ import AnnouncementPageList from './Components/Page/AnnouncementPage/Announcemen
 import AnnouncementPage from './Components/Page/AnnouncementPage/AnnouncementPage'
 import SearchPage from './Components/Page/SearchPage/SearchPage'
 import SearchDetailPage from './Components/Detail/SearchDetailPage/SearchDetailPage'
+import CommissionPage from './Components/Page/CommissionPage/CommissionPage'
 
 
 import HomePageDetailNavBannerDetailPage from './Components/Detail/HomePageDetail/HomePageDetailNavBannerDetailPage'
@@ -105,6 +106,7 @@ const App=StackNavigator({
 	AnnouncementPage:{screen:AnnouncementPage},
 	SearchPage:{screen:SearchPage},
 	SearchDetailPage:{screen:SearchDetailPage},
+	CommissionPage:{screen:CommissionPage},
 },{
     headerMode:'none'
 })

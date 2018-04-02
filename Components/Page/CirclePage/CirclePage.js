@@ -19,7 +19,7 @@ import {
 import CirclePageList from '../../../Components/List/CirclePageList/CirclePageList'
 export default class CirclePage extends PureComponent{
     static navigationOptions = {
-    tabBarLabel: '花生圈',
+    tabBarLabel: '朋友圈',
     tabBarIcon: () => (
        <View>
             <Image

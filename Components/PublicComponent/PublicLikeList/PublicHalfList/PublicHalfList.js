@@ -49,14 +49,16 @@ export default class PublicHalfList extends PureComponent{
                keyExtractor={item=>item.title}
                renderItem={
                      ({item})=><PublicHalfItem
-                             BigImg={item.pict_url}
+                             BigImg={item.UrlPicture}
                              Title={item.title}
-                             TaoBaoPrice={item.reserve_price}
-                             Sales={item.volume}
-                             Price={item.zk_final_price}
-                             Preferential={item.zk_price}
+                             TaoBaoPrice={item.PriceBeforeZK}
+                             Sales={item.NumSale}
+                             Price={item.PriceAfterZK}
+                             Preferential={item.PriceAfterZK}
+                             IsTmall={''}
                              onPress={()=>navigate('PublicGoodsDetail',{
 	                             Title:item.Title,
+	                             id:item.GoodsID,
                              })}
                              />
                    }

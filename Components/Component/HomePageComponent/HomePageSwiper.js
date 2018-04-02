@@ -34,9 +34,7 @@ export default class SwiperComponent extends PureComponent{
         movies:[],
         ready:false,
     }
-    Api='http://111.230.254.117:8000/list?table=taobao&num='
-    num=9;
-    page=0;
+    Api='http://111.230.254.117:8000/gang_rape'
     fetchData = async (Api) => {
       const json = await fetchJson(Api);
       this.setState({
@@ -46,7 +44,7 @@ export default class SwiperComponent extends PureComponent{
     }
 
     componentDidMount() {
-        this.fetchData(`${this.Api}${this.num}&page=${this.page}`);
+        this.fetchData(this.Api);
     }
 
   render() {
@@ -67,9 +65,9 @@ export default class SwiperComponent extends PureComponent{
                          this.state.movies.map((item, index) =>
                             <HomePageSwiperItem
                                 key={index}
-                                image={item.pict_url}
+                                image={item.url_goods_img}
                                 onPress={()=>navigate('PublicGoodsDetail',{
-                                  id:item.num_iid,
+                                  id:item.GoodsID,
                                   navigate:navigate
                                 })}
                             />

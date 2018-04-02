@@ -39,9 +39,9 @@ export default class PublicWholeNavListSales extends PureComponent{
               {
                   NavTabPickerStore.SalesDESC
                   ?
-                  <PublicWholeNavListSalesLow  title={title} navigate={navigate} OrderBy={'volume'} HighLow={'ASC'}/>
+                  <PublicWholeNavListSalesLow  title={title} navigate={navigate} OrderBy={'NumSale'} HighLow={'ASC'}/>
                   :
-                  <PublicWholeNavListSalesHigh title={title} navigate={navigate} OrderBy={'volume'} HighLow={'DESC'}/>
+                  <PublicWholeNavListSalesHigh title={title} navigate={navigate} OrderBy={'NumSale'} HighLow={'DESC'}/>
               }
 
       </View>

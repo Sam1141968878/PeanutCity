@@ -33,7 +33,7 @@ export default class IrregularList extends PureComponent{
     return (
       <View style={styles.View}>
               <HomePageIrregularItem
-                  Text1='聚划算'
+                  Text1='超级划算'
                   Text2='抢购好货精选'
                   Img={require('../../../Icons/half1.png')}
                   ViewbackgroundColor='#FFF'
@@ -73,7 +73,7 @@ export default class IrregularList extends PureComponent{
                   })}
               />
           <HomePageIrregularItem
-              Text1='海外淘'
+              Text1='海外购'
               Text2='海外一键下单'
               Img={require('../../../Icons/half3.png')}
               ViewbackgroundColor='#FFF'
@@ -93,7 +93,7 @@ export default class IrregularList extends PureComponent{
               })}
           />
           <HomePageIrregularItem
-              Text1='聚划算'
+              Text1='巨划算'
               Text2='抢购好货精选'
               Img={require('../../../Icons/half2.png')}
               ViewbackgroundColor='#FFF'

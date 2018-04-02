@@ -43,7 +43,7 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&cid=${this.props.title}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -70,7 +70,7 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
 
   _onEndReached=async()=>{
       page++;
-      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&kind=${this.props.title}`);
+      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&cid=${this.props.title}`);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
                         movies: this.state.movies.concat(json)
@@ -100,15 +100,15 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
                   onRefresh={this._onRefresh}
                   renderItem={
                       ({item})=><PublicWholeItem
-                              Pic={item.small_images}
+                              Pic={item.UrlPicture}
                               Title={item.title}
-                              Org_Price={item.reserve_price}
-                              Price={item.zk_price}
-                              Quan_price={item.zk_final_price}
-                              Sales_num={item.volume}
+                              Org_Price={item.PriceBeforeZK}
+                              Price={item.PriceAfterZK}
+                              Quan_price={item.PriceZK}
+                              Sales_num={item.NumSale}
                               IsTmall={''}
                               onPress={()=>navigate('PublicGoodsDetail',{
-	                              id:item.num_iid,
+	                              id:item.GoodsID,
 	                              navigate:navigate,
                               })}
                               />
