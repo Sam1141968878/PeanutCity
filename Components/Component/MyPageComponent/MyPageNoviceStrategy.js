@@ -31,7 +31,7 @@ export default class NoviceStrategy extends PureComponent{
         <View
             style={styles.View}>
             <TouchableOpacity
-                onPress={()=>navigate('NovicePage',{
+                onPress={()=>navigate(this.props.GoTo,{
                     title:'新手攻略'
                 })}
             >

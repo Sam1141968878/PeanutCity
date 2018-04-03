@@ -22,7 +22,7 @@ export default class about extends PureComponent{
     const {navigate}=this.props;
     return (
       <TouchableOpacity style={styles.View}
-          onPress={()=>navigate('LandingPage')}
+          onPress={()=>navigate(this.props.GoTo)}
       >
           <View
               style={styles.SmallView}>

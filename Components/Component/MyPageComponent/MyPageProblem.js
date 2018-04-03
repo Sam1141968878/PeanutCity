@@ -24,7 +24,7 @@ export default class Problem extends PureComponent{
       <View
           style={styles.View}>
           <TouchableOpacity
-            onPress={()=>navigate('ProblemPageList',{
+            onPress={()=>navigate(this.props.GoTo,{
                     title:'常见问题'
             })}
           >

@@ -32,11 +32,25 @@ export default class MyPageRow extends PureComponent{
   render() {
     const {navigate}=this.props;
     return (
-      <View style={styles.View}>
-          <MyPageNoviceStrategy  navigate={navigate}/>
-          <MyPageCollection  navigate={navigate}/>
-          <MyPageProblem  navigate={navigate}/>
-          <MyPageService  navigate={navigate}/>
+      <View>
+          {
+            this.props.Landing
+            ?
+            <View style={styles.View}>
+               <MyPageNoviceStrategy GoTo={'NovicePage'} navigate={navigate}/>
+               <MyPageCollection GoTo={'CollectionPage'} navigate={navigate}/>
+               <MyPageProblem GoTo={'ProblemPageList'} navigate={navigate}/>
+               <MyPageService GoTo={'ServicePage'} navigate={navigate}/>
+            </View>
+            :
+            <View style={styles.View}>
+               <MyPageNoviceStrategy GoTo={'LandingPage'} navigate={navigate}/>
+               <MyPageCollection GoTo={'LandingPage'} navigate={navigate}/>
+               <MyPageProblem GoTo={'LandingPage'} navigate={navigate}/>
+               <MyPageService GoTo={'LandingPage'} navigate={navigate}/>
+            </View>
+          }
+
       </View>
     );
   }

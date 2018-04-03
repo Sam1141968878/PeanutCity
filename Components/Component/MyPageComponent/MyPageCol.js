@@ -30,11 +30,23 @@ export default class MyPageCol extends PureComponent{
   render() {
     const {navigate}=this.props;
     return (
-      <View
-          style={styles.View}>
-          <MyPageAnnouncement  navigate={navigate}/>
-          <MyPageOpinion  navigate={navigate}/>
-          <MyPageAbout  navigate={navigate}/>
+      <View>
+          {
+            this.props.Landing
+            ?
+            <View  style={styles.View}>
+                <MyPageAnnouncement  GoTo={'AnnouncementPageList'} navigate={navigate}/>
+                <MyPageOpinion  GoTo={'OpinionPage'} navigate={navigate}/>
+                <MyPageAbout  GoTo={'AboutPage'} navigate={navigate}/>
+            </View>
+            :
+            <View  style={styles.View}>
+                <MyPageAnnouncement  GoTo={'LandingPage'} navigate={navigate}/>
+                <MyPageOpinion  GoTo={'LandingPage'} navigate={navigate}/>
+                <MyPageAbout  GoTo={'LandingPage'} navigate={navigate}/>
+            </View>
+          }
+
       </View>
     );
   }

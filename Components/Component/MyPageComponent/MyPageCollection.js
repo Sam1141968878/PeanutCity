@@ -24,7 +24,7 @@ export default class Collection extends PureComponent{
       <View
           style={styles.View}>
           <TouchableOpacity
-              onPress={()=>navigate('LandingPage')}
+              onPress={()=>navigate(this.props.GoTo)}
           >
               <Image
               source={require('../../../Icons/YellowStars.png')}

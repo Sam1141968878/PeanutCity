@@ -153,7 +153,8 @@ export default class PublicGoodsDetail extends PureComponent{
                             justifyContent:'center',
                             alignItems:'center'
                             }}
-                            onPress={()=>navigate('LandingPage',{
+                            onPress={()=>navigate('RobStampsPage',{
+                                id:this.id
                             })}
                         >
                             <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>

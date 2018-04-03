@@ -34,6 +34,12 @@ import AnnouncementPage from './Components/Page/AnnouncementPage/AnnouncementPag
 import SearchPage from './Components/Page/SearchPage/SearchPage'
 import SearchDetailPage from './Components/Detail/SearchDetailPage/SearchDetailPage'
 import CommissionPage from './Components/Page/CommissionPage/CommissionPage'
+import SettingPage from './Components/Page/SettingPage/SettingPage'
+import CollectionPage from './Components/Page/CollectionPage/CollectionPage'
+import ServicePage from './Components/Page/ServicePage/ServicePage'
+import AboutPage from './Components/Page/AboutPage/AboutPage'
+import OpinionPage from './Components/Page/OpinionPage/OpinionPage'
+import RobStampsPage from './Components/Page/RobStampsPage/RobStampsPage'
 
 
 import HomePageDetailNavBannerDetailPage from './Components/Detail/HomePageDetail/HomePageDetailNavBannerDetailPage'
@@ -45,12 +51,11 @@ import PublicGoodsDetail from './Components/PublicComponent/PublicGoodsDetail/Pu
 import PublicGoodsTabDetail from './Components/PublicComponent/PublicGoodsTab/PublicGoodsTabDetail'
 import PublicStoreDetail from './Components/PublicComponent/PublicStoreDetail/PublicStoreDetail/PublicStoreDetail'
 
-
 const MyTab =TabNavigator({
     HomePage:{screen:HomePage},
-    ShopPage:{screen:ShopPage},
+    // ShopPage:{screen:ShopPage},
     MembersPage:{screen:MembersPage},
-    CirclePage:{screen:CirclePage},
+    // CirclePage:{screen:CirclePage},
     MyPage:{screen:MyPage},
 
 },{
@@ -64,17 +69,19 @@ const MyTab =TabNavigator({
         removeClippedSubviews:false,
         pressColor : 'gainsboro',
         initialLayout:{
-            height:70,
+            height:60,
         },
         indicatorStyle: {
-              height: 0
+            height: 0
         },
         tabStyle:{
               marginTop:0,
-              height: 70,
+              height: 60,
         },
         style: {
               backgroundColor: '#FFF',
+              padding: 0 ,
+              marginBottom:-10,
         },
         labelStyle: {
               fontSize: 10,
@@ -107,6 +114,12 @@ const App=StackNavigator({
 	SearchPage:{screen:SearchPage},
 	SearchDetailPage:{screen:SearchDetailPage},
 	CommissionPage:{screen:CommissionPage},
+	SettingPage:{screen:SettingPage},
+	CollectionPage:{screen:CollectionPage},
+	ServicePage:{screen:ServicePage},
+	AboutPage:{screen:AboutPage},
+	OpinionPage:{screen:OpinionPage},
+	RobStampsPage:{screen:RobStampsPage},
 },{
     headerMode:'none'
 })

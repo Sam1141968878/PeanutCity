@@ -26,6 +26,10 @@ import {
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewNavTabPickerStore from '../../../Store/NavTabPickerStore'
+
 
 import HomePageSearch from '../../../Components/Component/HomePageComponent/HomePageSearch'
 import PublicMessage from '../../../Components/PublicComponent/PublicMessage'
@@ -77,7 +81,26 @@ export default class HomePage extends PureComponent{
             backgroundColor='rgba(255,255,255,0)'
           />
           <HomePageSearch  navigate={navigate}/>
-          <PublicMessage top={30} right={10} backgroundColor={'red'} navigate={navigate}/>
+          {
+            NewNavTabPickerStore.Landing
+            ?
+            <PublicMessage
+                top={35}
+                right={10}
+                backgroundColor={'red'}
+                navigate={navigate}
+                GoTo={'MessagePage'}
+            />
+            :
+            <PublicMessage
+                top={35}
+                right={10}
+                backgroundColor={'red'}
+                navigate={navigate}
+                GoTo={'LandingPage'}
+            />
+          }
+
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>
           <HomePageNavBannerList navigate={navigate}/>

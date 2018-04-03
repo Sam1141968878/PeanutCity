@@ -30,7 +30,7 @@ export default class Announcement extends PureComponent{
     const {navigate}=this.props;
     return (
       <TouchableOpacity style={styles.View}
-          onPress={()=>navigate('AnnouncementPageList',{
+          onPress={()=>navigate(this.props.GoTo,{
             title:'官方公告'
           })}
       >

@@ -14,7 +14,15 @@ class NavTabPickerStore {
   @observable Picker=0;
   @observable PriceDESC=true;
   @observable SalesDESC=true;
-
+  @observable Landing=false;
+  @observable PassWord='';
+  @observable Phone='';
+  @observable Code='';
+  @observable Name='';
+  @observable Sex='';
+  @observable Province='';
+  @observable City='';
+  @observable Headimgurl='';
 }
 
 let NewNavTabPickerStore=new NavTabPickerStore();

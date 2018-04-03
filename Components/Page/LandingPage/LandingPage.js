@@ -27,8 +27,14 @@ import {
 
 import *as WeChat from 'react-native-wechat'
 import fetchWX from '../../Fetch/FetchWX'
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewNavTabPickerStore from '../../../Store/NavTabPickerStore'
+import Toast from 'teaset/components/Toast/Toast';
 
 
+
+@observer
 export default class LandingPage extends PureComponent{
     state={
         Phone:'',
@@ -60,18 +66,26 @@ export default class LandingPage extends PureComponent{
             const json = JSON.parse(responseText);
             return json;
         })
-        .catch((error) => {
-            console.error(error);
-        })
-        this.setState({Landing:json},()=>{
-            console.log(this.state.Landing,`phone=${this.state.Phone}&password=${this.state.PassWord}`)
-            setTimeout(()=>{
-                if(this.state.Landing._55.status=='success'){
+        .then((json)=>{
+            this.setState({
+                Landing:json
+            },()=>{
+                if(this.state.Landing.status=='success'){
+                    action
+                    NewNavTabPickerStore.Landing=true;
+                    action
+                    NewNavTabPickerStore.PassWord=this.state.PassWord;
+                    action
+                    NewNavTabPickerStore.Phone=this.state.Phone;
+                    Toast.message('登陆成功,欢迎使用爆了么')
                     this.props.navigation.navigate('MyTab')
                 }else{
-                    alert('注册失败,请检查一下')
+                    alert('登陆失败,请检查一下')
                 }
-            },3000)
+            })
+        })
+        .catch((error) => {
+            console.error(error);
         })
     }
 
@@ -103,21 +117,25 @@ export default class LandingPage extends PureComponent{
                .then(userApi=>{
                    this.setState({
                       WxUser:userApi
-                   },()=>alert(
-                   `名字:${this.state.WxUser.nickname}
-                   男1女2:${this.state.WxUser.sex}
-                   省份:${this.state.WxUser.province}
-                   城市:${this.state.WxUser.city}
-                   国家:${this.state.WxUser.country}
-                   头像图片地址:${this.state.WxUser.headimgurl}
-                   用户特权信息:${this.state.WxUser.privilege}
-                   用户统一标识:${this.state.WxUser.unionid}
-                   普通用户标识:${this.state.WxUser.openid}`,
-                   ))
+                   },()=>{
+                       action
+                       NewNavTabPickerStore.Landing=true;
+                       action
+                       NewNavTabPickerStore.Name=this.state.WxUser.nickname;
+                       action
+                       NewNavTabPickerStore.Sex=this.state.WxUser.sex;
+                       action
+                       NewNavTabPickerStore.Province=this.state.WxUser.province;
+                       action
+                       NewNavTabPickerStore.City=this.state.WxUser.city;
+                       action
+                       NewNavTabPickerStore.Headimgurl=this.state.WxUser.headimgurl;
+                       Toast.message('微信登陆成功,欢迎使用爆了么')
+                   })
                  }
                )
                .catch(err => {
-                 alert('登录授权发生错误：', err.message, [
+                 console.log('登录授权发生错误：', err.message, [
                    {text: '确定'}
                  ]);
                })
@@ -132,126 +150,6 @@ export default class LandingPage extends PureComponent{
                ])
            }
          })
-    }
-
-    WxShareSessionText=()=>{
-        //判断微信是否安装
-        WeChat.isWXAppInstalled()
-        .then((isInstalled)=>{
-            if(isInstalled){
-                //发送微信测试文本
-                WeChat.shareToSession({
-                    type: 'text',
-                    description: '测试发给微信好友的分享文本'
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                })
-            }
-            else{
-                alert('没有安装微信软件，请您安装微信之后再试')
-            }
-        })
-    }
-    WxShareSessionImage=()=>{
-        //判断微信是否安装
-        WeChat.isWXAppInstalled()
-        .then((isInstalled)=>{
-            if(isInstalled){
-                //发送微信测试文本
-                WeChat.shareToSession({
-                  type: 'imageUrl',
-                  title: 'web image',
-                  description: 'share web image to time line',
-                  mediaTagName: 'email signature',
-                  messageAction: undefined,
-                  messageExt: undefined,
-                  imageUrl: 'https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png'
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                })
-            }
-            else{
-                alert('没有安装微信软件，请您安装微信之后再试')
-            }
-        })
-    }
-    WxShareLineText=()=>{
-        //判断微信是否安装
-        WeChat.isWXAppInstalled()
-        .then((isInstalled)=>{
-            if(isInstalled){
-                //发送微信测试文本
-                 WeChat.shareToTimeline({
-                    type: 'text',
-                    description: '测试发给微信好友的分享文本'
-                 }).then((success)=>{
-                     console.log(success)
-                 }).catch((error)=>{
-                     console.log(error)
-                 })
-            }
-            else{
-                alert('没有安装微信软件，请您安装微信之后再试')
-            }
-        })
-    }
-    WxShareLineImage=()=>{
-        //判断微信是否安装
-        WeChat.isWXAppInstalled()
-        .then((isInstalled)=>{
-            if(isInstalled){
-                //发送微信测试文本
-                 WeChat.shareToTimeline({
-                     type: 'imageUrl',
-                     title: 'web image',
-                     description: 'share web image to time line',
-                     mediaTagName: 'email signature',
-                     messageAction: undefined,
-                     messageExt: undefined,
-                     imageUrl: 'https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png'
-                 }).then((success)=>{
-                     console.log(success)
-                 }).catch((error)=>{
-                     console.log(error)
-                 })
-            }
-            else{
-                alert('没有安装微信软件，请您安装微信之后再试')
-            }
-        })
-    }
-
-
-    // 增加
-    createData(key,value) {
-        AsyncStorage.setItem(key, JSON.stringify(value), (error, result) => {
-            if (!error) {
-                this.setState({
-                    data:'保存成功!'
-                })
-            }
-        });
-    }
-    // 查询
-    inquireData(key) {
-        AsyncStorage.getItem(key)
-            .then((value) => {
-                let jsonValue = JSON.parse((value));
-
-                this.setState({
-                    data:jsonValue
-                })
-            })
-    }
-     // 删除
-    removeData(key) {
-        AsyncStorage.removeItem(key);
-
-        this.setState({
-            data:'删除完成!'
-        })
     }
 
     fetchWxPost=async(ApiPost)=>{
@@ -272,6 +170,8 @@ export default class LandingPage extends PureComponent{
                 WxRegisteredStatus:json,
             },()=>{
                 if(this.state.WxRegisteredStatus.status==='success'){
+                    action
+                    NewNavTabPickerStore.Landing=true;
                     this.props.navigation.navigate('MyTab')
                 }else{
                     this.props.navigation.navigate('WxRegisteredPage',{
@@ -426,42 +326,6 @@ export default class LandingPage extends PureComponent{
                   <Text style={styles.DownText2}>没有密码/忘记密码</Text>
               </TouchableOpacity>
           </View>
-          <TouchableOpacity
-              onPress={()=>this.createData('name','我是写死的增加的数据')}
-          >
-              <Text>增加数据</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={()=>this.inquireData('name')}
-          >
-              <Text>查询数据</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={()=>this.removeData('name')}
-          >
-              <Text>删除数据</Text>
-          </TouchableOpacity>
-          <Text>{this.state.data}</Text>
-          <TouchableOpacity
-              onPress={this.WxShareSessionText}
-          >
-              <Text>测试微信分享文字到个人</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareSessionImage}
-          >
-              <Text>测试微信分享图片到个人</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareLineText}
-          >
-              <Text>测试文字到朋友圈</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              onPress={this.WxShareLineImage}
-          >
-              <Text>测试图片到朋友圈</Text>
-          </TouchableOpacity>
       </View>
     );
   }

@@ -19,10 +19,15 @@ import {
 
 export default class Service extends PureComponent{
   render() {
+    const {navigate}=this.props;
     return (
       <View
           style={styles.View}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={()=>navigate(this.props.GoTo,{
+                    title:'联系客服'
+            })}
+          >
               <Image
               source={require('../../../Icons/BlueServer.png')}
               style={styles.Img}

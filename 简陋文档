@@ -168,7 +168,8 @@
 	################################################
 	# url：111.230.254.117:8000/rob
 	# 函数：抢券
-	# 参数：num_iid
+	#
+	参数：num_iid
 	# 返回值：{'status':'success',data:'高佣'}
 	# 返回值：{'status':'fail',message:'nothing'}
 	# 返回值：{'status':'fail',message:'no login'}

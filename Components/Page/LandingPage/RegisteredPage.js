@@ -30,7 +30,7 @@ import {
 import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 import {observable,action} from 'mobx';
 import {observer} from 'mobx-react';
-import NewLandingStore from '../../../Store/LandingStore'
+import NewNavTabPickerStore from '../../../Store/NavTabPickerStore'
 
 import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
@@ -80,6 +80,7 @@ export default class RegisteredPage extends PureComponent{
         }
       );
     }
+
     fetchData=async(Api)=>{
         const json =await fetchJosn(Api)
         this.VerificationStates=json.status;
@@ -107,9 +108,16 @@ export default class RegisteredPage extends PureComponent{
         })
         .then((json)=>{
             if(json.status==='success'){
+                action
+                NewNavTabPickerStore.Landing=true;
+                action
+                NewNavTabPickerStore.PassWord=this.state.PassWordText;
+                action
+                NewNavTabPickerStore.Phone=this.state.PhoneText;
+                action
+                NewNavTabPickerStore.Code=json.my_code_invite;
                 Toast.message('注册成功,欢迎使用爆了么')
                 this.props.navigation.navigate('MyPage')
-                NewLandingStore.phone=json.phone
             }else{
                 console.log(json.status)
             }
@@ -117,17 +125,7 @@ export default class RegisteredPage extends PureComponent{
         .catch((error) => {
             console.error(error);
         })
-        // this.setState({Registered:json},()=>{
-        //     setTimeout(()=>{
-        //         if(this.state.Registered._55.status=='success'){
-        //             this.props.navigation.navigate('MyTab')
-        //         }else{
-        //             alert('注册失败,请检查一下')
-        //         }
-        //     },3000)
-        // })
     }
-
 
   render() {
     const {state,goBack,navigate}=this.props.navigation;
@@ -136,7 +134,6 @@ export default class RegisteredPage extends PureComponent{
         PhoneText,
         textFromClipboard,
         PassWordText,
-        Code,
     }=this.state;
     return (
       <Container

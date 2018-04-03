@@ -34,6 +34,7 @@ import PublicGoBack from '../../PublicComponent/PublicGoBack'
 import Checkbox from 'teaset/components/Checkbox/Checkbox';
 import fetchJosn from '../../Fetch/FetchJson'
 import Toast from 'teaset/components/Toast/Toast';
+import NewNavTabPickerStore from '../../../Store/NavTabPickerStore'
 
 
 
@@ -132,7 +133,10 @@ export default class WxRegisteredPage extends PureComponent{
             },()=>{
                 Toast.message(this.state.WxBind.message)
                 if(this.state.WxBind.status='success'){
-                    console.log(this.state.WxBind)
+                    action
+                    NewNavTabPickerStore.Landing=true;
+                    action
+                    NewNavTabPickerStore.Phone=this.state.PhoneText;
                     this.props.navigation.navigate('MyTab')
                 }else {
                     Toast.message(this.state.WxBind.message)
