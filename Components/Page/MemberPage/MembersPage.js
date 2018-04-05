@@ -79,7 +79,7 @@ export default class MembersPage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/mumber-hdpi-defalut.png')}
+               source={require('../../../Icons/mumber-hdpi.png')}
                style={styles.icon}
             />
        </View>

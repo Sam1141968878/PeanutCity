@@ -23,6 +23,7 @@ import {
   ScrollView,
   StatusBar,
   RefreshControl,
+  AsyncStorage
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
@@ -45,7 +46,7 @@ export default class HomePage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/index-sdip-defalut.png')}
+               source={require('../../../Icons/index-sdip.png')}
                style={styles.icon}
             />
        </View>
@@ -61,6 +62,34 @@ export default class HomePage extends PureComponent{
     }
   componentDidMount (){
     WeChat.registerApp('wx21b8979660c07d7e');
+    AsyncStorage.getItem('Landing')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Landing=jsonValue
+            })
+        AsyncStorage.getItem('PassWord')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.PassWord=jsonValue
+            })
+        AsyncStorage.getItem('Phone')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Phone=jsonValue
+            })
+        AsyncStorage.getItem('Name')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Name=jsonValue
+            })
+        AsyncStorage.getItem('Code')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                this.setState({
+                    Code:jsonValue
+                })
+                NewNavTabPickerStore.Code=jsonValue
+            })
   }
   render() {
     const {navigate}=this.props.navigation;
@@ -104,7 +133,7 @@ export default class HomePage extends PureComponent{
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>
           <HomePageNavBannerList navigate={navigate}/>
-          <HomePageIrregularList navigate={navigate}/>
+          {/*<HomePageIrregularList navigate={navigate}/>*/}
           <View style={styles.LikeHead}>
               <View style={styles.line1}></View>
               <View style={styles.ImageView}>

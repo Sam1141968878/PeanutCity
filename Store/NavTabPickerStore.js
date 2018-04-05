@@ -15,6 +15,7 @@ class NavTabPickerStore {
   @observable PriceDESC=true;
   @observable SalesDESC=true;
   @observable Landing=false;
+  @observable WxBind=false;
   @observable PassWord='';
   @observable Phone='';
   @observable Code='';

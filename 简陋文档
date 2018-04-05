@@ -11,7 +11,7 @@
 	################################################
 
 
-'GoodsID',			#商品id
+    'GoodsID',			#商品id
 	'SellerID',			#卖家id
 	'NumSale',			#销量
 	'title',			#标题
@@ -85,11 +85,11 @@
 
 	################################################
 	# url：111.230.254.117:8000/logined_wechat
-	# 函数：微信登录
+	# 函数：登录
 	# 参数：类型：键值对	openid，unionid，headimgurl，nickname，sex，city，country，privilege，province
 	# 返回值：{'status':'success',message:'登录成功'}
 	# 返回值：{'status':'1',message:'no bind'}
-	# 返回值：{'status':'2',message:'no register'}
+	# 返回值：{'status':'success','message':'success login','wechat_nickname':'','wechat_headimgurl':'','phone':'','code_invite':''
 	################################################
 
 
@@ -97,7 +97,6 @@
 	# url：111.230.254.117:8000/bind_wechat_getCode
 	# 函数：绑定微信 --- 获取验证码
 	# 参数：类型：键值对	phone
-	# 返回值：{'status':'success',message:'登录成功'}
 	# 返回值：{'status':'1',message:'no register'}
 	# 返回值：{'status':'success',message:'mind your phone'}
 	################################################
@@ -182,4 +181,12 @@
 	# 参数：title
 	# 返回值：{'status':'success',data:''}
 	# 返回值：{'status':'fail',message:'nothing'}
+	################################################
+
+	################################################
+	# url：111.230.254.117:8000/logout
+	# 函数：退出
+	# 参数：无
+	# 返回值：{'status':'success',data:''}
+	# 返回值：{'status':'fail',message:'no login before'}
 	################################################

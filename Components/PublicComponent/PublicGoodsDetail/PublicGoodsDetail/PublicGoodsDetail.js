@@ -43,9 +43,12 @@ import PublicGoodsDetailHeaderImage from '../PublicGoodsDetailHeader/PublicGoods
 import PublicGoodsDetailHeaderTitle from '../PublicGoodsDetailHeader/PublicGoodsDetailHeaderTitle'
 import PublicGoodsDetailContent from '../PublicGoodsDetailContent/PublicGoodsDetailContent'
 import PublicGoodsDetailFooter from '../PublicGoodsDetailFooter/PublicGoodsDetailFooter'
+import {observable,action} from 'mobx';
+import {observer} from 'mobx-react';
+import NewNavTabPickerStore from '../../../../Store/NavTabPickerStore'
 
-
-const Api='http://111.230.254.117:8000/detail?table=taobao&GoodsID='
+const Api='http://111.230.254.117:8000/detail?table=dataoke&GoodsID='
+@observer
 export default class PublicGoodsDetail extends PureComponent{
     state={
         movies:[],
@@ -56,11 +59,14 @@ export default class PublicGoodsDetail extends PureComponent{
         QuanLink:'',
         SalesNum:'',
         QuanPrice:'',
-        description:'',
+        Description:'',
+        IsTamll:'',
+        Guess:'',
+        introduce:'',
     }
     id=this.props.navigation.state.params.id
-    fetchData = async () => {
-      const json = await fetchJson(`${Api}${this.id}`);
+    fetchData = async (api) => {
+      const json = await fetchJson(api);
         this.setState({
                movies: json,
                BigImage:json.UrlPicture,
@@ -69,11 +75,15 @@ export default class PublicGoodsDetail extends PureComponent{
                OrgPrice:json.PriceBeforeZK,
                SalesNum:json.NumSale,
                QuanPrice:json.PriceZK,
-               Description:json.description
+               Description:json.description,
+               Guess:json.guess,
+               introduce:json.introduce,
+               IsTamll:json.IsTmall,
         })
+        console.log(json)
     }
     componentDidMount() {
-        this.fetchData();
+        this.fetchData(`${Api}${this.id}`);
     }
   render() {
     const{BigImage,
@@ -82,7 +92,10 @@ export default class PublicGoodsDetail extends PureComponent{
           OrgPrice,
           SalesNum,
           QuanPrice,
-          Description
+          IsTamll,
+          Description,
+          introduce,
+          Guess
     }=this.state
     const {state,goBack,navigate}=this.props.navigation
     return (
@@ -103,63 +116,126 @@ export default class PublicGoodsDetail extends PureComponent{
                             OrgPrice={OrgPrice}
                             SalesNum={SalesNum}
                             QuanPrice={QuanPrice}
+                            IsTamll={IsTamll}
                         />
                         <PublicGoodsDetailContent Description={Description}/>
                         <PublicGoodsDetailFooter navigate={navigate}/>
                     </Content>
                     <Footer>
-                      <FooterTab>
-                        <TouchableOpacity
-                            style={{
-                            backgroundColor:'#FFF',
-                            justifyContent:'center',
-                            alignItems:'center',
-                            width:'20%',
-                            height:55
-                            }}
-                            onPress={()=>navigate('LandingPage',{
-                            })}
-                        >
-                          <Image
-                            source={require('../../../../Icons/Stars.png')}
-                            style={{width:25,height:25}}
-                          />
-                          <Text>收藏</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                            backgroundColor:'mistyrose',
-                            width:'50%',height:55,
-                            justifyContent:'center',
-                            alignItems:'center'
-                            }}
-                            onPress={()=>navigate('CommissionPage',{
-                                title:'创建分享',
-                                Title:Title,
-                                id:this.id,
-                                Price:Price,
-                                OrgPrice:OrgPrice,
-                                BigImage:BigImage,
-                            })}
-                        >
-                          <Text
-                              style={styles.Text1}>佣金￥10</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                            backgroundColor:'red',
-                            width:'30%',
-                            height:55,
-                            justifyContent:'center',
-                            alignItems:'center'
-                            }}
-                            onPress={()=>navigate('RobStampsPage',{
-                                id:this.id
-                            })}
-                        >
-                            <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>
-                        </TouchableOpacity>
-                      </FooterTab>
+                        {
+                            NewNavTabPickerStore.Landing
+                            ?
+                                <FooterTab>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'#FFF',
+                                      justifyContent:'center',
+                                      alignItems:'center',
+                                      width:'20%',
+                                      height:55
+                                      }}
+                                      onPress={()=>navigate('LandingPage',{
+                                      })}
+                                  >
+                                    <Image
+                                      source={require('../../../../Icons/Stars.png')}
+                                      style={{width:25,height:25}}
+                                    />
+                                    <Text>收藏</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'mistyrose',
+                                      width:'50%',height:55,
+                                      justifyContent:'center',
+                                      alignItems:'center'
+                                      }}
+                                      onPress={()=>navigate('CommissionPage',{
+                                          title:'创建分享',
+                                          Title:Title,
+                                          id:this.id,
+                                          Price:Price,
+                                          OrgPrice:OrgPrice,
+                                          BigImage:BigImage,
+                                          Guess:Guess,
+                                          introduce:introduce,
+                                      })}
+                                  >
+                                    <Text
+                                        style={styles.Text1}>佣金￥{Guess}</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'red',
+                                      width:'30%',
+                                      height:55,
+                                      justifyContent:'center',
+                                      alignItems:'center'
+                                      }}
+                                      onPress={()=>navigate('RobStampsPage',{
+                                          id:this.id
+                                      })}
+                                  >
+                                      <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>
+                                  </TouchableOpacity>
+                                </FooterTab>
+                            :
+                                <FooterTab>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'#FFF',
+                                      justifyContent:'center',
+                                      alignItems:'center',
+                                      width:'20%',
+                                      height:55
+                                      }}
+                                      onPress={()=>navigate('LandingPage',{
+                                      })}
+                                  >
+                                    <Image
+                                      source={require('../../../../Icons/Stars.png')}
+                                      style={{width:25,height:25}}
+                                    />
+                                    <Text>收藏</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'mistyrose',
+                                      width:'50%',height:55,
+                                      justifyContent:'center',
+                                      alignItems:'center'
+                                      }}
+                                      onPress={()=>navigate('LandingPage',{
+                                          title:'创建分享',
+                                          Title:Title,
+                                          id:this.id,
+                                          Price:Price,
+                                          OrgPrice:OrgPrice,
+                                          BigImage:BigImage,
+                                          Guess:Guess,
+                                          introduce:introduce,
+                                      })}
+                                  >
+                                    <Text
+                                        style={styles.Text1}>佣金￥{Guess}</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity
+                                      style={{
+                                      backgroundColor:'red',
+                                      width:'30%',
+                                      height:55,
+                                      justifyContent:'center',
+                                      alignItems:'center'
+                                      }}
+                                      onPress={()=>navigate('LandingPage',{
+                                          id:this.id
+                                      })}
+                                  >
+                                      <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>
+                                  </TouchableOpacity>
+                                </FooterTab>
+                        }
+
                     </Footer>
                 </Container>
             :

@@ -24,10 +24,12 @@ export default class Collection extends PureComponent{
       <View
           style={styles.View}>
           <TouchableOpacity
-              onPress={()=>navigate(this.props.GoTo)}
+              onPress={()=>navigate(this.props.GoTo,{
+                title:'我的收藏'
+              })}
           >
               <Image
-              source={require('../../../Icons/YellowStars.png')}
+              source={require('../../../Icons/shoucang.png')}
               style={styles.Img}
               />
           </TouchableOpacity>
@@ -39,19 +41,17 @@ export default class Collection extends PureComponent{
 
 const styles = StyleSheet.create({
     View:{
-        width:100,
-        height:90,
         alignItems:'center',
-        paddingTop:20,
+        paddingTop:5,
         backgroundColor:'#FFF'
     },
     Img:{
-        width:30,
-        height:30
+        width:40,
+        height:40
     },
     Text:{
-        fontSize:14,
+        fontSize:10,
         color:'black',
-        marginTop:10,
+        marginTop:-5
     }
 });

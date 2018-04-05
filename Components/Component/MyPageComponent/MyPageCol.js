@@ -54,6 +54,6 @@ export default class MyPageCol extends PureComponent{
 
 const styles = StyleSheet.create({
     View:{
-        marginTop:5,
+        marginTop:10,
     }
 });

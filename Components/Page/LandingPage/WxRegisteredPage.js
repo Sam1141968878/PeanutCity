@@ -24,7 +24,8 @@ import {
   Clipboard,
   Animated,
   Easing,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from 'react-native';
 import { Container, Content,Form,Label, Item, Input, Icon } from 'native-base';
 import {observable,action} from 'mobx';
@@ -101,12 +102,12 @@ export default class WxRegisteredPage extends PureComponent{
                 WxGetCode:json
             },()=>{
                 Toast.message(this.state.WxGetCode.message)
-                if(this.state.WxGetCode.status==='1'){
+                if(json.status=='1'){
                     this.props.navigation.navigate('RegisteredPage',{
                         title:'注册'
                     })
                 }else{
-                    this.props.navigation.navigate('MyTab')
+                    Toast.message('请留意你的验证码')
                 }
             })
         })
@@ -131,15 +132,33 @@ export default class WxRegisteredPage extends PureComponent{
             this.setState({
                 WxBind:json
             },()=>{
+                console.log(json)
                 Toast.message(this.state.WxBind.message)
                 if(this.state.WxBind.status='success'){
                     action
                     NewNavTabPickerStore.Landing=true;
                     action
                     NewNavTabPickerStore.Phone=this.state.PhoneText;
+                    action
+                    NewNavTabPickerStore.WxBind=true;
+                    AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功1')
+                            }
+                    });
+                    AsyncStorage.setItem('Phone', JSON.stringify(NewNavTabPickerStore.Phone), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功2')
+                            }
+                    });
+                    AsyncStorage.setItem('WxBind', JSON.stringify(NewNavTabPickerStore.WxBind), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功3')
+                            }
+                    });
                     this.props.navigation.navigate('MyTab')
                 }else {
-                    Toast.message(this.state.WxBind.message)
+                    Toast.message(json.status)
                     console.log(this.state.WxBind)
                 }
             })
@@ -242,7 +261,7 @@ export default class WxRegisteredPage extends PureComponent{
                     }
                 </TouchableOpacity>
                 <Text style={styles.Text1}>*同意
-                    <Text style={styles.Text2}> &lt;&lt;花生日记App用户协议&gt;&gt; </Text>
+                    <Text style={styles.Text2}> &lt;&lt;爆了么App用户协议&gt;&gt; </Text>
                 </Text>
             </View>
 

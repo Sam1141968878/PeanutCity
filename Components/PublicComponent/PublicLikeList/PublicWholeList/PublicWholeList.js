@@ -42,10 +42,9 @@ export default class PublicWholeList extends PureComponent{
                               movies: json,
                           })
         })
-        console.log(this.FetchApi)
     }
     componentDidMount() {
-        this.fetchData(this.FetchApi);
+        this.fetchData();
     }
   render() {
     const {navigate}=this.props;

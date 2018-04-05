@@ -77,10 +77,72 @@ export default class LandingPage extends PureComponent{
                     NewNavTabPickerStore.PassWord=this.state.PassWord;
                     action
                     NewNavTabPickerStore.Phone=this.state.Phone;
+                    action
+                    NewNavTabPickerStore.Code=json.code_invite;
+                    AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功1')
+                        }
+                    });
+                    AsyncStorage.setItem('PassWord', JSON.stringify(NewNavTabPickerStore.PassWord), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功2')
+                        }
+                    });
+                    AsyncStorage.setItem('Phone', JSON.stringify(NewNavTabPickerStore.Phone), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功3')
+                        }
+                    });
+                    AsyncStorage.setItem('Code', JSON.stringify(NewNavTabPickerStore.Code), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功4')
+                        }
+                    });
                     Toast.message('登陆成功,欢迎使用爆了么')
                     this.props.navigation.navigate('MyTab')
                 }else{
                     alert('登陆失败,请检查一下')
+                }
+            })
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+    fetchWxPost=async(ApiPost)=>{
+       console.log(this.state.WxUser.openid,this.state.WxUser.unionid)
+       const json=fetch(ApiPost, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}&sex=${this.state.WxUser.sex}&city=${this.state.WxUser.city}&country=${this.state.WxUser.city}&privilege=${this.state.WxUser.privilege}&province=${this.state.WxUser.province}`,
+        })
+        .then((response) => response.text())
+        .then((responseText) => {
+            const json = JSON.parse(responseText);
+            return json;
+        })
+        .then((json)=>{
+            console.log(json)
+            this.setState({
+                WxRegisteredStatus:json,
+            },()=>{
+                if(json.status==='success'){
+                    action
+                    NewNavTabPickerStore.Landing=true;
+                    AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功1')
+                            }
+                    });
+                    this.props.navigation.navigate('MyTab')
+                }else{
+                    Toast.message('请绑定手机号')
+                    this.props.navigation.navigate('WxRegisteredPage',{
+                        title:'请绑定你的手机号'
+                    })
                 }
             })
         })
@@ -130,10 +192,43 @@ export default class LandingPage extends PureComponent{
                        NewNavTabPickerStore.City=this.state.WxUser.city;
                        action
                        NewNavTabPickerStore.Headimgurl=this.state.WxUser.headimgurl;
+                       AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功1')
+                            }
+                        });
+                        AsyncStorage.setItem('Name', JSON.stringify(NewNavTabPickerStore.Name), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功2')
+                            }
+                        });
+                        AsyncStorage.setItem('Sex', JSON.stringify(NewNavTabPickerStore.Sex), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功3')
+                            }
+                        });
+                       AsyncStorage.setItem('Province', JSON.stringify(NewNavTabPickerStore.Province), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功1')
+                            }
+                        });
+                        AsyncStorage.setItem('City', JSON.stringify(NewNavTabPickerStore.City), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功2')
+                            }
+                        });
+                        AsyncStorage.setItem('Headimgurl', JSON.stringify(NewNavTabPickerStore.Headimgurl), (error, result) => {
+                            if (!error) {
+                                console.log('保存成功3')
+                            }
+                        });
                        Toast.message('微信登陆成功,欢迎使用爆了么')
+                       return userApi
                    })
-                 }
-               )
+                 })
+                 .then((userApi)=>{
+                    this.fetchWxPost(this.WxLoginApi)
+                 })
                .catch(err => {
                  console.log('登录授权发生错误：', err.message, [
                    {text: '确定'}
@@ -152,38 +247,7 @@ export default class LandingPage extends PureComponent{
          })
     }
 
-    fetchWxPost=async(ApiPost)=>{
-       const json=fetch(ApiPost, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}&sex=${this.state.WxUser.sex}&city=${this.state.WxUser.city}&country=${this.state.WxUser.city}&privilege=${this.state.WxUser.privilege}&province=${this.state.WxUser.province}`,
-        })
-        .then((response) => response.text())
-        .then((responseText) => {
-            const json = JSON.parse(responseText);
-            return json;
-        })
-        .then((json)=>{
-            this.setState({
-                WxRegisteredStatus:json,
-            },()=>{
-                if(this.state.WxRegisteredStatus.status==='success'){
-                    action
-                    NewNavTabPickerStore.Landing=true;
-                    this.props.navigation.navigate('MyTab')
-                }else{
-                    this.props.navigation.navigate('WxRegisteredPage',{
-                        title:'请绑定你的手机号'
-                    })
-                }
-            })
-        })
-        .catch((error) => {
-            console.error(error);
-        })
-    }
+
   render() {
     const {goBack,navigate}=this.props.navigation;
     const {Phone,PassWord}=this.state;
@@ -304,8 +368,7 @@ export default class LandingPage extends PureComponent{
               <TouchableOpacity
                   style={styles.WeiXinLanding}
                   onPress={()=>{
-                    this.WxLogin(),
-                    this.fetchWxPost(this.WxLoginApi)
+                    this.WxLogin()
                   }}
               >
                   <Image

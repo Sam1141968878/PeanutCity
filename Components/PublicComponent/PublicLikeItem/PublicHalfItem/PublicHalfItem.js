@@ -56,9 +56,7 @@ export default class PublicHalfItem extends PureComponent{
             <Text
                 style={styles.Title}
                 numberOfLines={2}
-            >
-               {Title}
-            </Text>
+            >          {Title}</Text>
         </View>
         <View style={styles.TextView1}>
             <Text style={styles.TaoBaoPrice}>天猫价 : ￥ {TaoBaoPrice}</Text>

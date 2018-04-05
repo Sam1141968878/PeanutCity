@@ -41,6 +41,7 @@ export default class SwiperComponent extends PureComponent{
              movies:json,
              ready:true,
       })
+      console.log(json)
     }
 
     componentDidMount() {

@@ -36,7 +36,7 @@ export default class NoviceStrategy extends PureComponent{
                 })}
             >
                 <Image
-                source={require('../../../Icons/Book.png')}
+                source={require('../../../Icons/xinshougongyue.png')}
                 style={styles.Img}
                 />
             </TouchableOpacity>
@@ -48,19 +48,17 @@ export default class NoviceStrategy extends PureComponent{
 
 const styles = StyleSheet.create({
     View:{
-        width:100,
-        height:90,
         alignItems:'center',
-        paddingTop:20,
+        paddingTop:5,
         backgroundColor:'#FFF'
     },
     Img:{
-        width:30,
-        height:30
+        width:40,
+        height:40
     },
     Text:{
-        fontSize:14,
+        fontSize:10,
         color:'black',
-        marginTop:10,
+        marginTop:-5
     }
 });

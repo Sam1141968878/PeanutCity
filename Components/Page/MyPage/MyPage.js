@@ -42,7 +42,7 @@ export default class MyPage extends PureComponent{
     tabBarIcon: () => (
        <View>
             <Image
-               source={require('../../../Icons/mine-hdpi-defalut.png')}
+               source={require('../../../Icons/mine-sdpi.png')}
                style={styles.icon}
             />
        </View>
@@ -51,6 +51,8 @@ export default class MyPage extends PureComponent{
     state={
         PassWord:'',
         Phone:'',
+        Landing:'',
+        Name:'',
     }
   render() {
     const {navigate}=this.props.navigation;
@@ -68,14 +70,13 @@ export default class MyPage extends PureComponent{
                     landing={true}
                 />
                 <PublicMessage
-                    top={25}
+                    top={30}
                     right={60}
-                    backgroundColor={'blue'}
                     navigate={navigate}
                     GoTo={'MessagePage'}
                 />
                 <MyPageSetUp
-                    top={25}
+                    top={30}
                     right={15}
                     navigate={navigate}
                     GoTo={'SettingPage'}
@@ -88,14 +89,13 @@ export default class MyPage extends PureComponent{
              <View>
                 <MyPageLandingHead navigate={navigate}/>
                 <PublicMessage
-                    top={25}
+                    top={30}
                     right={60}
-                    backgroundColor={'blue'}
                     navigate={navigate}
                     GoTo={'LandingPage'}
                 />
                 <MyPageSetUp
-                    top={25}
+                    top={30}
                     right={15}
                     navigate={navigate}
                     GoTo={'LandingPage'}

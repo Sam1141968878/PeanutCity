@@ -22,12 +22,14 @@ export default class about extends PureComponent{
     const {navigate}=this.props;
     return (
       <TouchableOpacity style={styles.View}
-          onPress={()=>navigate(this.props.GoTo)}
+          onPress={()=>navigate(this.props.GoTo,{
+            title:'关于爆了么'
+          })}
       >
           <View
               style={styles.SmallView}>
               <Image
-                  source={require('../../../Icons/about.png')}
+                  source={require('../../../Icons/guanyu.png')}
                   style={styles.Img}
               />
           </View>
@@ -57,8 +59,8 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     Img:{
-        width:25,
-        height:25,
+        width:30,
+        height:30,
     },
     BigView:{
         height:40,
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     },
     Text:{
         marginTop:8,
-        fontSize:15,
+        fontSize:14,
         color:'#000'
     },
     goUp:{

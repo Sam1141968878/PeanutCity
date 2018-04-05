@@ -32,7 +32,9 @@ export default class SetUp extends PureComponent{
           style={{position:'absolute',
                   top:this.props.top,
                   right:this.props.right}}
-          onPress={()=>navigate(this.props.GoTo)}
+          onPress={()=>navigate(this.props.GoTo,{
+            title:'设置'
+          })}
       >
           <Image
               source={require('../../../Icons/setUp.png')}

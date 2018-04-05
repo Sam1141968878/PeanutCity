@@ -32,18 +32,18 @@ export default class MyPageRow extends PureComponent{
   render() {
     const {navigate}=this.props;
     return (
-      <View>
+      <View style={styles.View}>
           {
             this.props.Landing
             ?
-            <View style={styles.View}>
+            <View style={styles.SmallView}>
                <MyPageNoviceStrategy GoTo={'NovicePage'} navigate={navigate}/>
                <MyPageCollection GoTo={'CollectionPage'} navigate={navigate}/>
                <MyPageProblem GoTo={'ProblemPageList'} navigate={navigate}/>
                <MyPageService GoTo={'ServicePage'} navigate={navigate}/>
             </View>
             :
-            <View style={styles.View}>
+            <View style={styles.SmallView}>
                <MyPageNoviceStrategy GoTo={'LandingPage'} navigate={navigate}/>
                <MyPageCollection GoTo={'LandingPage'} navigate={navigate}/>
                <MyPageProblem GoTo={'LandingPage'} navigate={navigate}/>
@@ -58,7 +58,15 @@ export default class MyPageRow extends PureComponent{
 
 const styles = StyleSheet.create({
     View:{
+        height:65,
+        backgroundColor:'#FFF',
+        marginLeft:'3%',
+        marginRight:'3%',
+        borderRadius:10,
+        marginTop:-50
+    },
+    SmallView:{
         flexDirection:'row',
-        justifyContent:'space-around',
-    }
+        justifyContent:'space-around'
+    },
 });

@@ -107,6 +107,7 @@ export default class RegisteredPage extends PureComponent{
             return json;
         })
         .then((json)=>{
+            console.log(json)
             if(json.status==='success'){
                 action
                 NewNavTabPickerStore.Landing=true;
@@ -116,12 +117,34 @@ export default class RegisteredPage extends PureComponent{
                 NewNavTabPickerStore.Phone=this.state.PhoneText;
                 action
                 NewNavTabPickerStore.Code=json.my_code_invite;
+                AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功1')
+                        }
+                });
+                AsyncStorage.setItem('PassWord', JSON.stringify(NewNavTabPickerStore.PassWord), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功2')
+                        }
+                });
+                AsyncStorage.setItem('Phone', JSON.stringify(NewNavTabPickerStore.Phone), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功3')
+                        }
+                });
+                AsyncStorage.setItem('Code', JSON.stringify(NewNavTabPickerStore.Code), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功4')
+                        }
+                });
                 Toast.message('注册成功,欢迎使用爆了么')
-                this.props.navigation.navigate('MyPage')
             }else{
                 console.log(json.status)
             }
         })
+        .then(
+            this.props.navigation.navigate('MyTab')
+        )
         .catch((error) => {
             console.error(error);
         })
@@ -250,7 +273,7 @@ export default class RegisteredPage extends PureComponent{
                     }
                 </TouchableOpacity>
                 <Text style={styles.Text1}>*同意
-                    <Text style={styles.Text2}> &lt;&lt;花生日记App用户协议&gt;&gt; </Text>
+                    <Text style={styles.Text2}> &lt;&lt;爆了么App用户协议&gt;&gt; </Text>
                 </Text>
             </View>
 

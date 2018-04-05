@@ -44,7 +44,7 @@ export default class PublicWholeNavListPriceLow extends PureComponent{
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&cid=${this.props.title}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=dataoke&cid=${this.props.title}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -71,7 +71,7 @@ export default class PublicWholeNavListPriceLow extends PureComponent{
 
   _onEndReached=async()=>{
       page++;
-      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=taobao&cid=${this.props.title}`);
+      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=dataoke&cid=${this.props.title}`);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
                         movies: this.state.movies.concat(json)
@@ -106,7 +106,7 @@ export default class PublicWholeNavListPriceLow extends PureComponent{
                              TaoBaoPrice={item.PriceBeforeZK}
                              Sales={item.NumSale}
                              Price={item.PriceAfterZK}
-                             Preferential={item.PriceAfterZK}
+                             Preferential={item.PriceZK}
                              IsTmall={''}
                              onPress={()=>navigate('PublicGoodsDetail',{
 	                             Title:item.Title,

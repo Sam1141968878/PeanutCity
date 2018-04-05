@@ -37,7 +37,7 @@ export default class Announcement extends PureComponent{
           <View
               style={styles.SmallView}>
               <Image
-                  source={require('../../../Icons/announcement.png')}
+                  source={require('../../../Icons/xiaoxi.png')}
                   style={styles.Img}
               />
           </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     Img:{
         width:30,
         height:30,
+        marginLeft:5,
     },
     BigView:{
         height:40,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     },
     Text:{
         marginTop:8,
-        fontSize:15,
+        fontSize:14,
         color:'#000'
     },
     goUp:{

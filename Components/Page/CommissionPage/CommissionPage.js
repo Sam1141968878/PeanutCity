@@ -38,6 +38,9 @@ const Api='http://111.230.254.117:8000/command?num_iid='
 export default class CommissionPage extends PureComponent{
   state={
     text:this.props.navigation.state.params.Title,
+    introduce:this.props.navigation.state.params.introduce,
+    Price:this.props.navigation.state.params.Price,
+    OrgPrice:this.props.navigation.state.params.OrgPrice,
     movies:[],
   }
   id=this.props.navigation.state.params.id
@@ -52,7 +55,19 @@ export default class CommissionPage extends PureComponent{
       this.fetchData();
   }
   _setClipboardContent(){
-    Clipboard.setString(this.state.movies.data);
+    Clipboard.setString(
+    `
+    ${this.state.text}
+    
+    ${this.state.introduce}
+    
+    [在售价]${this.state.OrgPrice}元
+    [券后价]${this.state.Price}元
+    
+    复制这条信息,
+    ${this.state.movies.data},
+    打开[手机淘宝]即可查看`
+    );
     Toast.message('爆了么:复制成功')
   }
 
@@ -80,10 +95,18 @@ export default class CommissionPage extends PureComponent{
           }
       })
       .then(()=>{
-          Clipboard.setString(`淘口令:${this.state.movies.data}
-          标题:${this.props.navigation.state.params.Title}
-          价格:${this.props.navigation.state.params.Price}
-          原价:${this.props.navigation.state.params.OrgPrice}`)
+          Clipboard.setString(
+          `${this.state.text}
+          
+          ${this.state.introduce}
+          
+          [在售价]${this.state.OrgPrice}元
+          [券后价]${this.state.Price}元
+          
+          复制这条信息,
+          ${this.state.movies.data},
+          打开[手机淘宝]即可查看`
+          )
       })
   }
   WxShareLineImage=()=>{
@@ -112,10 +135,16 @@ export default class CommissionPage extends PureComponent{
           }
       })
       .then(()=>{
-          Clipboard.setString(`淘口令:${this.state.movies.data}
-          标题:${this.props.navigation.state.params.Title}
-          价格:${this.props.navigation.state.params.Price}
-          原价:${this.props.navigation.state.params.OrgPrice}`)
+          Clipboard.setString(`${this.state.text}
+          
+          ${this.state.introduce}
+          
+          [在售价]${this.state.OrgPrice}元
+          [券后价]${this.state.Price}元
+          
+          复制这条信息,
+          ${this.state.movies.data},
+          打开[手机淘宝]即可查看`)
       })
   }
   view = (
@@ -161,7 +190,7 @@ export default class CommissionPage extends PureComponent{
   );
   render() {
     const {state,goBack,navigate}=this.props.navigation;
-    const {id, Price, OrgPrice, BigImage,Title}=this.props.navigation.state.params;
+    const {id, Price, OrgPrice, BigImage,Title,Guess}=this.props.navigation.state.params;
     return (
         <View style={{flex:1}}>
             {
@@ -181,7 +210,7 @@ export default class CommissionPage extends PureComponent{
                           source={require('../../../Icons/CommissionImage.png')}
                           style={styles.CommissionSmallImage}
                       />
-                      <Text style={styles.Text1}>奖励佣金预估:￥ 10</Text>
+                      <Text style={styles.Text1}>奖励佣金预估:￥ {Guess}</Text>
                       <TouchableOpacity
                           style={{position:'absolute',right:10,height:30,width:50,top:5}}>
                           <Text
@@ -197,7 +226,12 @@ export default class CommissionPage extends PureComponent{
                     <View style={{padding:10}}>
                       <TextInput
                         onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
+                        value={
+                        `${this.state.text}
+----------------------------------------------------------------------------------
+                         ${this.state.introduce}
+                        `
+                        }
                         underlineColorAndroid={'whitesmoke'}
                         multiline={true}
                         style={{lineHeight:25}}

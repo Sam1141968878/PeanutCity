@@ -68,7 +68,7 @@ export default class PublicGoodsDetailContent extends PureComponent{
                         source={{uri:item.img}}
                         style={{
                             width:'98%',
-                            height:item.height*0.45,
+                            height:item.height*0.43,
                             marginLeft:3,
                         }}
                         resizeMode='contain'
