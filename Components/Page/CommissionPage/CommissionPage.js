@@ -49,10 +49,11 @@ export default class CommissionPage extends PureComponent{
       this.setState({
              movies: json,
       })
-      console.log(`${Api}${this.id}&phone=1`)
+      console.log(`${Api}${this.id}`)
   }
   componentDidMount() {
       this.fetchData();
+      console.log(this.state.movies)
   }
   _setClipboardContent(){
     Clipboard.setString(

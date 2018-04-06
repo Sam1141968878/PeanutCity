@@ -36,6 +36,7 @@ export default class RobStampsPage extends PureComponent{
   }
   componentDidMount() {
       this.fetchData();
+      console.log(this.state.data)
   }
   render() {
     return (

@@ -59,7 +59,7 @@ export default class MyPage extends PureComponent{
     return (
       <View>
           {
-            NewNavTabPickerStore.Landing
+            NewNavTabPickerStore.Landing||true
             ?
             <View>
                 <MyPageLandingHead

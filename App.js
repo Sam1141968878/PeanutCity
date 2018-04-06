@@ -52,9 +52,9 @@ import PublicGoodsTabDetail from './Components/PublicComponent/PublicGoodsTab/Pu
 import PublicStoreDetail from './Components/PublicComponent/PublicStoreDetail/PublicStoreDetail/PublicStoreDetail'
 
 const MyTab =TabNavigator({
-    HomePage:{screen:HomePage},
+    // HomePage:{screen:HomePage},
     // ShopPage:{screen:ShopPage},
-    MembersPage:{screen:MembersPage},
+    // MembersPage:{screen:MembersPage},
     // CirclePage:{screen:CirclePage},
     MyPage:{screen:MyPage},
 
