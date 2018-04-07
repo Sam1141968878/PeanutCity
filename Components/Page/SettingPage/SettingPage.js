@@ -90,23 +90,6 @@ export default class SettingPage extends PureComponent{
             />
           </TouchableOpacity>
           <TouchableOpacity
-              style={{
-                height:40,
-                justifyContent:'space-around',
-                alignItems:'center',
-                flexDirection:'row',
-                backgroundColor:'#FFF',
-                borderTopColor:'whitesmoke',
-                borderTopWidth:10,
-              }}>
-            <Text>支付宝绑定</Text>
-            <Text>未绑定</Text>
-            <Image
-                source={require('../../../Icons/goUp.png')}
-                style={{width:14,height:14}}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
             style={{
                 height:40,
                 justifyContent:'space-around',

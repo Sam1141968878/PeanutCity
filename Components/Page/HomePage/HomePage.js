@@ -133,7 +133,7 @@ export default class HomePage extends PureComponent{
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>
           <HomePageNavBannerList navigate={navigate}/>
-          {/*<HomePageIrregularList navigate={navigate}/>*/}
+          <HomePageIrregularList navigate={navigate}/>
           <View style={styles.LikeHead}>
               <View style={styles.line1}></View>
               <View style={styles.ImageView}>

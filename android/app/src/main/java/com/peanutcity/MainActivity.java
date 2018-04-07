@@ -12,4 +12,18 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "PeanutCity";
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

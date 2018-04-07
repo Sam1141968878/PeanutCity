@@ -117,7 +117,7 @@ export default class LandingPage extends PureComponent{
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}&sex=${this.state.WxUser.sex}&city=${this.state.WxUser.city}&country=${this.state.WxUser.city}&privilege=${this.state.WxUser.privilege}&province=${this.state.WxUser.province}`,
+          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}`,
         })
         .then((response) => response.text())
         .then((responseText) => {
@@ -134,14 +134,29 @@ export default class LandingPage extends PureComponent{
                     NewNavTabPickerStore.Landing=true;
                     AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
                             if (!error) {
-                                console.log('保存成功1')
+                                console.log('记录登陆')
                             }
+                    });
+                    action
+                    NewNavTabPickerStore.Code=json.code_invite;
+                    AsyncStorage.setItem('Code', JSON.stringify(NewNavTabPickerStore.Code), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功4')
+                        }
                     });
                     this.props.navigation.navigate('MyTab')
                 }else{
                     Toast.message('请绑定手机号')
                     this.props.navigation.navigate('WxRegisteredPage',{
-                        title:'请绑定你的手机号'
+                        title:'请绑定你的手机号',
+                        openid:this.state.WxUser.openid,
+                        unionid:this.state.WxUser.unionid,
+                        headimgurl:this.state.WxUser.headimgurl,
+                        nickname:this.state.WxUser.nickname,
+                        sex:this.state.WxUser.sex,
+                        city:this.state.WxUser.city,
+                        privilege:this.state.WxUser.privilege,
+                        province:this.state.WxUser.province,
                     })
                 }
             })

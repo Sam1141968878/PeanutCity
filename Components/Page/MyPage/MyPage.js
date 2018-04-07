@@ -59,7 +59,7 @@ export default class MyPage extends PureComponent{
     return (
       <View>
           {
-            NewNavTabPickerStore.Landing||true
+            NewNavTabPickerStore.Landing
             ?
             <View>
                 <MyPageLandingHead
@@ -84,7 +84,6 @@ export default class MyPage extends PureComponent{
                 <MyPageRow Landing={true} navigate={navigate}/>
                 <MyPageCol Landing={true} navigate={navigate}/>
             </View>
-
             :
              <View>
                 <MyPageLandingHead navigate={navigate}/>

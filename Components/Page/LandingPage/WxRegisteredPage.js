@@ -62,7 +62,6 @@ export default class WxRegisteredPage extends PureComponent{
     @observable VerificationCode='';
 
     WxGetCodeApi='http://111.230.254.117:8000/bind_wechat_getCode'
-    BindWeChatApi='http://111.230.254.117:8000/bind_wechat'
     ChangeSecureTextEntry=()=>{
         this.setState({
             secureTextEntry:!this.state.secureTextEntry,
@@ -98,6 +97,7 @@ export default class WxRegisteredPage extends PureComponent{
             return json;
         })
         .then((json)=>{
+            console.log(json)
             this.setState({
                 WxGetCode:json
             },()=>{
@@ -115,57 +115,52 @@ export default class WxRegisteredPage extends PureComponent{
             console.error(error);
         })
     }
-    fetchWxBindPost=async(ApiPost)=>{
-       const json =await fetch(ApiPost,{
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body:`phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}`,
-        })
-        .then((response) => response.text())
-        .then((responseText) => {
-            const json = JSON.parse(responseText);
-            return json;
-        })
-        .then((json)=>{
-            this.setState({
-                WxBind:json
-            },()=>{
-                console.log(json)
-                Toast.message(this.state.WxBind.message)
-                if(this.state.WxBind.status='success'){
-                    action
-                    NewNavTabPickerStore.Landing=true;
-                    action
-                    NewNavTabPickerStore.Phone=this.state.PhoneText;
-                    action
-                    NewNavTabPickerStore.WxBind=true;
-                    AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
-                            if (!error) {
-                                console.log('保存成功1')
-                            }
-                    });
-                    AsyncStorage.setItem('Phone', JSON.stringify(NewNavTabPickerStore.Phone), (error, result) => {
-                            if (!error) {
-                                console.log('保存成功2')
-                            }
-                    });
-                    AsyncStorage.setItem('WxBind', JSON.stringify(NewNavTabPickerStore.WxBind), (error, result) => {
-                            if (!error) {
-                                console.log('保存成功3')
-                            }
-                    });
-                    this.props.navigation.navigate('MyTab')
-                }else {
-                    Toast.message(json.status)
-                    console.log(this.state.WxBind)
-                }
-            })
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+    fetchWxBindPost=async()=>{
+        console.log(this.props.navigation.state.params)
+        console.log(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
+       const json =await fetchJosn(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
+       InteractionManager.runAfterInteractions(()=>{
+           this.setState({
+               WxBind: json,
+           },()=>{
+               console.log(json)
+               Toast.message(this.state.WxBind.message)
+               if(this.state.WxBind.status='success'){
+                   action
+                   NewNavTabPickerStore.Landing=true;
+                   action
+                   NewNavTabPickerStore.Phone=this.state.PhoneText;
+                   action
+                   NewNavTabPickerStore.Code=this.state.WxBind.code;
+                   action
+                   NewNavTabPickerStore.WxBind=true;
+                   AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
+                           if (!error) {
+                               console.log('保存成功1')
+                           }
+                   });
+                   AsyncStorage.setItem('Phone', JSON.stringify(NewNavTabPickerStore.Phone), (error, result) => {
+                           if (!error) {
+                               console.log('保存成功2')
+                           }
+                   });
+                   AsyncStorage.setItem('WxBind', JSON.stringify(NewNavTabPickerStore.WxBind), (error, result) => {
+                           if (!error) {
+                               console.log('保存成功3')
+                           }
+                   });
+                   AsyncStorage.setItem('Code', JSON.stringify(NewNavTabPickerStore.Code), (error, result) => {
+                           if (!error) {
+                               console.log('保存成功3')
+                           }
+                   });
+                   this.props.navigation.navigate('MyTab')
+               }else {
+                   Toast.message(json.status)
+                   console.log(this.state.WxBind)
+               }
+           })
+       })
     }
 
 
@@ -272,7 +267,7 @@ export default class WxRegisteredPage extends PureComponent{
                     <TouchableOpacity
                         style={styles.TextView5}
                         onPress={()=>{
-                            this.fetchWxBindPost(this.BindWeChatApi)
+                            this.fetchWxBindPost()
                             }
                         }
                     >

@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Dimensions
 } from 'react-native';
 
 import { TabNavigator,StackNavigator } from 'react-navigation';
@@ -52,16 +53,22 @@ import PublicGoodsTabDetail from './Components/PublicComponent/PublicGoodsTab/Pu
 import PublicStoreDetail from './Components/PublicComponent/PublicStoreDetail/PublicStoreDetail/PublicStoreDetail'
 
 const MyTab =TabNavigator({
-    // HomePage:{screen:HomePage},
+    HomePage:{screen:HomePage},
     // ShopPage:{screen:ShopPage},
-    // MembersPage:{screen:MembersPage},
+    MembersPage:{screen:MembersPage},
     // CirclePage:{screen:CirclePage},
     MyPage:{screen:MyPage},
 
 },{
+    lazy:true,
     tabBarPosition:'bottom',
     swipeEnabled:false,
     animationEnabled: false,
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      },
+    }),
     tabBarOptions:{
         activeTintColor: 'red',
         inactiveTintColor: 'gray',
@@ -70,6 +77,7 @@ const MyTab =TabNavigator({
         pressColor : 'gainsboro',
         initialLayout:{
             height:60,
+            width: Dimensions.get('window').width,
         },
         indicatorStyle: {
             height: 0

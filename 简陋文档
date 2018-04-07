@@ -105,7 +105,9 @@
 	################################################
 	# url：111.230.254.117:8000/bind_wechat
 	# 函数：绑定微信
-	# 参数：类型：键值对	phone  code_bind_wechat
+	# 参数：类型：键值对	phone,openid,unionid,headimgurl,nickname,code_bind_wechat
+	# 参数：类型，键值对	code_bind_wechat(验证码)
+	# 传参类型：post
 	# 返回值：{'status':'success',message:'登录成功'}
 	# 返回值：{'status':'1',message:'no code'}
 	# 返回值：{'status':'2',message:'wrong code'}
