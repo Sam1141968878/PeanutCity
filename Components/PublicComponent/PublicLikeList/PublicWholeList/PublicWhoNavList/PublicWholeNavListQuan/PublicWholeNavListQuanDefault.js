@@ -53,7 +53,7 @@ export default class PublicWholeNavListQuanDefault extends PureComponent{
                               ready:true,
                           })
         })
-        console.log(this.FetchApi)
+
     }
   componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{

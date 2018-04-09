@@ -105,6 +105,7 @@ export default class NavBannerList extends PureComponent{
                             backgroundColor={item.backgroundColor}
                             onPress={()=>navigate('HomePageDetailNavBannerDetailPage',{
 	                            NavTitle:item.NavTitle,
+	                            Title:item.Title,
                             })}
                             />
                   }

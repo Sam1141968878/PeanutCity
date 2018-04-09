@@ -53,7 +53,7 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
                               ready:true,
                           })
         })
-        console.log(this.FetchApi)
+
     }
   componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{
@@ -77,7 +77,6 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
                         movies: this.state.movies.concat(json)
                     })
       })
-      console.log('3'+this.FetchApi,page)
   }
 
   render() {

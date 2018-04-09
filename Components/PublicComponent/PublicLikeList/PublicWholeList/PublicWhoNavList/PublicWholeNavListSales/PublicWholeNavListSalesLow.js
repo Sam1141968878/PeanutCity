@@ -53,7 +53,7 @@ export default class PublicWholeNavListSalesLow extends PureComponent{
                               ready:true,
                           })
         })
-        console.log(this.FetchApi)
+
     }
   componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{

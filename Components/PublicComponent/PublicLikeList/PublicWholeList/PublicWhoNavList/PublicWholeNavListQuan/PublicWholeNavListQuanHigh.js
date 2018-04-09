@@ -58,7 +58,6 @@ export default class PublicWholeNavListQuanHigh extends PureComponent{
         InteractionManager.runAfterInteractions(()=>{
             this.fetchData(this.FetchApi);
         })
-        console.log(this.FetchApi)
   }
   _onRefresh=async()=>{
       await fetchJson(this.FetchApi);

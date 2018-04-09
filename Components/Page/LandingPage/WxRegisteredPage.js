@@ -68,7 +68,6 @@ export default class WxRegisteredPage extends PureComponent{
         })
     }
 
-    //从剪贴板中读取字符串
     pasteFromClipboard() {
       Clipboard.getString().then(
         (textFromClipboard) => {
@@ -78,7 +77,6 @@ export default class WxRegisteredPage extends PureComponent{
         }
       ).catch(
         (error) => {
-          console.log("从剪贴板中读取数据错误!");
           console.log(error);
         }
       );
@@ -97,7 +95,7 @@ export default class WxRegisteredPage extends PureComponent{
             return json;
         })
         .then((json)=>{
-            console.log(json)
+
             this.setState({
                 WxGetCode:json
             },()=>{
@@ -116,14 +114,11 @@ export default class WxRegisteredPage extends PureComponent{
         })
     }
     fetchWxBindPost=async()=>{
-        console.log(this.props.navigation.state.params)
-        console.log(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
-       const json =await fetchJosn(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
+        const json =await fetchJosn(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
        InteractionManager.runAfterInteractions(()=>{
            this.setState({
                WxBind: json,
            },()=>{
-               console.log(json)
                Toast.message(this.state.WxBind.message)
                if(this.state.WxBind.status='success'){
                    action

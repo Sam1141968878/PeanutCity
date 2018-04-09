@@ -27,8 +27,7 @@ import Swiper from 'react-native-swiper';
 import fetchJson from '../../Fetch/FetchJson'
 import HomePageSwiperItem from '../../Item/HomePageItem/HomePageSwiperItem'
 
-//这是大淘客的轮播图接口:
-// const Api='http://111.230.254.117:8000/'
+
 export default class SwiperComponent extends PureComponent{
     state={
         movies:[],
@@ -41,7 +40,6 @@ export default class SwiperComponent extends PureComponent{
              movies:json,
              ready:true,
       })
-      console.log(json)
     }
 
     componentDidMount() {

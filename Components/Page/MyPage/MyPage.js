@@ -22,7 +22,8 @@ import {
   Image,
   AsyncStorage,
   TouchableOpacity,
-  BackHandler
+  BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 
 import {observable,action} from 'mobx';
@@ -54,6 +55,13 @@ export default class MyPage extends PureComponent{
         Phone:'',
         Landing:'',
         Name:'',
+        ready:false,
+    }
+
+    componentDidMount() {
+        setTimeout(()=>this.setState({
+            ready:true
+        }),1000)
     }
 
   render() {
@@ -61,52 +69,60 @@ export default class MyPage extends PureComponent{
     return (
       <View>
           {
-            NewNavTabPickerStore.Landing
-            ?
-            <View>
-                <MyPageLandingHead
-                    phone={NewNavTabPickerStore.Phone||''}
-                    name={NewNavTabPickerStore.Name||''}
-                    code={NewNavTabPickerStore.Code||''}
-                    navigate={navigate}
-                    landing={true}
-                />
-                <PublicMessage
-                    top={30}
-                    right={60}
-                    navigate={navigate}
-                    GoTo={'MessagePage'}
-                />
-                <MyPageSetUp
-                    top={30}
-                    right={15}
-                    navigate={navigate}
-                    GoTo={'SettingPage'}
-                />
-                <MyPageRow Landing={true} navigate={navigate}/>
-                <MyPageCol Landing={true} navigate={navigate}/>
-            </View>
-            :
-             <View>
-                <MyPageLandingHead navigate={navigate}/>
-                <PublicMessage
-                    top={30}
-                    right={60}
-                    navigate={navigate}
-                    GoTo={'LandingPage'}
-                />
-                <MyPageSetUp
-                    top={30}
-                    right={15}
-                    navigate={navigate}
-                    GoTo={'LandingPage'}
-                />
-                <MyPageRow  Landing={false} navigate={navigate}/>
-                <MyPageCol  Landing={false} navigate={navigate}/>
-            </View>
+              this.state.ready
+              ?
+                <View>
+                    {
+                      NewNavTabPickerStore.Landing
+                      ?
+                      <View>
+                          <MyPageLandingHead
+                              phone={NewNavTabPickerStore.Phone||''}
+                              name={NewNavTabPickerStore.Name||''}
+                              code={NewNavTabPickerStore.Code||''}
+                              navigate={navigate}
+                              landing={true}
+                          />
+                          <PublicMessage
+                              top={30}
+                              right={60}
+                              navigate={navigate}
+                              GoTo={'MessagePage'}
+                          />
+                          <MyPageSetUp
+                              top={30}
+                              right={15}
+                              navigate={navigate}
+                              GoTo={'SettingPage'}
+                          />
+                          <MyPageRow Landing={true} navigate={navigate}/>
+                          <MyPageCol Landing={true} navigate={navigate}/>
+                      </View>
+                      :
+                       <View>
+                          <MyPageLandingHead navigate={navigate}/>
+                          <PublicMessage
+                              top={30}
+                              right={60}
+                              navigate={navigate}
+                              GoTo={'LandingPage'}
+                          />
+                          <MyPageSetUp
+                              top={30}
+                              right={15}
+                              navigate={navigate}
+                              GoTo={'LandingPage'}
+                          />
+                          <MyPageRow  Landing={false} navigate={navigate}/>
+                          <MyPageCol  Landing={false} navigate={navigate}/>
+                      </View>
+                    }
+                </View>
+              :
+                <ActivityIndicator/>
           }
-
       </View>
+
     )
   }
 }

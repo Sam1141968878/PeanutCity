@@ -38,7 +38,7 @@ export default class NavBannerDetailPage extends PureComponent{
         <Container>
             <PublicGoBack
                 goBack={()=>goBack()}
-                title={state.params.NavTitle}
+                title={state.params.Title}
             />
             <PublicGoodsTab navigate={navigate} title={state.params.NavTitle}/>
         </Container>

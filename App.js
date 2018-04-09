@@ -43,6 +43,7 @@ import OpinionPage from './Components/Page/OpinionPage/OpinionPage'
 import RobStampsPage from './Components/Page/RobStampsPage/RobStampsPage'
 
 
+
 import HomePageDetailNavBannerDetailPage from './Components/Detail/HomePageDetail/HomePageDetailNavBannerDetailPage'
 import HomePageDetailLikeDetail from './Components/Detail/HomePageDetail/HomePageDetailLikeDetail'
 import ShopPageDetail from './Components/Detail/ShopPageDetail/ShopPageDetail'
@@ -54,22 +55,14 @@ import PublicStoreDetail from './Components/PublicComponent/PublicStoreDetail/Pu
 
 const MyTab =TabNavigator({
     HomePage:{screen:HomePage},
-    // ShopPage:{screen:ShopPage},
     MembersPage:{screen:MembersPage},
-    // CirclePage:{screen:CirclePage},
     MyPage:{screen:MyPage},
-
 },{
     lazy:true,
     tabBarPosition:'bottom',
     swipeEnabled:false,
     animationEnabled: false,
     removeClippedSubviews:false,
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 0,
-      },
-    }),
     tabBarOptions:{
         activeTintColor: 'red',
         inactiveTintColor: 'gray',

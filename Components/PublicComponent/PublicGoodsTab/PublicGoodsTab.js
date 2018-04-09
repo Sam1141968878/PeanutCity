@@ -82,7 +82,7 @@ export default class PublicGoodssTab extends PureComponent{
                             language: lang,
                         });
                         NewNavTabPickerStore.Picker=lang;
-                        console.log(lang)
+
                         }
                     }
                     style={styles.Picker}

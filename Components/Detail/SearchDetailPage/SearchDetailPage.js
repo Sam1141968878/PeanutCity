@@ -45,7 +45,6 @@ export default class SearchDetailPage extends PureComponent{
                             ready:true,
                         })
       })
-      console.log(`${Api}title=${this.props.navigation.state.params.title}`)
   }
   componentDidMount() {
       this.fetchData(`${Api}title=${this.props.navigation.state.params.title}`)
@@ -77,6 +76,7 @@ export default class SearchDetailPage extends PureComponent{
                             IsTmall={''}
                             onPress={()=>navigate('PublicGoodsDetail',{
 	                            Title:item.Title,
+	                            id:item.GoodsID
                             })}
                             />
                   }

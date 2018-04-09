@@ -52,7 +52,6 @@ export default class PublicWholeNavListPriceHigh extends PureComponent{
                               ready:true,
                           })
         })
-        console.log(this.FetchApi)
     }
   componentDidMount() {
         InteractionManager.runAfterInteractions(()=>{

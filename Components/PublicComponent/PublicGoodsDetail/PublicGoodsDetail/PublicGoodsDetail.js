@@ -39,6 +39,7 @@ import {
 
 import fetchJson from '../../../Fetch/FetchJson'
 import PublicGoodsGoBack from '../../../PublicComponent/PublicGoodsGoBack'
+import Toast from 'teaset/components/Toast/Toast';
 import PublicGoodsDetailHeaderSwiper from '../PublicGoodsDetailHeader/PublicGoodsDetailHeaderSwiper'
 import PublicGoodsDetailHeaderImage from '../PublicGoodsDetailHeader/PublicGoodsDetailHeaderImage'
 import PublicGoodsDetailHeaderTitle from '../PublicGoodsDetailHeader/PublicGoodsDetailHeaderTitle'
@@ -81,11 +82,10 @@ export default class PublicGoodsDetail extends PureComponent{
                introduce:json.introduce,
                IsTamll:json.IsTmall,
         })
-        console.log(json)
+
     }
     componentDidMount() {
         this.fetchData(`${Api}${this.id}`);
-        console.log(`${Api}${this.id}`)
     }
   render() {
     const{BigImage,
@@ -110,7 +110,6 @@ export default class PublicGoodsDetail extends PureComponent{
                         <PublicGoodsGoBack
                             goBack={()=>goBack()}
                         />
-                        {/*<PublicGoodsDetailHeaderSwiper/>*/}
                         <PublicGoodsDetailHeaderImage BigImage={BigImage}/>
                         <PublicGoodsDetailHeaderTitle
                             Title={Title}
@@ -138,8 +137,7 @@ export default class PublicGoodsDetail extends PureComponent{
                                       width:'20%',
                                       height:55
                                       }}
-                                      onPress={()=>navigate('LandingPage',{
-                                      })}
+                                      onPress={()=>Toast.message('收藏功能正在更新')}
                                   >
                                     <Image
                                       source={require('../../../../Icons/Stars.png')}

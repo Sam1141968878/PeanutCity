@@ -111,7 +111,6 @@ export default class LandingPage extends PureComponent{
         })
     }
     fetchWxPost=async(ApiPost)=>{
-       console.log(this.state.WxUser.openid,this.state.WxUser.unionid)
        const json=fetch(ApiPost, {
           method: 'POST',
           headers: {
@@ -171,14 +170,11 @@ export default class LandingPage extends PureComponent{
     TwoUri='https://api.weixin.qq.com/sns/oauth2/refresh_token?'
     UseUri='https://api.weixin.qq.com/sns/userinfo?'
     WxLogin=()=>{
-       //判断微信是否安装
        WeChat.isWXAppInstalled()
          .then((isInstalled) => {
            if (isInstalled) {
-             //发送授权请求
              WeChat.sendAuthRequest('snsapi_userinfo', 'wechat_sdk_demo')
                .then(responseCode => {
-                 //返回code码，通过code获取access_token
                  const oneApi=fetchWX(`${this.OneUri}appid=${this.AppId}&secret=${this.AppSecret}&code=${responseCode.code}&grant_type=authorization_code`)
                  return oneApi;
                })
@@ -281,10 +277,6 @@ export default class LandingPage extends PureComponent{
               source={require('../../../Icons/logo.png')}
             />
           </View>
-          {/*<Image*/}
-              {/*style={styles.Image3}*/}
-              {/*source={require('../../../Icons/logo.png')}*/}
-          {/*/>*/}
           <View style={styles.View1}>
               <Image
               style={styles.Image4}

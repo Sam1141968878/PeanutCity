@@ -28,8 +28,6 @@ import {
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
-import {observable,action} from 'mobx';
-import {observer} from 'mobx-react';
 import NewNavTabPickerStore from '../../../Store/NavTabPickerStore'
 
 
@@ -38,7 +36,6 @@ import PublicMessage from '../../../Components/PublicComponent/PublicMessage'
 import HomePageSwiper from '../../../Components/Component/HomePageComponent/HomePageSwiper'
 import HomePageBanner from '../../../Components/Component/HomePageComponent/HomePageBanner'
 import HomePageNavBannerList from '../../../Components/List/HomePageList/HomePageNavBannerList'
-import HomePageIrregularList from '../../../Components/List/HomePageList/HomePageIrregularList'
 import PublicHalfList from '../../PublicComponent/PublicLikeList/PublicHalfList/PublicHalfList'
 
 
@@ -214,7 +211,6 @@ export default class HomePage extends PureComponent{
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>
           <HomePageNavBannerList navigate={navigate}/>
-          <HomePageIrregularList navigate={navigate}/>
           <View style={styles.LikeHead}>
               <View style={styles.line1}></View>
               <View style={styles.ImageView}>

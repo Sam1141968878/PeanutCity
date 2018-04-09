@@ -49,11 +49,9 @@ export default class CommissionPage extends PureComponent{
       this.setState({
              movies: json,
       })
-      console.log(`${Api}${this.id}`)
   }
   componentDidMount() {
       this.fetchData();
-      console.log(this.state.movies)
   }
   _setClipboardContent(){
     Clipboard.setString(
@@ -73,11 +71,9 @@ export default class CommissionPage extends PureComponent{
   }
 
   WxShareSessionImage=()=>{
-      //判断微信是否安装
       WeChat.isWXAppInstalled()
       .then((isInstalled)=>{
           if(isInstalled){
-              //微信好友的图片
               WeChat.shareToSession({
                 type: 'imageUrl',
                 title: 'web image',
@@ -88,7 +84,7 @@ export default class CommissionPage extends PureComponent{
                 imageUrl: this.props.navigation.state.params.BigImage,
               })
               .catch((error) => {
-                  console.log(error.message);
+                  console.log(error);
               })
           }
           else{
@@ -111,11 +107,9 @@ export default class CommissionPage extends PureComponent{
       })
   }
   WxShareLineImage=()=>{
-      //判断微信是否安装
       WeChat.isWXAppInstalled()
       .then((isInstalled)=>{
           if(isInstalled){
-              //微信朋友圈的图片
                WeChat.shareToTimeline({
                    type: 'imageUrl',
                    title: 'web image',
@@ -125,9 +119,7 @@ export default class CommissionPage extends PureComponent{
                    messageExt: undefined,
                    imageUrl: this.props.navigation.state.params.BigImage,
                })
-               .then((success)=>{
-                   console.log(success)
-               }).catch((error)=>{
+               .catch((error)=>{
                    console.log(error)
                })
           }

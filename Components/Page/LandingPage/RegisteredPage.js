@@ -65,7 +65,6 @@ export default class RegisteredPage extends PureComponent{
         })
     }
 
-    //从剪贴板中读取字符串
     pasteFromClipboard() {
       Clipboard.getString().then(
         (textFromClipboard) => {
@@ -75,7 +74,6 @@ export default class RegisteredPage extends PureComponent{
         }
       ).catch(
         (error) => {
-          console.log("从剪贴板中读取数据错误!");
           console.log(error);
         }
       );
@@ -91,7 +89,6 @@ export default class RegisteredPage extends PureComponent{
         }else{
             Toast.success(this.VerificationStates+this.VerificationMessage);
         }
-        console.log(this.VerificationCode)
     }
     fetchPost=async(ApiPost)=>{
        const json=fetch(ApiPost, {
@@ -107,7 +104,6 @@ export default class RegisteredPage extends PureComponent{
             return json;
         })
         .then((json)=>{
-            console.log(json)
             if(json.status==='success'){
                 action
                 NewNavTabPickerStore.Landing=true;
@@ -139,7 +135,7 @@ export default class RegisteredPage extends PureComponent{
                 });
                 Toast.message('注册成功,欢迎使用爆了么')
             }else{
-                console.log(json.status)
+                console.log(json)
             }
         })
         .then(
