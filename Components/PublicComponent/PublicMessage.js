@@ -37,10 +37,20 @@ export default class Message extends PureComponent{
           }}
           onPress={()=>navigate(this.props.GoTo)}
       >
-          <Image
-              source={require('../../Icons/Message.png')}
-              style={styles.Image}
-          />
+
+          {
+            this.props.colorGray
+            ?
+                <Image
+                    source={require('../../Icons/MessageGray.png')}
+                    style={styles.Image}
+                />
+            :
+                <Image
+                    source={require('../../Icons/Message.png')}
+                    style={styles.Image}
+                />
+          }
           <Badge
             type='dot'
             style={{

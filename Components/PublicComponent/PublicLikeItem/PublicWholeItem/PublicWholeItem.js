@@ -72,9 +72,12 @@ export default class PublicWholeItem extends PureComponent{
           <View style={styles.Text3View}>
               <Text style={styles.Text5}>月销{Sales}</Text>
               <TouchableOpacity>
-                  <View style={styles.ImageView}>
-                      <Text style={styles.Text6}>券  ¥  {Preferential}</Text>
-                  </View>
+                  <Image
+                    style={styles.CouponImage}
+                    source={require('../../../../Icons/coupon.png')}
+                  >
+                  </Image>
+                  <Text style={styles.Text6}>券  ¥ {Preferential}</Text>
               </TouchableOpacity>
           </View>
       </TouchableOpacity>
@@ -131,26 +134,28 @@ const styles = StyleSheet.create({
         fontSize:12,
     },
     Text3View:{
-        width:80,
+        width:90,
         height:50,
         position:'absolute',
         right:10,
-        top:75
+        top:60
     },
     Text5:{
         marginLeft:20,
-        fontSize:12
+        fontSize:12,
+        position:'absolute',
+        top:20,
     },
-    ImageView:{
-        width:80,
-        height:25,
-        borderRadius:10,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'red'
+    CouponImage:{
+        width:90,
+        height:50,
+        marginTop:25
     },
     Text6:{
         color:'#FFF',
-        fontSize:14
+        fontSize:13,
+        position:'absolute',
+        top:41,
+        left:17
     }
 });

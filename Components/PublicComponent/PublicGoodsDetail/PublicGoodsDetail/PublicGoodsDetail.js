@@ -24,6 +24,7 @@ import {
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
+  BackHandler
 } from 'react-native';
 
 
@@ -84,6 +85,7 @@ export default class PublicGoodsDetail extends PureComponent{
     }
     componentDidMount() {
         this.fetchData(`${Api}${this.id}`);
+        console.log(`${Api}${this.id}`)
     }
   render() {
     const{BigImage,
@@ -117,6 +119,8 @@ export default class PublicGoodsDetail extends PureComponent{
                             SalesNum={SalesNum}
                             QuanPrice={QuanPrice}
                             IsTamll={IsTamll}
+                            id={this.id}
+                            navigate={navigate}
                         />
                         <PublicGoodsDetailContent Description={Description}/>
                         <PublicGoodsDetailFooter navigate={navigate}/>

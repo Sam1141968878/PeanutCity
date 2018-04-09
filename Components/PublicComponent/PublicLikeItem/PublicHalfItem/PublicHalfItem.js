@@ -69,9 +69,9 @@ export default class PublicHalfItem extends PureComponent{
                 style={styles.SmallImageView}>
                 <Image
                 style={styles.SmallImage}
-                source={require('../../../../Icons/preferential.png')}
+                source={require('../../../../Icons/coupon.png')}
                 />
-                <Text style={styles.Preferential}>￥{Preferential}</Text>
+                <Text style={styles.Preferential}>券 ￥{Preferential}</Text>
             </View>
         </View>
       </TouchableOpacity>
@@ -121,22 +121,26 @@ const styles = StyleSheet.create({
     Price:{
         fontSize:20,
         color:'red',
-        marginTop:10,
+        marginTop:12,
     },
     SmallImageView:{
     },
     SmallImage:{
-        width:30,
-        height:20,
-        marginTop:10,
+        width:90,
+        height:50,
+        zIndex:-1
     },
     TextView2:{
         flexDirection:'row',
         justifyContent:'space-between'
     },
     Preferential:{
-        marginTop:-16,
-        fontSize:10,
-        marginLeft:4
+        fontSize:13,
+        zIndex:1,
+        position:'absolute',
+        top:16,
+        left:0,
+        color:'#FFF',
+        left:18
     }
 });

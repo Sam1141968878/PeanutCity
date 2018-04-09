@@ -21,7 +21,8 @@ import {
   InteractionManager,
   Image,
   AsyncStorage,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native';
 
 import {observable,action} from 'mobx';
@@ -54,6 +55,7 @@ export default class MyPage extends PureComponent{
         Landing:'',
         Name:'',
     }
+
   render() {
     const {navigate}=this.props.navigation;
     return (

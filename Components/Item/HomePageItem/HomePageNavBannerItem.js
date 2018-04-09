@@ -29,7 +29,7 @@ let {width,height}=Dimensions.get('window');
 let Smallwidth=width/5;
 export default class NavBannerItem extends PureComponent{
   render() {
-    const {Img,NavTitle,onPress,backgroundColor,goBack}=this.props;
+    const {Img,Title,onPress,backgroundColor,goBack}=this.props;
 
     return (
       <TouchableOpacity
@@ -37,7 +37,7 @@ export default class NavBannerItem extends PureComponent{
           onPress={onPress}
       >
           <Image source={Img} style={styles.Img}/>
-          <Text style={styles.Text}>{NavTitle}</Text>
+          <Text style={styles.Text}>{Title}</Text>
       </TouchableOpacity>
     );
   }

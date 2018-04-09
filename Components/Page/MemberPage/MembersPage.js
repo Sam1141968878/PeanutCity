@@ -23,6 +23,7 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  BackHandler
 } from 'react-native';
 
 

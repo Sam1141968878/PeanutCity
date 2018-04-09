@@ -125,7 +125,6 @@ export default class LandingPage extends PureComponent{
             return json;
         })
         .then((json)=>{
-            console.log(json)
             this.setState({
                 WxRegisteredStatus:json,
             },()=>{

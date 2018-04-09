@@ -1,13 +1,19 @@
 ################################################
 	# url 	111.230.254.117:8000/list
-	# 函数 	获取商品列表
-	#参数 	table  				大淘客或淘宝	dataoke,taobao
+	# 函数 	获取商品列表(孟哥)
+	#参数方式:get
+	#参数　	cid 				分类	　
+	1:女装  2:母婴  3:化妆品  4:居家  5:鞋包配饰  6:美食  7:文体车品  8:数码家电  9:男装
 	#参数	OrderBy 		 	排序类型 		NumSale,ProceBeforeZK,PriceAfterZK,PriceZK,ConnissionTicket
-	#参数 	HighLow				排序高低 		DESC，ASC		（降序，增序）
-	#参数	ByDict 				查询条件		（大淘客）	{'cid':'1'}		#Cid 	1女装	9男装	10内衣	2母婴	3化妆品	4居家	5鞋包配饰	6美食 7文体车品	8数码家电
-	#参数	ByDict 				查询条件		（淘宝） 	{'cid':'女装'}
 	#参数	num 				条数			1
 	#参数 	page 				页数			1
+	#参数 	HighLow				排序高低 		DESC，ASC		（降序，增序）
+	################################################
+
+	################################################
+	# url：111.230.254.117:8000/title
+	# 函数：根据标题/关键字搜索（淘宝）
+	# 参数：title
 	################################################
 
 
@@ -40,11 +46,8 @@
 ################################################
 	# url 	111.230.254.117:8000/detail
 	# 函数 		获取商品详情页
-	# 参数
-			    GoodsID     要获取商品的ID			123123123
-	# 参数 		table 		要获取商品的来源		'taobao','dataoke'
-	# 返回 		json
-	# 详情页
+	# 参数类型 	GET
+	# 参数 		UrlItem 	要获取商品的url
 	################################################
 
 
@@ -86,7 +89,7 @@
 	################################################
 	# url：111.230.254.117:8000/logined_wechat
 	# 函数：登录
-	# 参数：类型：键值对	openid，unionid，headimgurl，nickname，sex，city，country，privilege，province
+	# 参数：类型：键值对	openid，unionid，headimgurl，nickname
 	# 返回值：{'status':'success',message:'登录成功'}
 	# 返回值：{'status':'1',message:'no bind'}
 	# 返回值：{'status':'success','message':'success login','wechat_nickname':'','wechat_headimgurl':'','phone':'','code_invite':''

@@ -33,7 +33,8 @@ export default class PublicGoodsDetailHeaderTitle extends PureComponent{
            OrgPrice,
            SalesNum,
            QuanPrice,
-           QuanLink
+           QuanLink,
+           navigate
     }=this.props;
     return (
       <View style={styles.View}>
@@ -70,11 +71,15 @@ export default class PublicGoodsDetailHeaderTitle extends PureComponent{
              }
 
          </View>
-         <TouchableOpacity style={styles.vouchersView}>
-             {/*<Image*/}
-             {/*style={styles.Img}*/}
-             {/*source={require('../../../../Icons/preferential.png')}*/}
-             {/*/>*/}
+         <TouchableOpacity style={styles.vouchersView}
+            onPress={()=>navigate('RobStampsPage',{
+                id:this.id
+            })}
+         >
+             <Image
+             style={styles.Img}
+             source={require('../../../../Icons/coupon.png')}
+             />
              <Text style={styles.vouchersText}>券 ¥  {QuanPrice}</Text>
          </TouchableOpacity>
       </View>
@@ -137,21 +142,19 @@ const styles = StyleSheet.create({
         fontSize:12,
     },
     vouchersView:{
-        width:70,
-        height:25,
-        flexDirection:'row',
-        backgroundColor:'red',
+        width:90,
+        height:55,
         marginLeft:260,
-        borderRadius:10,
-        justifyContent:'center',
-        alignItems:'center'
     },
     Img:{
-        height:30,
-        width:50,
+        width:90,
+        height:50,
     },
     vouchersText:{
         color:'#FFF',
         fontSize:14,
+        position:'absolute',
+        right:20,
+        top:15
     }
 });

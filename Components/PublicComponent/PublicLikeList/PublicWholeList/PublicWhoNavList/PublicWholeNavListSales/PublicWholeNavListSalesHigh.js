@@ -44,7 +44,7 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
       ready:false,
       refreshing:false,
   }
-  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=dataoke&cid=${this.props.title}`
+  FetchApi=`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&cid=${this.props.title}`
   fetchData = async (FetchApi) => {
         const json = await fetchJson(FetchApi);
         InteractionManager.runAfterInteractions(()=>{
@@ -71,7 +71,7 @@ export default class PublicWholeNavListSalesHigh extends PureComponent{
 
   _onEndReached=async()=>{
       page++;
-      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&table=dataoke&cid=${this.props.title}`);
+      const json = await fetchJson(`${Api}num=${num}&page=${page}&OrderBy=${this.props.OrderBy}&HighLow=${this.props.HighLow}&cid=${this.props.title}`);
       InteractionManager.runAfterInteractions(()=>{
           this.setState({
                         movies: this.state.movies.concat(json)

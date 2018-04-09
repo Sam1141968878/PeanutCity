@@ -28,53 +28,63 @@ import HomePageNavBannerItem from '../../../Components/Item/HomePageItem/HomePag
 let Data=[
     {
         Img:require('../../../Icons/malecloths.png'),
-        NavTitle:'女装',
+        NavTitle:'1',
+        Title:'女装',
         backgroundColor:'antiquewhite',
     },
     {
         Img:require('../../../Icons/baby.png'),
-        NavTitle:'母婴',
+        NavTitle:'2',
+        Title:'母婴',
         backgroundColor:'aqua',
     },
     {
         Img:require('../../../Icons/beatuy.png'),
-        NavTitle:'美妆',
+        NavTitle:'3',
+        Title:'化妆品',
         backgroundColor:'blueviolet',
     },
     {
         Img:require('../../../Icons/headware.png'),
-        NavTitle:'家居',
+        NavTitle:'4',
+        Title:'居家',
         backgroundColor:'brown',
     },
     {
         Img:require('../../../Icons/bra.png'),
-        NavTitle:'内衣',
+        NavTitle:'5',
+        Title:'鞋包配饰',
         backgroundColor:'cadetblue',
     },
     {
         Img:require('../../../Icons/mancloths.png'),
-        NavTitle:'男装',
+        NavTitle:'6',
+        Title:'美食',
         backgroundColor:'chartreuse',
     },
     {
         Img:require('../../../Icons/food.png'),
-        NavTitle:'美食',
+        NavTitle:'7',
+        Title:'文体车品',
         backgroundColor:'darkcyan',
     },
     {
         Img:require('../../../Icons/electron.png'),
-        NavTitle:'数码',
+        NavTitle:'8',
+        Title:'数码家电',
         backgroundColor:'darkgray',
         cid:8,
     },
     {
         Img:require('../../../Icons/pack.png'),
-        NavTitle:'鞋包',
+        NavTitle:'9',
+        Title:'男装',
         backgroundColor:'darkorange',
     },
     {
         Img:require('../../../Icons/other.png'),
-        NavTitle:'其他',
+        NavTitle:'10',
+        Title:'其他',
         backgroundColor:'deeppink',
     },
 ]
@@ -90,6 +100,7 @@ export default class NavBannerList extends PureComponent{
                   renderItem={
                     ({item})=><HomePageNavBannerItem
                             NavTitle={item.NavTitle}
+                            Title={item.Title}
                             Img={item.Img}
                             backgroundColor={item.backgroundColor}
                             onPress={()=>navigate('HomePageDetailNavBannerDetailPage',{

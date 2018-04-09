@@ -64,6 +64,7 @@ const MyTab =TabNavigator({
     tabBarPosition:'bottom',
     swipeEnabled:false,
     animationEnabled: false,
+    removeClippedSubviews:false,
     transitionConfig: () => ({
       transitionSpec: {
         duration: 0,

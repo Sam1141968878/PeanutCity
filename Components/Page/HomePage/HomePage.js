@@ -23,7 +23,8 @@ import {
   ScrollView,
   StatusBar,
   RefreshControl,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler,
 } from 'react-native';
 
 import *as WeChat from 'react-native-wechat'
@@ -40,7 +41,12 @@ import HomePageNavBannerList from '../../../Components/List/HomePageList/HomePag
 import HomePageIrregularList from '../../../Components/List/HomePageList/HomePageIrregularList'
 import PublicHalfList from '../../PublicComponent/PublicLikeList/PublicHalfList/PublicHalfList'
 
+
+
 export default class HomePage extends PureComponent{
+    state={
+        Scroll:false
+    }
     static navigationOptions = {
     tabBarLabel: '主页',
     tabBarIcon: () => (
@@ -52,6 +58,15 @@ export default class HomePage extends PureComponent{
        </View>
       ),
     };
+    fetchPost=async()=>{
+       const json=fetch('http://111.230.254.117:8000/logined?', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body:`phone=${NewNavTabPickerStore.Phone}&password=${NewNavTabPickerStore.PassWord}`,
+        })
+    }
     refreshing=false
     _onRefresh(){
         refreshing=true
@@ -90,13 +105,30 @@ export default class HomePage extends PureComponent{
                 })
                 NewNavTabPickerStore.Code=jsonValue
             })
+          this.fetchPost
   }
+
+
   render() {
     const {navigate}=this.props.navigation;
     return (
       <ScrollView
           style={styles.view}
           keyboardDismissMode='on-drag'
+          stickyHeaderIndices={[0]}
+          onScroll={(event)=>
+            {
+                if(event.nativeEvent.contentOffset.y>=60){
+                    this.setState({
+                        Scroll:true
+                    })
+                }else{
+                    this.setState({
+                        Scroll:false
+                    })
+                }
+            }
+          }
           showsVerticalScrollIndicator={false}
           refreshControl={
           <RefreshControl
@@ -105,30 +137,79 @@ export default class HomePage extends PureComponent{
             onRefresh={this._onRefresh.bind(this)}
           />}
       >
-          <StatusBar
-            translucent={true}
-            backgroundColor='rgba(255,255,255,0)'
-          />
-          <HomePageSearch  navigate={navigate}/>
           {
-            NewNavTabPickerStore.Landing
-            ?
-            <PublicMessage
-                top={35}
-                right={10}
-                backgroundColor={'red'}
-                navigate={navigate}
-                GoTo={'MessagePage'}
-            />
-            :
-            <PublicMessage
-                top={35}
-                right={10}
-                backgroundColor={'red'}
-                navigate={navigate}
-                GoTo={'LandingPage'}
-            />
+              this.state.Scroll
+              ?
+              <View style={{backgroundColor:'rgba(255,255,255,1)'}}>
+                <StatusBar
+                translucent={true}
+                backgroundColor='rgba(255,255,255,0)'
+                />
+                <HomePageSearch
+                    navigate={navigate}
+                    marginTop={35}
+                    backgroundColor='rgba(0,0,0,0.1)'
+                    marginBottom={15}
+                />
+                {
+                  NewNavTabPickerStore.Landing
+                  ?
+                  <PublicMessage
+                      top={35}
+                      right={10}
+                      colorGray={true}
+                      backgroundColor={'red'}
+                      navigate={navigate}
+                      GoTo={'MessagePage'}
+                  />
+                  :
+                  <PublicMessage
+                      top={35}
+                      right={10}
+                      colorGray={true}
+                      backgroundColor={'red'}
+                      navigate={navigate}
+                      GoTo={'LandingPage'}
+                  />
+                }
+              </View>
+              :
+              <View>
+                <StatusBar
+                translucent={true}
+                backgroundColor='rgba(255,255,255,0)'
+                />
+                <HomePageSearch
+                    navigate={navigate}
+                    marginTop={35}
+                    marginBottom={0}
+                    backgroundColor={'#FFF'}
+                />
+                {
+                  NewNavTabPickerStore.Landing
+                  ?
+                  <PublicMessage
+                      top={35}
+                      right={10}
+                      colorGray={false}
+                      backgroundColor={'red'}
+                      navigate={navigate}
+                      GoTo={'MessagePage'}
+                  />
+                  :
+                  <PublicMessage
+                      top={35}
+                      right={10}
+                      colorGray={false}
+                      backgroundColor={'red'}
+                      navigate={navigate}
+                      GoTo={'LandingPage'}
+                  />
+                }
+              </View>
           }
+
+
 
           <HomePageSwiper  navigate={navigate}/>
           <HomePageBanner/>

@@ -24,6 +24,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+
 import SearchInput from 'teaset/components/SearchInput/SearchInput';
 export default class Search extends PureComponent{
   state={
@@ -33,33 +34,33 @@ export default class Search extends PureComponent{
     const {navigate}=this.props;
     return (
       <View>
-          <TouchableOpacity
-            style={styles.Input}
-            onPress={()=>navigate('SearchPage')}
-          >
-              <Image
-                source={require('../../../Icons/Search.png')}
-                style={styles.Img}
-              />
-              <Text
-                  style={styles.Text}>粘贴宝贝标题,先领券,再购物</Text>
-          </TouchableOpacity>
+           <TouchableOpacity
+             style={{
+                width:'80%',
+                height:25,
+                marginLeft:20,
+                borderRadius:13,
+                backgroundColor:this.props.backgroundColor,
+                flexDirection:'row',
+                alignItems:'center',
+                marginTop:this.props.marginTop,
+                marginBottom:this.props.marginBottom,
+             }}
+             onPress={()=>navigate('SearchPage')}
+           >
+               <Image
+                 source={require('../../../Icons/Search.png')}
+                 style={styles.Img}
+               />
+               <Text
+                   style={styles.Text}>粘贴宝贝标题,先领券,再购物</Text>
+           </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    Input:{
-        width:'80%',
-        height:25,
-        marginLeft:20,
-        borderRadius:13,
-        marginTop:35,
-        backgroundColor:'#FFF',
-        flexDirection:'row',
-        alignItems:'center',
-    },
     Img:{
         width:16,
         height:16,

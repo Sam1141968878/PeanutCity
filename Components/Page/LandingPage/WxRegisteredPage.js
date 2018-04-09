@@ -104,7 +104,7 @@ export default class WxRegisteredPage extends PureComponent{
                 Toast.message(this.state.WxGetCode.message)
                 if(json.status=='1'){
                     this.props.navigation.navigate('RegisteredPage',{
-                        title:'注册'
+                        title:'请先注册账号才能绑定微信'
                     })
                 }else{
                     Toast.message('请留意你的验证码')
@@ -157,7 +157,6 @@ export default class WxRegisteredPage extends PureComponent{
                    this.props.navigation.navigate('MyTab')
                }else {
                    Toast.message(json.status)
-                   console.log(this.state.WxBind)
                }
            })
        })

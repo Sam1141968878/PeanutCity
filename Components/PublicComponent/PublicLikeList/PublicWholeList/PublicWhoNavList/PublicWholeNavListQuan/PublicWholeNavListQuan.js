@@ -31,7 +31,7 @@ export default class PublicWholeNavListQuan extends PureComponent{
     const {navigate,title}=this.props;
 
     if(NewNavTabPickerStore.Picker==0){
-        return <PublicWholeNavListQuanDefault  OrderBy={'PriceZK'} navigate={navigate}/>;
+        return <PublicWholeNavListQuanDefault  OrderBy={'PriceZK'}  title={title} navigate={navigate}/>;
     }else if(NewNavTabPickerStore.Picker==1){
         return <PublicWholeNavListQuanHigh title={title} OrderBy={'PriceZK'} navigate={navigate} HighLow={'DESC'}/>;
     }else if(NewNavTabPickerStore.Picker==2){
