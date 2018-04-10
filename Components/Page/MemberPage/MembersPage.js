@@ -94,7 +94,7 @@ export default class MembersPage extends PureComponent{
     componentDidMount() {
         setTimeout(()=>this.setState({
             ready:true,
-        }),1000)
+        }),500)
     }
   render() {
     return (

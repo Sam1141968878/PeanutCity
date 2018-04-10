@@ -68,7 +68,8 @@ const MyTab =TabNavigator({
         inactiveTintColor: 'gray',
         showIcon: true,
         removeClippedSubviews:false,
-        pressColor : 'gainsboro',
+        pressColor : 'antiquewhite',
+        pressOpacity:0.1,
         initialLayout:{
             height:60,
             width: Dimensions.get('window').width,

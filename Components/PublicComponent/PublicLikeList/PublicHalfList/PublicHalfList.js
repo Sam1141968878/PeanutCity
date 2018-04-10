@@ -27,6 +27,7 @@ import {observer} from "mobx-react";
 
 
 import PublicHalfItem from '../../../PublicComponent/PublicLikeItem/PublicHalfItem/PublicHalfItem'
+import LikeFooterComponent from './LikeFooterComponent'
 
 
 import fetchJson from '../../../Fetch/FetchJson'
@@ -44,6 +45,7 @@ export default class PublicHalfList extends PureComponent{
       refreshing:false,
       page:0,
       loading:false,
+      end:false,
   }
   FetchApi=`${Api}num=${num}&page=0`
   fetchData = async (FetchApi) => {
@@ -57,17 +59,7 @@ export default class PublicHalfList extends PureComponent{
 
     }
   componentDidMount() {
-        InteractionManager.runAfterInteractions(()=>{
-            this.fetchData(this.FetchApi);
-        })
-  }
-  _onRefresh=async()=>{
-      await fetchJson(this.FetchApi);
-      InteractionManager.runAfterInteractions(()=>{
-          this.setState({
-                        refreshing:true,
-                    })
-      })
+      this.fetchData(this.FetchApi);
   }
 
 
@@ -76,10 +68,11 @@ export default class PublicHalfList extends PureComponent{
     if (this.state.loading===false) {
         setTimeout(()=>{
             this.onEndReachedFetchData()
-        },1000)
-        if(page===8){
+        },500)
+        if(page>=8){
             this.setState({
-                loading:true
+                loading:true,
+                end:true,
             })
         }
     }
@@ -105,11 +98,12 @@ export default class PublicHalfList extends PureComponent{
               this.state.movies
               ?
               <FlatList
+                  ListFooterComponent={<LikeFooterComponent end={this.state.end}/>}
                   extraData={this.state}
                   onEndReached={this._onEndReached}
                   style={styles.FlatList}
                   data={movies}
-                  onEndReachedThreshold={0.01}
+                  onEndReachedThreshold={0.5}
                   keyExtractor={item=>item.title}
                   renderItem={
                      ({item})=><PublicHalfItem

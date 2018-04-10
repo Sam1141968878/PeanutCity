@@ -99,6 +99,13 @@ export default class LandingPage extends PureComponent{
                             console.log('保存成功4')
                         }
                     });
+                    action
+                    NewNavTabPickerStore.Type=json.type;
+                    AsyncStorage.setItem('Type', JSON.stringify(NewNavTabPickerStore.Type), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功5')
+                        }
+                    });
                     Toast.message('登陆成功,欢迎使用爆了么')
                     this.props.navigation.navigate('MyTab')
                 }else{
@@ -116,7 +123,7 @@ export default class LandingPage extends PureComponent{
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}`,
+          body:`openid=${this.state.WxUser.openid}&unionid=${this.state.WxUser.unionid}&headimgurl=${this.state.WxUser.headimgurl}&nickname=${this.state.WxUser.nickname}&nickname=${this.state.WxUser.sex}&nickname=${this.state.WxUser.city}&nickname=${this.state.WxUser.country}&nickname=${this.state.WxUser.privilege}&nickname=${this.state.WxUser.province}&country=${this.state.WxUser.country}`,
         })
         .then((response) => response.text())
         .then((responseText) => {
@@ -142,6 +149,13 @@ export default class LandingPage extends PureComponent{
                             console.log('保存成功4')
                         }
                     });
+                    action
+                    NewNavTabPickerStore.Type=json.type;
+                    AsyncStorage.setItem('Type', JSON.stringify(NewNavTabPickerStore.Type), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功5')
+                        }
+                    });
                     this.props.navigation.navigate('MyTab')
                 }else{
                     Toast.message('请绑定手机号')
@@ -155,6 +169,7 @@ export default class LandingPage extends PureComponent{
                         city:this.state.WxUser.city,
                         privilege:this.state.WxUser.privilege,
                         province:this.state.WxUser.province,
+                        country:this.state.WxUser.country,
                     })
                 }
             })
@@ -175,18 +190,22 @@ export default class LandingPage extends PureComponent{
            if (isInstalled) {
              WeChat.sendAuthRequest('snsapi_userinfo', 'wechat_sdk_demo')
                .then(responseCode => {
+                 console.log(responseCode)
                  const oneApi=fetchWX(`${this.OneUri}appid=${this.AppId}&secret=${this.AppSecret}&code=${responseCode.code}&grant_type=authorization_code`)
                  return oneApi;
                })
                .then(responseCode=>{
+                 console.log(responseCode)
                  const twoApi=fetchWX(`${this.TwoUri}appid=${this.AppId}&refresh_token=${responseCode.refresh_token}&grant_type=refresh_token`)
                  return twoApi;
                })
                .then(responseCode=>{
+                 console.log(responseCode)
                  const userApi=fetchWX(`${this.UseUri}access_token=${responseCode.access_token}&openid=OPENID`)
                  return userApi;
                })
                .then(userApi=>{
+                   console.log(userApi)
                    this.setState({
                       WxUser:userApi
                    },()=>{
@@ -204,32 +223,32 @@ export default class LandingPage extends PureComponent{
                        NewNavTabPickerStore.Headimgurl=this.state.WxUser.headimgurl;
                        AsyncStorage.setItem('Landing', JSON.stringify(NewNavTabPickerStore.Landing), (error, result) => {
                             if (!error) {
-                                console.log('保存成功1')
+                                console.log('保存登陆状态')
                             }
                         });
                         AsyncStorage.setItem('Name', JSON.stringify(NewNavTabPickerStore.Name), (error, result) => {
                             if (!error) {
-                                console.log('保存成功2')
+                                console.log('保存名字')
                             }
                         });
                         AsyncStorage.setItem('Sex', JSON.stringify(NewNavTabPickerStore.Sex), (error, result) => {
                             if (!error) {
-                                console.log('保存成功3')
+                                console.log('保存性别')
                             }
                         });
                        AsyncStorage.setItem('Province', JSON.stringify(NewNavTabPickerStore.Province), (error, result) => {
                             if (!error) {
-                                console.log('保存成功1')
+                                console.log('保存Province')
                             }
                         });
                         AsyncStorage.setItem('City', JSON.stringify(NewNavTabPickerStore.City), (error, result) => {
                             if (!error) {
-                                console.log('保存成功2')
+                                console.log('保存城市')
                             }
                         });
                         AsyncStorage.setItem('Headimgurl', JSON.stringify(NewNavTabPickerStore.Headimgurl), (error, result) => {
                             if (!error) {
-                                console.log('保存成功3')
+                                console.log('保存头像')
                             }
                         });
                        Toast.message('微信登陆成功,欢迎使用爆了么')

@@ -195,3 +195,25 @@
 	# 返回值：{'status':'success',data:''}
 	# 返回值：{'status':'fail',message:'no login before'}
 	################################################
+
+	################################################
+	# url：111.230.254.117:8000/logined_wechat
+	# 时间:2018/4/10-14:22:00
+	# 函数：登录
+	# 参数方式:post
+	# 参数：类型:键值对		openid,unionid,headimgurl,nickname,sex,city,country,privilege,province
+	# 返回值： 			{'status':'1',message:'no bind'}
+	# 返回值： 			{'status':'success','code':1,'message':'success bind','wechat_nickname','wechat_headimgurl','phone','code_invite','name',wechat_nickname
+	################################################
+
+	################################################
+	# url：111.230.254.117:8000/bind_wechat
+	# 函数：绑定微信
+	# 参数：类型：键值对	phone,openid,unionid,headimgurl,nickname,code_bind_wechat(验证码)
+	# 传参类型：post
+	# 返回值：{'status':'success',message:'登录成功'}
+	# 返回值：{'status':'fail','code':4,message:'no code'}
+	# 返回值：{'status':'fail','code':5,message:'wrong code'}
+	# 返回值：{'status':'fail','code':6,message:'no openid and unionid for wechat'}
+	# 返回值：{'status':'success',;code':1,message:'success bind!'}
+	################################################

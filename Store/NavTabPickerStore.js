@@ -24,6 +24,7 @@ class NavTabPickerStore {
   @observable Province='';
   @observable City='';
   @observable Headimgurl='';
+  @observable Type='';
 }
 
 let NewNavTabPickerStore=new NavTabPickerStore();

@@ -45,15 +45,15 @@ export default class HomePage extends PureComponent{
         Scroll:false
     }
     static navigationOptions = {
-    tabBarLabel: '主页',
-    tabBarIcon: () => (
-       <View>
-            <Image
-               source={require('../../../Icons/index-sdip.png')}
-               style={styles.icon}
-            />
-       </View>
-      ),
+        tabBarLabel: '主页',
+        tabBarIcon: () => (
+           <View>
+                <Image
+                   source={require('../../../Icons/index-sdip.png')}
+                   style={styles.icon}
+                />
+           </View>
+          ),
     };
     fetchPost=async()=>{
        const json=fetch('http://111.230.254.117:8000/logined?', {
@@ -74,35 +74,12 @@ export default class HomePage extends PureComponent{
     }
   componentDidMount (){
     WeChat.registerApp('wx21b8979660c07d7e');
+    this.fetchPost();
     AsyncStorage.getItem('Landing')
             .then((value) => {
                 let jsonValue = JSON.parse((value));
                 NewNavTabPickerStore.Landing=jsonValue
             })
-        AsyncStorage.getItem('PassWord')
-            .then((value) => {
-                let jsonValue = JSON.parse((value));
-                NewNavTabPickerStore.PassWord=jsonValue
-            })
-        AsyncStorage.getItem('Phone')
-            .then((value) => {
-                let jsonValue = JSON.parse((value));
-                NewNavTabPickerStore.Phone=jsonValue
-            })
-        AsyncStorage.getItem('Name')
-            .then((value) => {
-                let jsonValue = JSON.parse((value));
-                NewNavTabPickerStore.Name=jsonValue
-            })
-        AsyncStorage.getItem('Code')
-            .then((value) => {
-                let jsonValue = JSON.parse((value));
-                this.setState({
-                    Code:jsonValue
-                })
-                NewNavTabPickerStore.Code=jsonValue
-            })
-          this.fetchPost
   }
 
 

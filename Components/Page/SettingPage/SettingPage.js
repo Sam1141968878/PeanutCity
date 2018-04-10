@@ -136,21 +136,7 @@ export default class SettingPage extends PureComponent{
           }}
               onPress={()=>{
                   AsyncStorage.removeItem('Landing');
-                  AsyncStorage.removeItem('PassWord');
-                  AsyncStorage.removeItem('Phone');
-                  AsyncStorage.removeItem('Name');
-                  AsyncStorage.removeItem('Sex');
-                  AsyncStorage.removeItem('Province');
-                  AsyncStorage.removeItem('City');
-                  AsyncStorage.removeItem('Headimgurl');
                   NewNavTabPickerStore.Landing=false;
-                  NewNavTabPickerStore.PassWord='';
-                  NewNavTabPickerStore.Phone='';
-                  NewNavTabPickerStore.Name='';
-                  NewNavTabPickerStore.Sex='';
-                  NewNavTabPickerStore.Province='';
-                  NewNavTabPickerStore.City='';
-                  NewNavTabPickerStore.Headimgurl='';
                   this.props.navigation.navigate('MyPage')
               }}
           >

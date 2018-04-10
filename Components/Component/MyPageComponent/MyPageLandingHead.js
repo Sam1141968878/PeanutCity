@@ -21,16 +21,18 @@ import {
   InteractionManager,
   TouchableOpacity,
   AsyncStorage,
-  Button
+  Button,
+  Clipboard
 } from 'react-native';
 
 
+import MyPageType from './MyPageType'
 export default class LandingHead extends PureComponent{
    state={
     data:'',
    }
   render() {
-    const {navigate,phone,landing,name,code}=this.props;
+    const {navigate,phone,landing,name,code,type}=this.props;
     return (
       <View>
           {
@@ -48,14 +50,20 @@ export default class LandingHead extends PureComponent{
                             <Text style={styles.Phone}>{phone}</Text>
                     }
                         <View style={styles.View4}>
-                            <Text style={{color:'red',fontSize:10}}>超级会员</Text>
+                            <MyPageType/>
                         </View>
                     </View>
                     <View style={styles.View5}>
                         <Text style={styles.Text3}>邀请码:{code}</Text>
-                        <View style={styles.View6}>
+                        <TouchableOpacity
+                            style={styles.View6}
+                            onPress={()=>{
+                                Clipboard.setString(code)
+                                alert('复制成功')
+                            }}
+                        >
                             <Text style={styles.Text4}>复制</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
 
                 </View>

@@ -34,7 +34,8 @@ export default class PublicGoodsDetailHeaderTitle extends PureComponent{
            SalesNum,
            QuanPrice,
            QuanLink,
-           navigate
+           navigate,
+           id
     }=this.props;
     return (
       <View style={styles.View}>
@@ -73,7 +74,7 @@ export default class PublicGoodsDetailHeaderTitle extends PureComponent{
          </View>
          <TouchableOpacity style={styles.vouchersView}
             onPress={()=>navigate('RobStampsPage',{
-                id:this.id
+                id:id
             })}
          >
              <Image

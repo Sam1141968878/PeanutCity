@@ -40,10 +40,20 @@ export default class PublicWholeItem extends PureComponent{
           style={styles.View}
           onPress={onPress}
       >
-          <Image
+
+          {
+            BigImg.includes('http')
+            ?
+            <Image
               source={{uri:BigImg}}
               style={styles.Image1}
-          />
+            />
+            :
+            <Image
+              source={{uri:`http://${BigImg}`}}
+              style={styles.Image1}
+            />
+          }
           <View style={styles.Text1View}>
 
               {

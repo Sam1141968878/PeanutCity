@@ -53,7 +53,6 @@ export default class MyPage extends PureComponent{
     state={
         PassWord:'',
         Phone:'',
-        Landing:'',
         Name:'',
         ready:false,
     }
@@ -61,7 +60,35 @@ export default class MyPage extends PureComponent{
     componentDidMount() {
         setTimeout(()=>this.setState({
             ready:true
-        }),1000)
+        }),300)
+         AsyncStorage.getItem('Landing')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Landing=jsonValue
+            })
+        AsyncStorage.getItem('PassWord')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.PassWord=jsonValue
+            })
+        AsyncStorage.getItem('Phone')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Phone=jsonValue
+            })
+        AsyncStorage.getItem('Name')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                NewNavTabPickerStore.Name=jsonValue
+            })
+        AsyncStorage.getItem('Code')
+            .then((value) => {
+                let jsonValue = JSON.parse((value));
+                this.setState({
+                    Code:jsonValue
+                })
+                NewNavTabPickerStore.Code=jsonValue
+            })
     }
 
   render() {
@@ -80,6 +107,7 @@ export default class MyPage extends PureComponent{
                               phone={NewNavTabPickerStore.Phone||''}
                               name={NewNavTabPickerStore.Name||''}
                               code={NewNavTabPickerStore.Code||''}
+                              type={NewNavTabPickerStore.Type||''}
                               navigate={navigate}
                               landing={true}
                           />

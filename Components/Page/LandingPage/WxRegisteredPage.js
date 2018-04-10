@@ -95,7 +95,7 @@ export default class WxRegisteredPage extends PureComponent{
             return json;
         })
         .then((json)=>{
-
+            console.log(json)
             this.setState({
                 WxGetCode:json
             },()=>{
@@ -114,7 +114,7 @@ export default class WxRegisteredPage extends PureComponent{
         })
     }
     fetchWxBindPost=async()=>{
-        const json =await fetchJosn(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&code_bind_wechat=${this.state.WxCode}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
+       const json =await fetchJosn(`http://111.230.254.117:8000/bind_wechat?phone=${this.state.PhoneText}&openid=${this.props.navigation.state.params.openid}&unionid=${this.props.navigation.state.params.unionid}&headimgurl=${this.props.navigation.state.params.headimgurl}&nickname=${this.props.navigation.state.params.nickname}&code_bind_wechat=${this.state.WxGetCode.code}`)
        InteractionManager.runAfterInteractions(()=>{
            this.setState({
                WxBind: json,
@@ -149,6 +149,13 @@ export default class WxRegisteredPage extends PureComponent{
                                console.log('保存成功3')
                            }
                    });
+                   action
+                    NewNavTabPickerStore.Type=this.state.WxBind.type;
+                    AsyncStorage.setItem('Type', JSON.stringify(NewNavTabPickerStore.Type), (error, result) => {
+                        if (!error) {
+                            console.log('保存成功5')
+                        }
+                    });
                    this.props.navigation.navigate('MyTab')
                }else {
                    Toast.message(json.status)

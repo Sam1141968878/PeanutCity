@@ -51,19 +51,19 @@ let Data=[
         backgroundColor:'brown',
     },
     {
-        Img:require('../../../Icons/bra.png'),
+        Img:require('../../../Icons/pack.png'),
         NavTitle:'5',
         Title:'鞋包配饰',
         backgroundColor:'cadetblue',
     },
     {
-        Img:require('../../../Icons/mancloths.png'),
+        Img:require('../../../Icons/food.png'),
         NavTitle:'6',
         Title:'美食',
         backgroundColor:'chartreuse',
     },
     {
-        Img:require('../../../Icons/food.png'),
+        Img:require('../../../Icons/other.png'),
         NavTitle:'7',
         Title:'文体车品',
         backgroundColor:'darkcyan',
@@ -76,15 +76,15 @@ let Data=[
         cid:8,
     },
     {
-        Img:require('../../../Icons/pack.png'),
+        Img:require('../../../Icons/mancloths.png'),
         NavTitle:'9',
         Title:'男装',
         backgroundColor:'darkorange',
     },
     {
-        Img:require('../../../Icons/other.png'),
+        Img:require('../../../Icons/bra.png'),
         NavTitle:'10',
-        Title:'其他',
+        Title:'内衣',
         backgroundColor:'deeppink',
     },
 ]

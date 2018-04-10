@@ -24,7 +24,8 @@ import {
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
-  BackHandler
+  BackHandler,
+  Linking,
 } from 'react-native';
 
 
@@ -50,6 +51,7 @@ import {observer} from 'mobx-react';
 import NewNavTabPickerStore from '../../../../Store/NavTabPickerStore'
 
 const Api='http://111.230.254.117:8000/detail?table=dataoke&GoodsID='
+const TaoBaoApi='http://111.230.254.117:8000/rob?num_iid='
 @observer
 export default class PublicGoodsDetail extends PureComponent{
     state={
@@ -65,6 +67,13 @@ export default class PublicGoodsDetail extends PureComponent{
         IsTamll:'',
         Guess:'',
         introduce:'',
+        data:''
+    }
+    fetchDataTaoBao = async () => {
+      const json = await fetchJson(`${TaoBaoApi}${this.id}`);
+        this.setState({
+               data: json.data,
+        })
     }
     id=this.props.navigation.state.params.id
     fetchData = async (api) => {
@@ -86,6 +95,7 @@ export default class PublicGoodsDetail extends PureComponent{
     }
     componentDidMount() {
         this.fetchData(`${Api}${this.id}`);
+        this.fetchDataTaoBao();
     }
   render() {
     const{BigImage,
@@ -174,9 +184,9 @@ export default class PublicGoodsDetail extends PureComponent{
                                       justifyContent:'center',
                                       alignItems:'center'
                                       }}
-                                      onPress={()=>navigate('RobStampsPage',{
-                                          id:this.id
-                                      })}
+                                      onPress={()=>{
+                                        Linking.openURL(`${this.state.data}`).catch(err => console.error('An error occurred', err));
+                                      }}
                                   >
                                       <Text style={styles.Text2}>抢券 ￥ <Text style={styles.Text3}>{QuanPrice}</Text> </Text>
                                   </TouchableOpacity>

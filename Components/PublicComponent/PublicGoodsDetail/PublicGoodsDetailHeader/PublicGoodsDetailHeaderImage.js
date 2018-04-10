@@ -31,7 +31,7 @@ export default class PublicGoodsDetailHeaderImage extends PureComponent{
     return (
       <View>
           {
-            BigImage
+            BigImage.includes('http')
             ?
                 <View>
                     <StatusBar translucent={true}
@@ -43,7 +43,14 @@ export default class PublicGoodsDetailHeaderImage extends PureComponent{
                 </View>
 
             :
-                <ActivityIndicator/>
+                <View>
+                    <StatusBar translucent={true}
+                     backgroundColor='rgba(255,255,255,0)'/>
+                    <Image
+                        style={styles.BigImage}
+                        source={{uri:`http://${BigImage}`}}
+                    />
+                </View>
           }
 
       </View>

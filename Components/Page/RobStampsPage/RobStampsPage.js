@@ -16,7 +16,8 @@ import {
   Image,
   WebView,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  Linking
 } from 'react-native';
 
 var {height, width} = Dimensions.get('window');
